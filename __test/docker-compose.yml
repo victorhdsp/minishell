@@ -1,0 +1,8 @@
+services:
+  app:
+    container_name: criterion_minishell_rpassos_videsou
+    build:
+      context: .
+    volumes:
+      - ..:/usr/src/app
+    command: ["/entrypoint.sh"]
