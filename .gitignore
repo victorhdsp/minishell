@@ -2,4 +2,4 @@
 *.out
 *.a
 ./src/tokenizer/*
-./minishell
+minishell
