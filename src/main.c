@@ -2,6 +2,9 @@
 
 int     main(void)
 {
-    printf("test");
+    char    *result;
+
+    //result = readline("test2: ");
+    printf("O resultado foi: %s\n");
     return (1);
 }

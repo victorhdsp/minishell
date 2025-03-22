@@ -1,6 +1,6 @@
 CC_LIB_FLAG=-lreadline -lncurses
-CC_WARNING_FLAG=-I./src/ -ggdb -O0 -Wall -Wextra -Werror 
-COMPILADOR=cc #$(CC_WARNING_FLAG)
+CC_WARNING_FLAG=-ggdb3 -Wall -Wextra #-Werror 
+COMPILADOR=cc $(CC_LIB_FLAG) $(CC_WARNING_FLAG)
 
 NAME=minishell
 FILES=./src/main.o
@@ -14,20 +14,28 @@ TEST_CONTAINER_NAME=criterion_minishell_rpassos_videsou
 all: $(NAME) $(LIBFT_NAME)
 
 $(NAME): $(FILES)
-	@$(COMPILADOR) $^ -o $(NAME)
+	$(COMPILADOR) $^ -o $(NAME)
 
-.o: .c
+%.o: %.c
 	$(COMPILADOR) -c $< -o $@
 
 $(LIBFT_NAME):
 	@make -C $(LIBFT_PATH)
 
-docker: $(DOCKER)
-	@if ! docker ps --format '{{.Names}}' | grep -q '^$(CONTAINER_NAME)$$'; then \
-		echo "Iniciando Docker..."; \
-		docker-compose -f $(DOCKER) up -d; \
-	fi
+clean:
+	rm -f $(FILES)
 
-test: docker
+fclean: clean
+	rm -f $(NAME)
+
+re: clean all
+
+test: $(TEST_CONTAINER_NAME) 
 	@ clear
-	@ docker exec -it $(CONTAINER_NAME) make all -C __test
+	@ docker exec -it $(TEST_CONTAINER_NAME) make -C __test
+
+$(TEST_CONTAINER_NAME): $(TEST_DOCKER)
+	@if ! docker ps --format '{{.Names}}' | grep -q '^$(TEST_CONTAINER_NAME)$$'; then \
+		echo "Iniciando Docker..."; \
+		docker-compose -f $(TEST_DOCKER) up --detach; \
+	fi

@@ -5,4 +5,4 @@ services:
       context: .
     volumes:
       - ..:/usr/src/app
-    command: ["/entrypoint.sh"]
+    #command: ["/entrypoint.sh"]
