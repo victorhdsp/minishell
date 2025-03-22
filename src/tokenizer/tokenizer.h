@@ -3,6 +3,6 @@
 
 #include "../minishell.h"
 
-char    **word_breaker(const char str);
+char    **word_breaker(const char *str);
 
 #endif

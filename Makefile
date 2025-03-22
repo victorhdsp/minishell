@@ -32,7 +32,7 @@ re: clean all
 
 test: $(TEST_CONTAINER_NAME) 
 	@ clear
-	@ docker exec -it $(TEST_CONTAINER_NAME) make -C __test
+	@ docker exec -it $(TEST_CONTAINER_NAME) make re -C __test
 
 $(TEST_CONTAINER_NAME): $(TEST_DOCKER)
 	@if ! docker ps --format '{{.Names}}' | grep -q '^$(TEST_CONTAINER_NAME)$$'; then \

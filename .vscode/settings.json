@@ -59,6 +59,7 @@
   "files.associations": {
     "tokenizer.h": "c",
     "utils.h": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "functional": "c"
   }
 }
