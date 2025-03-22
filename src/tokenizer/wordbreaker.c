@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/22 14:22:35 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:45:51 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void     ft_get_first_word(const char *str, int *result)
             break;
         if ((str[index] == '\'' || str[index] == '\"') && has_open_quote == 0)
             has_open_quote = 1;
-        if ((str[index] == '\'' || str[index] == '\"') && has_open_quote == 1)
+        else if ((str[index] == '\'' || str[index] == '\"') && has_open_quote == 1)
             has_open_quote = 0;
         result[1]++;
         index = result[0] + result[1];
@@ -90,7 +90,7 @@ static void     ft_populate_words(const char *str, char **result)
     ft_get_first_word(tmp, word_cut);
     while (word_cut[1])
     {
-        result[index] = "test";
+        result[index] = ft_substr(tmp, word_cut[0], word_cut[1]);
         tmp += word_cut[0] + word_cut[1];
         ft_get_first_word(tmp, word_cut);
         index++;
@@ -110,5 +110,13 @@ char    **word_breaker(const char *str)
         return (NULL);
     result[size] = NULL;
     ft_populate_words(str, result);
+
+    int     index = 0;
+    while (result[index])
+    {
+        printf("%s\n", result[index]);
+        index++;
+    }
+    printf("wb: %s\n", str);
     return (result);
 }
