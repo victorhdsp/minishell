@@ -1,9 +1,9 @@
 CC_LIB_FLAG=-lreadline -lncurses
-CC_WARNING_FLAG=-ggdb3 -Wall -Wextra #-Werror 
-COMPILADOR=cc $(CC_LIB_FLAG) $(CC_WARNING_FLAG)
+CC_WARNING_FLAG=-ggdb -Wall -Wextra #-Werror 
+COMPILADOR=cc
 
 NAME=minishell
-FILES=./src/main.o
+FILES=./src/main.o ./src/tokenizer/wordbreaker.c
 
 LIBFT_PATH=./include/libft
 LIBFT_NAME=./include/libft/libft.a
@@ -14,10 +14,10 @@ TEST_CONTAINER_NAME=criterion_minishell_rpassos_videsou
 all: $(NAME) $(LIBFT_NAME)
 
 $(NAME): $(FILES)
-	$(COMPILADOR) $^ -o $(NAME)
+	$(COMPILADOR) $(LIBFT_NAME) $(CC_LIB_FLAG) $(CC_WARNING_FLAG) $^ -o $(NAME)
 
 %.o: %.c
-	$(COMPILADOR) -c $< -o $@
+	$(COMPILADOR) $(LIBFT_NAME) $(CC_LIB_FLAG) $(CC_WARNING_FLAG) -c $< -o $@
 
 $(LIBFT_NAME):
 	@make -C $(LIBFT_PATH)
