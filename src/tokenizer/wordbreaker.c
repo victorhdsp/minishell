@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/22 14:45:51 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:02:14 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int  is_breaker(char first, char second)
 {
-    static char breakers[7] = {'|', '=', '(', ')', ' ', '>', '<'};
+    static char breakers[8] = {'=', '(', ')', ' ', '>', '<', '|', '&'};
     int     index;
     int     result;
 
@@ -26,8 +26,14 @@ static int  is_breaker(char first, char second)
             result++;
         index++;
     }
+    index = 4;
     if (first == second)
-        result++;
+        while (breakers[index])
+        {
+            if (breakers[index] == second)
+                result++;
+            index++;
+        }
     return (result);
 }
 
@@ -79,7 +85,7 @@ static int      ft_get_sentence_size(const char *str)
     return (size);
 }
 
-static void     ft_populate_words(const char *str, char **result)
+static int      ft_populate_words(const char *str, char **result)
 {
     int         index;
     const char  *tmp;
@@ -91,10 +97,13 @@ static void     ft_populate_words(const char *str, char **result)
     while (word_cut[1])
     {
         result[index] = ft_substr(tmp, word_cut[0], word_cut[1]);
+        if (!result[index])
+            return (-1);
         tmp += word_cut[0] + word_cut[1];
         ft_get_first_word(tmp, word_cut);
         index++;
     }
+    return (1);
 }
 
 char    **word_breaker(const char *str)
@@ -109,14 +118,14 @@ char    **word_breaker(const char *str)
     if (!result)
         return (NULL);
     result[size] = NULL;
-    ft_populate_words(str, result);
-
-    int     index = 0;
-    while (result[index])
-    {
-        printf("%s\n", result[index]);
-        index++;
-    }
-    printf("wb: %s\n", str);
+    if (ft_populate_words(str, result) == -1)
+        return (NULL);
+    //int     index = 0;
+    //while (result[index])
+    //{
+    //    printf("%s\n", result[index]);
+    //    index++;
+    //}
+    //printf("wb: %s\n", str);
     return (result);
 }

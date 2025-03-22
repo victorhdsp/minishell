@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/22 12:13:28 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:04:16 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,7 @@ Test(wordbreaker, divide_with_quotes_not_complete) {
     char *expected[] = {"comando", "argumento não fechado", NULL};
     char **result = word_breaker(input);
 
-    ft_assert_str_list(result, expected);
-    ft_free_str_list(result);
+    cr_assert(result == 0);
 }
 
 // Divisão com apenas separadores:
@@ -198,7 +197,7 @@ Test(wordbreaker, divide_only_with_dividers) {
 // Saída esperada: ["|", ">>", "|", ">", "<", "||"]
 Test(wordbreaker, divide_with_multiple_dividers) {
     const char *input = "|>>|>|<||";
-    char *expected[] = {"|", ">>", "|", ">", "<", "||", NULL};
+    char *expected[] = {"|", ">>", "|", ">", "|", "<", "||", NULL};
     char **result = word_breaker(input);
 
     ft_assert_str_list(result, expected);
