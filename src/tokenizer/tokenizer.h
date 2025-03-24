@@ -17,7 +17,7 @@ enum            e_fn_sentence_item
 {
     fn_null,
     fn_input,
-    fn_insert,
+    fn_heredoc,
     fn_output,
     fn_append,
     fn_pipe,

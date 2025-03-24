@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/24 11:21:27 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:53:00 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void ft_identify_redirect(char *str, t_sentence_item *item, int len)
     }
     else if (!ft_strncmp(str, "<<", len))
     {
-        item->fn = fn_insert;
+        item->fn = fn_heredoc;
         item->type = type_infile;
     }
     else if (!ft_strncmp(str, "=", len))
