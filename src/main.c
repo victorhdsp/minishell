@@ -7,7 +7,13 @@ int     main(void)
     //word_breaker("comando1|comando2 > output.txt=e");
     //word_breaker("|>>|>|<||");
     //word_breaker("comando \"argumento não fechado");
-    word_breaker("");
-    word_breaker(" ");
+    //word_breaker("");
+    //word_breaker(" ");
+
+    //char *input[] = {"comando1", "|", "comando2", "&&", "comando3", ">", "\"output file.txt\"", NULL};
+    //char *input[] = {"|", ">", "<", "&&", "||", NULL};
+    //char *input[] = {"comando1", "|", "comando2", ">", "output.txt", "=", "e", NULL};
+    //lexer(input);
+    
     return (1);
 }
