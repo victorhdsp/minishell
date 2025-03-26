@@ -25,7 +25,8 @@ enum            e_fn_sentence_item
     fn_or,
     fn_open_parenthesis,
     fn_close_parenthesis,
-    fn_equal
+    fn_equal,
+    fn_cmd
 };
 
 typedef struct s_sentence_item
@@ -37,5 +38,6 @@ typedef struct s_sentence_item
 
 char                **word_breaker(const char *str);
 t_sentence_item     *lexer(char **strs);
+int                 ft_parser(t_sentence_item **cmds);
 
 #endif
