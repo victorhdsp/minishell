@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 12:51:20 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:39:25 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void ft_assert_pipes(t_sentence *result, t_sentence *expected) {
 
 // Divisão de uma sentença solitária
 Test(pipes, identify_by_simple_words) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando",    .type = type_word, .fn = fn_null },
         { .value = "argumento1", .type = type_word, .fn = fn_null },
         { .value = "argumento2", .type = type_word, .fn = fn_null },
@@ -66,15 +66,15 @@ Test(pipes, identify_by_simple_words) {
         { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_sentence_item *)input);
+    t_sentence  *result = ft_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
 // Divisão de uma sentença com um pipe, finalizando com NULL
 Test(pipes, identify_by_pipe) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando",    .type = type_word, .fn = fn_null },
-        { .value = "|",          .type = type_divider, .fn = fn_pipe },
+        { .value = "|",          .type = type_logic, .fn = fn_pipe },
         { .value = "argumento1", .type = type_word, .fn = fn_null },
         { .value = "argumento2", .type = type_word, .fn = fn_null },
         { .value = NULL }
@@ -86,18 +86,18 @@ Test(pipes, identify_by_pipe) {
         { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_sentence_item *)input);
+    t_sentence  *result = ft_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
 // Divisão de uma sentença com um pipe, finalizando com outro divisor lógico
 Test(pipes, identify_by_pipe_and_logical_operator) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando",    .type = type_word, .fn = fn_null },
-        { .value = "|",          .type = type_divider, .fn = fn_pipe },
+        { .value = "|",          .type = type_logic, .fn = fn_pipe },
         { .value = "argumento1", .type = type_word, .fn = fn_null },
         { .value = "argumento2", .type = type_word, .fn = fn_null },
-        { .value = "&&",         .type = type_divider, .fn = fn_and },
+        { .value = "&&",         .type = type_logic, .fn = fn_and },
         { .value = "comando2",   .type = type_word, .fn = fn_null },
         { .value = NULL }
     };
@@ -108,13 +108,13 @@ Test(pipes, identify_by_pipe_and_logical_operator) {
         { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_sentence_item *)input);
+    t_sentence  *result = ft_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
 // Divisão de uma sentença com output
 Test(pipes, identify_by_output) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando",    .type = type_word, .fn = fn_null },
         { .value = ">",          .type = type_outfile, .fn = fn_output },
         { .value = "output.txt", .type = type_word, .fn = fn_null },
@@ -126,13 +126,13 @@ Test(pipes, identify_by_output) {
         { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_sentence_item *)input);
+    t_sentence  *result = ft_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
 // Divisão de uma sentença com input
 Test(pipes, identify_by_input) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando",    .type = type_word, .fn = fn_null },
         { .value = "<",          .type = type_infile, .fn = fn_input },
         { .value = "input.txt",  .type = type_word, .fn = fn_null },
@@ -144,13 +144,13 @@ Test(pipes, identify_by_input) {
         { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_sentence_item *)input);
+    t_sentence  *result = ft_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
 // Divisão de uma sentença com input e output
 Test(pipes, identify_by_input_and_output) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando",    .type = type_word, .fn = fn_null },
         { .value = "<",          .type = type_infile, .fn = fn_input },
         { .value = "input.txt",  .type = type_word, .fn = fn_null },
@@ -164,15 +164,15 @@ Test(pipes, identify_by_input_and_output) {
         { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_sentence_item *)input);
+    t_sentence  *result = ft_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
 // Divisão de uma sentença com infile, outfile e pipes
 Test(pipes, identify_by_input_output_and_pipes) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando1",    .type = type_word, .fn = fn_null },
-        { .value = "|",           .type = type_divider, .fn = fn_pipe },
+        { .value = "|",           .type = type_logic, .fn = fn_pipe },
         { .value = "comando2",    .type = type_word, .fn = fn_null },
         { .value = ">",           .type = type_outfile, .fn = fn_output },
         { .value = "output.txt",  .type = type_word, .fn = fn_null },
@@ -186,19 +186,19 @@ Test(pipes, identify_by_input_output_and_pipes) {
         { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_sentence_item *)input);
+    t_sentence  *result = ft_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
 // Divisão de uma sentença com pipes, append e logical operators
 Test(pipes, identify_by_pipes_append_and_logical_operators) {
-    t_sentence_item input[] = {
+    t_lexer_item input[] = {
         { .value = "comando1",    .type = type_word, .fn = fn_null },
-        { .value = "|",           .type = type_divider, .fn = fn_pipe },
+        { .value = "|",           .type = type_logic, .fn = fn_pipe },
         { .value = "comando2",    .type = type_word, .fn = fn_null },
         { .value = ">",           .type = type_outfile, .fn = fn_output },
         { .value = "output.txt",  .type = type_word, .fn = fn_null },
-        { .value = "&&",          .type = type_divider, .fn = fn_and },
+        { .value = "&&",          .type = type_logic, .fn = fn_and },
         { .value = "comando3",    .type = type_word, .fn = fn_null },
         { .value = ">>",          .type = type_outfile, .fn = fn_append },
         { .value = "output.txt",  .type = type_word, .fn = fn_null },

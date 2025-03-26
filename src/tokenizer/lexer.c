@@ -6,13 +6,13 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/24 12:53:00 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:39:25 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static void ft_identify_redirect(char *str, t_sentence_item *item, int len)
+static void ft_identify_redirect(char *str, t_lexer_item *item, int len)
 {
     if (!ft_strncmp(str, ">", len))
     {
@@ -34,29 +34,24 @@ static void ft_identify_redirect(char *str, t_sentence_item *item, int len)
         item->fn = fn_heredoc;
         item->type = type_infile;
     }
-    else if (!ft_strncmp(str, "=", len))
-    {
-        item->fn = fn_equal;
-        item->type = type_equal;
-    }
 }
 
-static void ft_identify_groups(char *str, t_sentence_item *item, int len)
+static void ft_identify_groups(char *str, t_lexer_item *item, int len)
 {
     if (!ft_strncmp(str, "|", len))
     {
         item->fn = fn_pipe;
-        item->type = type_divider;
+        item->type = type_logic;
     }
     else if (!ft_strncmp(str, "&&", len))
     {
         item->fn = fn_and;
-        item->type = type_divider;
+        item->type = type_logic;
     }
     else if (!ft_strncmp(str, "||", len))
     {
         item->fn = fn_or;
-        item->type = type_divider;
+        item->type = type_logic;
     }
     else if (!ft_strncmp(str, "(", len))
     {
@@ -70,7 +65,7 @@ static void ft_identify_groups(char *str, t_sentence_item *item, int len)
     }
 }
 
-static void ft_identify_item(char *str, t_sentence_item *item)
+static void ft_identify_item(char *str, t_lexer_item *item)
 {
     int     len;
 
@@ -82,15 +77,15 @@ static void ft_identify_item(char *str, t_sentence_item *item)
     ft_identify_groups(str, item, len);
 }
 
-t_sentence_item *lexer(char **strs)
+t_lexer_item *lexer(char **strs)
 {
     int             index;
-    t_sentence_item *result;
+    t_lexer_item *result;
 
     index = 0;
     while (strs[index])
         index++;
-    result = ft_calloc(index + 1, sizeof(t_sentence_item));
+    result = ft_calloc(index + 1, sizeof(t_lexer_item));
     index = 0;
     while (strs[index])
     {

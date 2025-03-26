@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/24 10:18:10 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:52:37 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ Test(wordbreaker, divide_with_simple_and_double_quotes) {
 // Saída esperada: ["comando1", "|", "comando2", ">", "output.txt"]
 Test(wordbreaker, divide_with_special_caracter) {
     const char *input = "comando1|comando2 > output.txt=e";
-    char *expected[] = {"comando1", "|", "comando2", ">", "output.txt", "=", "e", NULL};
+    char *expected[] = {"comando1", "|", "comando2", ">", "output.txt=e", NULL};
     char **result = word_breaker(input);
 
     ft_assert_str_list(result, expected);

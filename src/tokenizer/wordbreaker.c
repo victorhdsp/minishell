@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/24 10:19:58 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:25:23 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int  is_breaker(char first, char second)
 {
-    static char breakers[8] = {'=', '(', ')', ' ', '>', '<', '|', '&'};
+    static char breakers[8] = {'(', ')', ' ', '>', '<', '|', '&'};
     int     index;
     int     result;
 
@@ -26,7 +26,7 @@ static int  is_breaker(char first, char second)
             result++;
         index++;
     }
-    index = 4;
+    index = 3;
     if (first == second)
         while (breakers[index])
         {
@@ -77,7 +77,10 @@ static int      ft_get_sentence_size(const char *str)
     while (word_cut[1])
     {
         if (word_cut[1] == -1)
-            return (-1); // Error: unclosed quotes
+        {
+            ft_putstr_fd("Error: unclosed quotes\n", 2);
+            return (-1);
+        }
         tmp += word_cut[0] + word_cut[1];
         ft_get_first_word(tmp, word_cut);
         size++;
@@ -120,12 +123,5 @@ char    **word_breaker(const char *str)
     result[size] = NULL;
     if (ft_populate_words(str, result) == -1)
         return (NULL);
-    //int     index = 0;
-    //while (result[index])
-    //{
-    //    printf("%s\n", result[index]);
-    //    index++;
-    //}
-    //printf("wb: %s\n", str);
     return (result);
 }
