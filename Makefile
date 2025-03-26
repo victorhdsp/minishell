@@ -1,5 +1,5 @@
 NAME=minishell
-FILES=./src/main.o ./src/tokenizer/wordbreaker.o ./src/tokenizer/lexer.o ./src/tokenizer/parser.o
+FILES=./src/main.o ./src/tokenizer/wordbreaker.o ./src/tokenizer/lexer.o ./src/sentences/pipes.o ./src/tokenizer/parser.o
 
 LIBFT_PATH=./include/libft
 LIBFT_NAME=./include/libft/libft.a
