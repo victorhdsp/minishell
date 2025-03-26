@@ -1,7 +1,7 @@
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-#include "../minishell.h"
+#include "../../include/libft/libft.h"
 
 enum            e_type_sentence_item
 {
