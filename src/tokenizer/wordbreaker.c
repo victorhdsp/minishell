@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/22 15:02:14 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:19:58 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int      ft_get_sentence_size(const char *str)
     while (word_cut[1])
     {
         if (word_cut[1] == -1)
-            return (-1);
+            return (-1); // Error: unclosed quotes
         tmp += word_cut[0] + word_cut[1];
         ft_get_first_word(tmp, word_cut);
         size++;
@@ -112,7 +112,7 @@ char    **word_breaker(const char *str)
     int         size;
 
     size = ft_get_sentence_size(str);
-    if (size == -1)
+    if (size == -1 || size == 0)
         return (NULL);
     result = ft_calloc(size + 1, sizeof(char *));
     if (!result)

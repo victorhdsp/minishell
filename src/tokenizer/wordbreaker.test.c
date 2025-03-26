@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/22 15:04:16 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:18:10 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ Test(wordbreaker, divide_with_escape) {
 
 // Divisão com aspas não fechadas:
 // Entrada: "comando \"argumento não fechado"
-// Saída esperada: ["comando", "argumento não fechado"] ou um erro, dependendo da implementação.
+// Saída esperada: NULL
 Test(wordbreaker, divide_with_quotes_not_complete) {
     const char *input = "comando \"argumento não fechado";
     char *expected[] = {"comando", "argumento não fechado", NULL};
@@ -206,24 +206,22 @@ Test(wordbreaker, divide_with_multiple_dividers) {
 
 // Divisão com strings vazias:
 // Entrada: ""
-// Saída esperada: []
+// Saída esperada: NULL
 Test(wordbreaker, empty_divide) {
     const char *input = "";
     char *expected[] = {NULL};
     char **result = word_breaker(input);
 
-    ft_assert_str_list(result, expected);
-    ft_free_str_list(result);
+    cr_assert(result == 0);
 }
 
 // Divisão com apenas espaços:
 // Entrada: " "
-// Saída esperada: []
+// Saída esperada: NULL
 Test(wordbreaker, divide_with_only_space) {
     const char *input = " ";
     char *expected[] = {NULL};
     char **result = word_breaker(input);
 
-    ft_assert_str_list(result, expected);
-    ft_free_str_list(result);
+    cr_assert(result == 0);
 }

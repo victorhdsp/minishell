@@ -3,6 +3,39 @@
 
 #include "../minishell.h"
 
-char    **word_breaker(const char *str);
+enum            e_type_sentence_item
+{
+    type_infile,
+    type_outfile,
+    type_divider,
+    type_parenthesis,
+    type_word,
+    type_equal
+};
+
+enum            e_fn_sentence_item
+{
+    fn_null,
+    fn_input,
+    fn_heredoc,
+    fn_output,
+    fn_append,
+    fn_pipe,
+    fn_and,
+    fn_or,
+    fn_open_parenthesis,
+    fn_close_parenthesis,
+    fn_equal
+};
+
+typedef struct s_sentence_item
+{
+    char                        *value;
+    enum e_type_sentence_item   type;
+    enum e_fn_sentence_item     fn;
+}                   t_sentence_item;
+
+char                **word_breaker(const char *str);
+t_sentence_item     *lexer(char **strs);
 
 #endif
