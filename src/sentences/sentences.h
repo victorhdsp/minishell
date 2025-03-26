@@ -11,6 +11,6 @@ typedef struct s_sentence
     char        **args;
 }                   t_sentence;
 
-t_sentence  *ft_pipes(t_sentence_item *items);
+t_sentence  *ft_pipes(t_lexer_item *items);
 
 #endif

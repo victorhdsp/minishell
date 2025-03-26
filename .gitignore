@@ -1,5 +1,4 @@
-*.o
-*.out
-*.a
-./src/tokenizer/*
+/**/*.o
+/**/*.out
+/**/*.a
 minishell
