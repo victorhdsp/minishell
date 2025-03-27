@@ -14,11 +14,11 @@ jobs:
 
     steps:
     - name: TEST
-      run: ls /home/runner/work/minishell/minishell/__test
+      run: ls ../../__test/
     
     - uses: docker/setup-compose-action@v1.2.0
     - name: Mount Dockerfile
-      run: docker compose -f __test/docker-compose.yml up --detach;
+      run: docker compose -f ../../__test/docker-compose.yml up --detach;
       
     - name: Run Dockerfile
       run: docker exec -it criterion_minishell_rpassos_videsou make re -C __test
