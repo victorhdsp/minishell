@@ -4,13 +4,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - __test/**
-      - src/**
+      - '**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - __test/**
-      - src/**
+      - '**'
 
 jobs:
   build:
