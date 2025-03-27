@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: TEST
-      run: cat __test/docker-compose.yml
+      run: ls __test/
     
     - uses: docker/setup-compose-action@v1.2.0
     - name: Mount Dockerfile
