@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: docker/setup-compose-action@v1.2.0
     - name: Mount Dockerfile
       run: docker-compose -f ./__test/docker-compose.yml up --detach;
       
