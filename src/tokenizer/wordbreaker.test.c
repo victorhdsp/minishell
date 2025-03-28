@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 18:52:37 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:26:42 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,4 +224,16 @@ Test(wordbreaker, divide_with_only_space) {
     char **result = word_breaker(input);
 
     cr_assert(result == 0);
+}
+
+// Divisão com aspas simples:
+// Entrada: "tr '' ',' | cat -e | ls"
+// Saída esperada: ["tr", "''", "','", "|", "cat", "-e", "|", "ls"]
+Test(wordbreaker, divide_with_simple_quotes) {
+    const char *input = "tr '' ',' | cat -e | ls";
+    char *expected[] = {"tr", "''", "','", "|", "cat", "-e", "|", "ls", NULL};
+    char **result = word_breaker(input);
+
+    ft_assert_str_list(result, expected);
+    ft_free_str_list(result);
 }

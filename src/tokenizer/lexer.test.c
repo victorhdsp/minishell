@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 18:39:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:29:30 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void ft_free_lexer_list(t_lexer_item *list)
 }
 
 // Identificação simples com somente palavras
-Test(wordbreaker, identify_by_simple_words) {
+Test(lexer, identify_by_simple_words) {
     char *input[] = {"comando", "argumento1", "argumento2", NULL};
 
     t_lexer_item expected[] = {
@@ -73,7 +73,7 @@ Test(wordbreaker, identify_by_simple_words) {
 }
 
 // Identificação com caracteres especiais
-Test(wordbreaker, identify_with_special_characters) {
+Test(lexer, identify_with_special_characters) {
     char *input[] = {"comando1", "|", "comando2", ">", "output.txt=e", NULL};
 
     t_lexer_item expected[] = {
@@ -92,7 +92,7 @@ Test(wordbreaker, identify_with_special_characters) {
 }
 
 // Identificação com aspas
-Test(wordbreaker, identify_with_quotes) {
+Test(lexer, identify_with_quotes) {
     char *input[] = {"comando", "\"argumento com espaços\"", "argumento2", NULL};
 
     t_lexer_item expected[] = {
@@ -109,7 +109,7 @@ Test(wordbreaker, identify_with_quotes) {
 }
 
 // Identificação com caracteres especiais dentro de aspas
-Test(wordbreaker, identify_with_special_characters_in_quotes) {
+Test(lexer, identify_with_special_characters_in_quotes) {
     char *input[] = {"comando", "\"argumento | com > caracteres\"", NULL};
 
     t_lexer_item expected[] = {
@@ -125,7 +125,7 @@ Test(wordbreaker, identify_with_special_characters_in_quotes) {
 }
 
 // Identificação com parênteses
-Test(wordbreaker, identify_with_parenthesis) {
+Test(lexer, identify_with_parenthesis) {
     char *input[] = {"(", "comando1", "&&", "comando2", ")", "||", "comando3", NULL};
 
     t_lexer_item expected[] = {
@@ -146,7 +146,7 @@ Test(wordbreaker, identify_with_parenthesis) {
 }
 
 // Identificação com parênteses dentro de aspas
-Test(wordbreaker, identify_with_parenthesis_in_quotes) {
+Test(lexer, identify_with_parenthesis_in_quotes) {
     char *input[] = {"comando", "\"(argumento com parênteses)\"", NULL};
 
     t_lexer_item expected[] = {
@@ -162,7 +162,7 @@ Test(wordbreaker, identify_with_parenthesis_in_quotes) {
 }
 
 // Identificação com redirecionamentos
-Test(wordbreaker, identify_with_redirects) {
+Test(lexer, identify_with_redirects) {
     char *input[] = {"comando", "<", "input.txt", ">", "output.txt", NULL};
 
     t_lexer_item expected[] = {
@@ -181,7 +181,7 @@ Test(wordbreaker, identify_with_redirects) {
 }
 
 // Identificação com redirecionamentos dentro de aspas
-Test(wordbreaker, identify_with_redirects_in_quotes) {
+Test(lexer, identify_with_redirects_in_quotes) {
     char *input[] = {"comando", "\"< input.txt > output.txt\"", NULL};
 
     t_lexer_item expected[] = {
@@ -197,7 +197,7 @@ Test(wordbreaker, identify_with_redirects_in_quotes) {
 }
 
 // Identificação com combinações complexas
-Test(wordbreaker, identify_with_complex_combination) {
+Test(lexer, identify_with_complex_combination) {
     char *input[] = {"comando1", "|", "comando2", "&&", "comando3", ">", "\"output file.txt\"", NULL};
 
     t_lexer_item expected[] = {
@@ -218,7 +218,7 @@ Test(wordbreaker, identify_with_complex_combination) {
 }
 
 // Identificação com escape
-Test(wordbreaker, identify_with_escape) {
+Test(lexer, identify_with_escape) {
     char *input[] = {"comando\\", "argumento", NULL};
 
     t_lexer_item expected[] = {
@@ -234,7 +234,7 @@ Test(wordbreaker, identify_with_escape) {
 }
 
 // Identificação apenas com separadores
-Test(wordbreaker, identify_only_with_dividers) {
+Test(lexer, identify_only_with_dividers) {
     char *input[] = {"|", ">", "<", "&&", "||", NULL};
 
     t_lexer_item expected[] = {
@@ -246,6 +246,28 @@ Test(wordbreaker, identify_only_with_dividers) {
         { .value = NULL }
     };
 
+    t_lexer_item *result = lexer((char **)input);
+
+    ft_assert_lexer_list(result, expected);
+    ft_free_lexer_list(result);
+}
+
+// Identificação com aspas simples
+Test(lexer, divide_with_simple_quotes) {
+    char *input[] = {"tr", "''", "','", "|", "cat", "-e", "|", "ls", NULL};
+
+    t_lexer_item expected[] = {
+        { .value = "tr", .type = type_word, .fn = fn_null },
+        { .value = "''", .type = type_word, .fn = fn_null },
+        { .value = "','", .type = type_word, .fn = fn_null },
+        { .value = "|", .type = type_logic, .fn = fn_pipe },
+        { .value = "cat", .type = type_word, .fn = fn_null },
+        { .value = "-e", .type = type_word, .fn = fn_null },
+        { .value = "|", .type = type_logic, .fn = fn_pipe },
+        { .value = "ls", .type = type_word, .fn = fn_null },
+        { .value = NULL }
+    };
+    
     t_lexer_item *result = lexer((char **)input);
 
     ft_assert_lexer_list(result, expected);
