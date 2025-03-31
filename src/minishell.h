@@ -13,9 +13,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../include/libft/libft.h"
-#include "./tokenizer/tokenizer.h"
-#include "./sentences/sentences.h"
+# include "../include/libft/libft.h"
+# include "./sentences/sentences.h"
+# include "./tokenizer/tokenizer.h"
 //#include <readline/readline.h>
 //#include <readline/history.h>
 //#include <term.h>

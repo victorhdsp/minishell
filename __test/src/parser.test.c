@@ -6,12 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 18:39:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/31 09:11:21 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./tokenizer.h"
-#include "../../__test/utils.h"
+#include "../../src/tokenizer/tokenizer.h"
+#include "../utils.h"
 
 Test(parser, only_one_cmd_and_no_errors) {
     char *cmd[] = {"comando", "argumento1", "argumento2", NULL};
@@ -92,4 +92,17 @@ Test(parser, close_parenthesis_and_not_open_has_error) {
     cr_assert(expected == result);
     cr_assert(input[0].fn == fn_cmd);
     cr_assert(input[2].fn == fn_cmd);
+}
+
+Test(parser, simple_quote) {
+    char *cmd[] = {"tr", "''", "','", "|", "cat", "-e", "|", "ls", NULL};
+    t_lexer_item *input = lexer((char **)cmd);
+
+    int             expected = 0;
+    int             result = ft_parser((t_lexer_item **)&input);
+
+    cr_assert(expected == result);
+    cr_assert(input[0].fn == fn_cmd);
+    cr_assert(input[4].fn == fn_cmd);
+    cr_assert(input[7].fn == fn_cmd);
 }

@@ -1,7 +1,9 @@
-ROOT=../src
-INCLUDE=../include
+FILES=../src/**/*.c
+INCLUDE=../include/**/*.c
+TESTS=./**/*.test.c
+
+TEST_UTILS=./utils.c
 NAME=test
-FILES=./utils.c
 
 CC_LIB_FLAG=#-lreadline -lncurses
 CC_WARNING_FLAG=-I./src/ -ggdb -O0 #-Wall #-Wextra #-Werror 
@@ -9,14 +11,14 @@ COMPILADOR=cc $(CC_LIB_FLAG) $(CC_WARNING_FLAG)
 
 all: $(NAME)
 
-$(NAME): $(FILES)
-	@ $(COMPILADOR) $(FILES) $(ROOT)/**/*.c $(INCLUDE)/**/*.c -o ./test -lcriterion
-	@ ./test
+$(NAME): 
+	@ $(COMPILADOR) $(TEST_UTILS) $(TESTS) $(FILES) $(INCLUDE) -o ./$(NAME) -lcriterion
+	@ ./$(NAME)
 
 
 
 fclean:
-	@ rm -rf ./test
+	@ rm -rf ./$(NAME)
 
 re: fclean all
 
