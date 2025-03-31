@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/31 09:44:10 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:05:02 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static  void ft_count_words(t_lexer_item *items, int *words_index, int index)
 }
 
 static  void ft_create_sentence(t_sentence *sentence, t_lexer_item *items, int *index)
-
 {
     int         words_index;
     ft_count_words(items, &words_index, *index);
@@ -70,6 +69,22 @@ static  void ft_create_sentence(t_sentence *sentence, t_lexer_item *items, int *
         *index = *index + 1;
     }
 }
+static  void ft_save_items(t_sentence *sentence, t_lexer_item *items, int items_index)
+{
+	int		index;
+
+	index = items_index;
+    while (items[index].type != type_logic && items[index].value)
+		index++;
+	sentence->items = ft_calloc(index + 1, sizeof(t_lexer_item));
+	index = 0;
+	while (items[items_index].type != type_logic && items[items_index].value)
+	{
+		sentence->items[index] = items[items_index];
+		index++;
+		items_index++;
+	}
+}
 
 t_sentence	*ft_pipes(t_lexer_item *items)
 {
@@ -87,6 +102,8 @@ t_sentence	*ft_pipes(t_lexer_item *items)
 		sentences[sentences_index].infile = NULL;
 		sentences[sentences_index].outfile = NULL;
 		sentences[sentences_index].args = NULL;
+		sentences[sentences_index].items = NULL;
+		ft_save_items(&sentences[sentences_index], items, items_index);
 		ft_create_sentence(&sentences[sentences_index], items, &items_index);
 		items_index++;
 		sentences_index++;
