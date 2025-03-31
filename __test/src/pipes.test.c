@@ -6,43 +6,14 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/31 09:11:40 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/31 09:50:06 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../src/sentences/sentences.h"
 #include "../utils.h"
 
-static void ft_assert_redirect(t_redirect *result, t_redirect *expected, int pipe_index) {
-    int i = 0;
-
-    if (!result || !expected)
-    {
-        cr_assert(0, "\"Result\" ou \"Expected\" está vazio.");
-        return;
-    }
-
-    while (expected[i].word)
-    {
-        cr_assert(result[i].word != NULL,
-                  "Ocorreu um erro ao comparar o %d redirecionamento no %d pipe\nO Valor esperado \"%s\" mas o resultado é NULL",
-                  i + 1, pipe_index + 1, expected[i].word);
-                  
-        cr_assert_str_eq(result[i].word, expected[i].word,
-                         "Valor esperado \"%s\" mas obteve \"%s\"",
-                         expected[i].word, result[i].word);
-        cr_assert(result[i].fn == expected[i].fn,
-                  "Valor esperado \"%d\" mas obteve \"%d\"",
-                  expected[i].fn, result[i].fn);
-        i++;
-    }
-
-    cr_assert(result[i].word == NULL,
-        "A lista resultante possui redirecionamentos a mais do que o esperado (redirecionamento extra na posição %d)",
-    i);
-}
-
-static void ft_assert_pipes(t_sentence *result, t_sentence *expected) {
+void ft_assert_pipes(t_sentence *result, t_sentence *expected) {
     int i = 0;
 
     if (!result || !expected)
@@ -58,14 +29,27 @@ static void ft_assert_pipes(t_sentence *result, t_sentence *expected) {
                   i, expected[i].args[0]);
                   
         ft_assert_str_list(result[i].args, expected[i].args);
-        ft_assert_redirect(result[i].infile, expected[i].infile, i);
-        ft_assert_redirect(result[i].outfile, expected[i].outfile, i);
+        
+        if (result[i].infile || expected[i].infile)
+        {
+            cr_assert_str_eq(result[i].infile, expected[i].infile,
+                    "Sentença %d: infile esperado \"%s\" mas obteve \"%s\"",
+                    i, expected[i].infile, result[i].infile);
+        }
+        if (result[i].outfile || expected[i].outfile)
+        {
+            cr_assert_str_eq(result[i].outfile, expected[i].outfile,
+                    "Sentença %d: outfile esperado \"%s\" mas obteve \"%s\"",
+                    i, expected[i].outfile, result[i].outfile);
+        }
+        
         i++;
     }
-	
+
+
     cr_assert(result[i].args == NULL,
               "A lista resultante possui sentenças a mais do que o esperado (sentença extra na posição %d)",
-            i);
+              i);
 }
 
 // Divisão de uma sentença solitária
@@ -78,8 +62,8 @@ Test(pipes, identify_by_simple_words) {
     };
 
     t_sentence expected[] = {
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "comando", "argumento1", "argumento2", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = NULL, .outfile = NULL, .args = (char *[]){ "comando", "argumento1", "argumento2", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -97,9 +81,9 @@ Test(pipes, identify_by_pipe) {
     };
 
     t_sentence expected[] = {
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "comando", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "argumento1", "argumento2", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = NULL, .outfile = NULL, .args = (char *[]){ "comando", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = (char *[]){ "argumento1", "argumento2", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -119,9 +103,9 @@ Test(pipes, identify_by_pipe_and_logical_operator) {
     };
 
     t_sentence expected[] = {
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "comando", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "argumento1", "argumento2", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = NULL, .outfile = NULL, .args = (char *[]){ "comando", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = (char *[]){ "argumento1", "argumento2", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -138,8 +122,8 @@ Test(pipes, identify_by_output) {
     };
 
     t_sentence expected[] = {
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = "output.txt", .fn = fn_output }, { .word = NULL }}, .args = (char *[]){ "comando", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = NULL, .outfile = "output.txt", .args = (char *[]){ "comando", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -156,8 +140,8 @@ Test(pipes, identify_by_input) {
     };
 
     t_sentence expected[] = {
-        { .infile = (t_redirect []){{ .word = "input.txt", .fn = fn_input }, { .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "comando", NULL } },
-		{ .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = "input.txt", .outfile = NULL, .args = (char *[]){ "comando", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -176,8 +160,8 @@ Test(pipes, identify_by_input_and_output) {
     };
 
     t_sentence expected[] = {
-		{ .infile = (t_redirect []){{ .word = "input.txt", .fn = fn_input }, { .word = NULL }}, .outfile = (t_redirect []){{ .word = "output.txt", .fn = fn_output }, { .word = NULL }}, .args = (char *[]){ "comando", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = "input.txt", .outfile = "output.txt", .args = (char *[]){ "comando", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -197,9 +181,9 @@ Test(pipes, identify_by_input_output_and_pipes) {
     };
 
     t_sentence expected[] = {
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "comando1", NULL } },
-		{ .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = "output.txt", .fn = fn_output }, { .word = NULL }}, .args = (char *[]){ "comando2", "=e", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = NULL, .outfile = NULL, .args = (char *[]){ "comando1", NULL } },
+        { .infile = NULL, .outfile = "output.txt", .args = (char *[]){ "comando2", "=e", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -222,8 +206,8 @@ Test(pipes, identify_by_pipes_append_and_logical_operators) {
     };
 
     t_sentence expected[] = {
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = (char *[]){ "comando1", NULL } },
-		{ .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = "output.txt", .fn = fn_append }}, .args = (char *[]){ "comando2", NULL } },
-        { .infile = (t_redirect []){{ .word = NULL }}, .outfile = (t_redirect []){{ .word = NULL }}, .args = NULL },
+        { .infile = NULL, .outfile = NULL, .args = (char *[]){ "comando1", NULL } },
+        { .infile = NULL, .outfile = "output.txt", .args = (char *[]){ "comando2", NULL } },
+        { .infile = NULL, .outfile = NULL, .args = NULL },
     };
 }
