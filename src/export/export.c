@@ -34,24 +34,21 @@ void order(t_my_env *my_env)
     while (my_env)
     {
         new_node = ft_lstnew_env(env_arr[index]);
-        if (ft_strcmp(new_node->key, ordered_head->key) < 0) // verifica se new_node vem antes do head
+        if (ft_strcmp(new_node->key, ordered_head->key) < 0)
         {
             new_node->next = ordered_head;
             ordered_head = new_node;
         }
-        //if (ft_strcmp(new_node->key, ordered_head->key) == 0)
-          //  continue;
         else 
         {
             tmp = ordered_head;
-            // aqui ele percorre a tmp até achar a posição correta - se não tiver mais tmp->next o nó entra no final. se ele for menor que o tmp->next entra no meio deles.
+            
             while (tmp->next && ft_strcmp(tmp->next->key, new_node->key) < 0)
                 tmp = tmp->next;
             new_node->next = tmp->next;
             tmp->next = new_node;
         }
         index++;
-       // ft_lstclear_env(&new_node);
         my_env = my_env->next;
     }
     print_lst(ordered_head);
@@ -80,60 +77,67 @@ env: sem = nao aparece
     com = aparece o =
 */
 
-/*int find_equal(char *word)
+
+int check_valid_name(char *word)
 {
     int index;
 
-    index = 0;
-    while(word[index] != '\0')
+    index = 1;
+    if (!word)
+        return (0);
+    if (word[0] != '_' && !ft_isalpha(word[0]))
     {
-        if (word[index] == '=')
-            return (index); //RETORNA A POSIÇÃO QUE ACHOU O =
+            printf("export: '%s': not a valid identifier", word);
+            return (0);
+    }
+    while (word[index] != '\0')
+    {
+        if (word[index] != '_' && word[index] != '=' && !ft_isalnum(word[index]))
+        {
+            printf("export: '%s': not a valid identifier", word);
+            return (0);
+        }
         index++;
     }
-    return (0);
-}*/
+    return (1);
+}
 
-/*int check_valid_name(char *word)
+int check_overwriting(t_my_env *my_env, char *word)
 {
+    char    *value;
+    char    *key;
     
-}*/
-
-/*int check_doubles(t_my_env *lst, char *key)
-{
-    int equal_pos;
-
-    equal_pos = find_equal(key);
-    if (equal_pos == 0)
-        equal_pos = ft_strlen(key);
-    while (lst)
+    value = ft_strchr(word, '=');
+    key = ft_calloc(value - word + 1, sizeof(char));
+	key = ft_memmove(key, word, value - word);    
+    while (my_env)
     {
-        if (ft_strncmp(lst->expanded, key, equal_pos) == 0)
-            return (1);
-        lst = lst->next;
+        if (my_env && ft_strncmp(my_env->key, key, value - word) == 0)
+        {
+            free(my_env->value);
+            my_env->value = ft_strdup(value + 1);
+            free(key);
+            return (0);
+        }
+        my_env = my_env->next;
     }
-    return (0);
+    free(key);
+    return (1);
+}
 
-}*/
-
-int ft_export(t_my_env *my_env, char *word)
+int ft_export(t_my_env **my_env, char *word)
 {
+    t_my_env *new_node;
+
     if (!word)
-        order(my_env);
-
-    /*if (!find_equal(word))
+        order(*my_env);
+    if (!check_valid_name(word))
+        return (0);
+    if (check_overwriting(*my_env, word))
     {
-        if (!check_valid_name(word) && check_doubles(env_data.export_lst, word));
-            //error();
-        new_node = lst_new(word);
-        ft_lstadd_back(env_data.export_lst, new_node);
+        new_node = ft_lstnew_env(word);
+        ft_lstadd_back_env(&(*my_env), new_node);
+        //ft_lstclear_env(&new_node);
     }
-    if (!check_valid_name(word) && check_doubles(env_data.env_lst, word));
-            //error();
-    new_node = lst_new(word);
-    ft_lstadd_back(env_data.env_lst, new_node);*/
-    
     return (0);
-
-
 }

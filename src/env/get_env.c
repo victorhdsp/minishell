@@ -61,3 +61,18 @@ char **get_env_arr(t_my_env *my_env)
     return (my_env_arr);
 }
 
+void    print_env(t_my_env *my_env)
+{
+    while (my_env->next != NULL)
+    {
+        printf("%s", my_env->key);
+        if (my_env->equal)
+        {
+            printf("%s", my_env->equal);
+            printf("%s", my_env->value);
+        }
+        printf("\n");
+        my_env = my_env->next;
+    }
+}
+

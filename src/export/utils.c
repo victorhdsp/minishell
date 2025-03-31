@@ -41,3 +41,27 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
+
+t_my_env	*ft_lstlast_env(t_my_env *lst)
+{
+	t_my_env	*current;
+
+	current = lst;
+	if (current)
+		while (current->next)
+			current = current->next;
+	return (current);
+}
+
+void	ft_lstadd_back_env(t_my_env **lst, t_my_env *new)
+{
+	t_my_env	*current;
+
+	if (*lst)
+	{
+		current = ft_lstlast_env(*lst);
+		current->next = new;
+	}
+	else
+		*lst = new;
+}
