@@ -6,12 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/28 14:26:42 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/03/31 09:11:34 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./tokenizer.h"
-#include "../../__test/utils.h"
+#include "../../src/tokenizer/tokenizer.h"
+#include "../utils.h"
 
 // Divisão por espaços simples:
 // Entrada: "comando argumento1 argumento2"
