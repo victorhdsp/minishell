@@ -1,5 +1,5 @@
 NAME=minishell
-FILES=./src/main.o ./src/tokenizer/wordbreaker.o ./src/tokenizer/lexer.o ./src/sentences/pipes.o ./src/tokenizer/parser.o
+FILES=./src/main.o ./src/utils.o ./src/tokenizer/wordbreaker.o ./src/tokenizer/lexer.o ./src/sentences/pipes.o ./src/tokenizer/parser.o ./src/exec/exec.o ./src/exec/prepare.o
 
 LIBFT_PATH=./include/libft
 LIBFT_NAME=./include/libft/libft.a
@@ -30,7 +30,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(LIBFT_NAME)
 
-re: clean all
+re: fclean all
 
 test: $(TEST_CONTAINER_NAME) 
 	@ clear
