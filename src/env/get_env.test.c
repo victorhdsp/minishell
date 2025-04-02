@@ -1,7 +1,16 @@
 #include "./env.h"
 #include "../../__test/utils.h"
 
+// teste funcs
 
+int	ft_count_arr_size(char **arr)
+{
+	int	index = 0;
+
+	while (arr[index] != NULL)
+		index++;
+	return (index);
+}
 
 // Chamada da função get_env sem argumentos
 Test(get_env, functions_with_no_args) {

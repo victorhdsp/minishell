@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/vide-sou/projetos/pessoal/rank3/minishell",
-      "program": "/home/vide-sou/projetos/pessoal/rank3/minishell/build/Debug/outDebug",
+      "externalConsole": true,
+      "cwd": "//wsl.localhost/Ubuntu/home/rpassos-/minishell/src/env_management",
+      "program": "//wsl.localhost/Ubuntu/home/rpassos-/minishell/src/env_management/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

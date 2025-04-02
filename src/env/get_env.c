@@ -63,7 +63,7 @@ char **get_env_arr(t_my_env *my_env)
 
 void    print_env(t_my_env *my_env)
 {
-    while (my_env->next != NULL)
+    while (my_env != NULL)
     {
         printf("%s", my_env->key);
         if (my_env->equal)

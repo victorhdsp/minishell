@@ -24,7 +24,6 @@ t_my_env	*ft_lstnew_env(char *content)
 	return (result);
 }
 
-
 int	ft_lstsize_env(t_my_env *lst)
 {
 	int		count;

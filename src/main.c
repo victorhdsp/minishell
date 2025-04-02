@@ -8,11 +8,8 @@ int main(int ac, char **av, char **env)
         print_env(my_env);
     if (av[1] && (ft_strcmp(av[1], "export") == 0))
     {   
-       // print_env(my_env);
-        ft_export(&my_env, av[2]);
-        print_env(my_env);
+        ft_export(&my_env, av);
     }
-    printf("--------------------------%s", av[2]);
-
+    ft_lstclear_env(&my_env); //lembrar de limpar a env na main pra nao dar leak
     return (ac);
 }
