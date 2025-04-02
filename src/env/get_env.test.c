@@ -47,7 +47,7 @@ Test(get_env_arr, functions_with_myenv) {
 
     int ret = ft_lstsize_env(my_env);
     int expected = ft_count_arr_size(my_env_arr);
-en
+
     cr_assert(ret == expected, "elementos incompatíveis");
 }
 

@@ -3,6 +3,7 @@
 int main(int ac, char **av, char **env)
 {
     t_my_env *my_env = get_env(env);
+    //char *ret;
 
     if (av[1] && (ft_strcmp(av[1], "env") == 0))
         print_env(my_env);
@@ -10,6 +11,11 @@ int main(int ac, char **av, char **env)
     {   
         ft_export(&my_env, av);
     }
+    if (av[1] && (ft_strcmp(av[1], "echo") == 0)) 
+        ft_echo(ac, av);  
+    //ret = ft_echo(ac, av);
+    //printf("\n%s", ret);
     ft_lstclear_env(&my_env); //lembrar de limpar a env na main pra nao dar leak
+    
     return (ac);
 }

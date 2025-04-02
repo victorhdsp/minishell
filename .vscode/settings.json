@@ -71,6 +71,7 @@
     "utility": "c",
     "env.h": "c",
     "export.h": "c",
-    "sentences.h": "c"
+    "sentences.h": "c",
+    "echo.h": "c"
   }
 }

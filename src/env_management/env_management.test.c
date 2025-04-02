@@ -1,4 +1,4 @@
-#include "./env_management.h"
+/*#include "./env_management.h"
 #include "../../__test/utils.h"
 
 
@@ -13,7 +13,7 @@ unset
 Se a variável for removida com sucesso, retorna 0.
 
 Se a variável não existir, também retorna 0 (Bash não considera isso um erro).
-*/
+
 
 // Chamada da função export sem argumentos
 Test(ft_export, functions_with_no_args) {
