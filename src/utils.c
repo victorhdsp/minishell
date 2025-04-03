@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:50:05 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/02 12:29:31 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:55:00 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,21 @@
 char	*ft_correct_path(char *path)
 {
 	char	*root;
+	char	*result;
+	char	*tmp;
 
-	root = NULL;
+	tmp = ft_calloc(100, sizeof(char));
+	getcwd(tmp, 100);
 	if (path[0] == '/')
 		return (ft_strdup(path));
-	return (ft_strjoin(root, path));
+	root = ft_strjoin(tmp, "/");
+	free(tmp);
+	tmp = path;
+	while (!ft_strncmp(tmp, "../", 3))
+		tmp += 3;
+	result = ft_strjoin(root, tmp);
+	free(root);
+	return (result);
 }
 
 int	ft_count_dir(char *dir_path)
