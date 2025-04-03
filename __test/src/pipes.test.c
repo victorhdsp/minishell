@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/31 12:55:52 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:39:55 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void ft_assert_pipes(t_sentence *result, t_sentence *expected) {
         
         if (result[i].infile || expected[i].infile)
         {
-            cr_assert_str_eq(result[i].infile, expected[i].infile,
-                    "Sentença %d: infile esperado \"%s\" mas obteve \"%s\"",
+            cr_assert(result[i].infile == expected[i].infile,
+                    "Sentença %d: infile esperado \"%d\" mas obteve \"%d\"",
                     i, expected[i].infile, result[i].infile);
         }
         if (result[i].outfile || expected[i].outfile)
         {
-            cr_assert_str_eq(result[i].outfile, expected[i].outfile,
-                    "Sentença %d: outfile esperado \"%s\" mas obteve \"%s\"",
+            cr_assert(result[i].outfile == expected[i].outfile,
+                    "Sentença %d: outfile esperado \"%d\" mas obteve \"%d\"",
                     i, expected[i].outfile, result[i].outfile);
         }
         if (result[i].items || expected[i].items)
@@ -95,14 +95,14 @@ Test(pipes, identify_by_simple_words) {
 
     t_sentence expected[] = {
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando", "argumento1", "argumento2", NULL },
             .items = (t_lexer_item[]){ input[0], input[1], input[2], NULL}
         },
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = NULL,
             .items = NULL
         },
@@ -124,20 +124,20 @@ Test(pipes, identify_by_pipe) {
 
     t_sentence expected[] = {
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando", NULL },
             .items = (t_lexer_item[]){ input[0], NULL }
         },
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "argumento1", "argumento2", NULL },
             .items = (t_lexer_item[]){ input[2], input[3], NULL }
         },
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = NULL 
         },
     };
@@ -160,20 +160,20 @@ Test(pipes, identify_by_pipe_and_logical_operator) {
 
     t_sentence expected[] = {
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando", NULL },
             .items = (t_lexer_item[]){ input[0], NULL }
         },
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "argumento1", "argumento2", NULL },
             .items = (t_lexer_item[]){ input[2], input[3], NULL }
         },
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = NULL,
             .items = (t_lexer_item[]){ NULL }
         },
@@ -194,12 +194,12 @@ Test(pipes, identify_by_output) {
 
     t_sentence expected[] = {
         { 
-            .infile = NULL, 
-            .outfile = "output.txt", 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando", NULL },
             .items = input
         },
-        { .infile = NULL, .outfile = NULL, .args = NULL},
+        { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL},
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -217,12 +217,12 @@ Test(pipes, identify_by_input) {
 
     t_sentence expected[] = {
         { 
-            .infile = "input.txt", 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando", NULL },
             .items = input
         },
-        { .infile = NULL, .outfile = NULL, .args = NULL },
+        { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -242,12 +242,12 @@ Test(pipes, identify_by_input_and_output) {
 
     t_sentence expected[] = {
         { 
-            .infile = "input.txt", 
-            .outfile = "output.txt", 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando", NULL },
             .items = input
         },
-        { .infile = NULL, .outfile = NULL, .args = NULL },
+        { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -268,18 +268,18 @@ Test(pipes, identify_by_input_output_and_pipes) {
 
     t_sentence expected[] = {
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando1", NULL },
             .items = (t_lexer_item[]){ input[0], NULL }
         },
         { 
-            .infile = NULL, 
-            .outfile = "output.txt", 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando2", "=e", NULL },
             .items = (t_lexer_item[]){ input[2], input[3], input[4], input[5], NULL }
         },
-        { .infile = NULL, .outfile = NULL, .args = NULL },
+        { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL },
     };
 
     t_sentence  *result = ft_pipes((t_lexer_item *)input);
@@ -303,17 +303,17 @@ Test(pipes, identify_by_pipes_append_and_logical_operators) {
 
     t_sentence expected[] = {
         { 
-            .infile = NULL, 
-            .outfile = NULL, 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando1", NULL },
             .items = (t_lexer_item[]){ input[0], NULL }
         },
         { 
-            .infile = NULL, 
-            .outfile = "output.txt", 
+            .infile = STDIN_FILENO, 
+            .outfile = STDOUT_FILENO, 
             .args = (char *[]){ "comando2", NULL },
             .items = (t_lexer_item[]){ input[2], input[3], input[4], NULL }
         },
-        { .infile = NULL, .outfile = NULL, .args = NULL },
+        { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL },
     };
 }

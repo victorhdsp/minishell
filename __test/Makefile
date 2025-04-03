@@ -1,4 +1,4 @@
-FILES=../src/**/*.c
+FILES=../src/**/*.c ../src/utils.c 
 INCLUDE=../include/**/*.c
 TESTS=./**/*.test.c
 
@@ -14,8 +14,6 @@ all: $(NAME)
 $(NAME): 
 	@ $(COMPILADOR) $(TEST_UTILS) $(TESTS) $(FILES) $(INCLUDE) -o ./$(NAME) -lcriterion
 	@ ./$(NAME)
-
-
 
 fclean:
 	@ rm -rf ./$(NAME)
