@@ -6,18 +6,24 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/02 13:11:21 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:09:02 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "exec.h"
 
-int	ft_input(char *path)
+static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn) //Resolver caso passe uma pasta
 {
 	int	fd;
 
-	fd = open(path, O_RDONLY);
+	fd = -1;
+	if (fn == fn_input)
+		fd = open(path, O_RDONLY);
+	else if (fn == fn_output)
+		fd = open(path, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
+	else if (fn == fn_append)
+		fd = open(path, O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 	if (fd < 0)
 	{
 		ft_putstr_fd(path, 2);
@@ -54,27 +60,36 @@ int	ft_heredoc(char *exit)
 	return (fd);
 }
 
-void	ft_use_redirects(t_lexer_item *items)
+static void ft_save_redirects(t_sentence *sentence, int index, int fd)
 {
-	int	index;
-	int	fd;
+	sentence->items[index + 1].value = &fd;
+	if (sentence->items[index].type == type_infile)
+		sentence->infile = fd;
+	if (sentence->items[index].type == type_outfile)
+		sentence->outfile = fd;
+}
+
+void	ft_use_redirects(t_sentence *sentence)
+{
+	int				fd;
+	int				index;
+	t_lexer_item	*items;
 
 	index = 0;
 	fd = -1;
+	items = sentence->items;
 	while (items[index].value)
 	{
 		if (items[index].fn == fn_output)
-			fd = open(items[index + 1].value, O_CREAT | O_RDWR | O_TRUNC,
-					S_IRWXU);
+			fd = ft_simple_redirect(items[index + 1].value, fn_output);
 		else if (items[index].fn == fn_append)
-			fd = open(items[index + 1].value, O_CREAT | O_RDWR | O_APPEND,
-					S_IRWXU);
+			fd = ft_simple_redirect(items[index + 1].value, fn_append);
 		else if (items[index].fn == fn_input)
-			fd = ft_input(items[index + 1].value);
+			fd = ft_simple_redirect(items[index + 1].value, fn_input);
 		else if (items[index].fn == fn_heredoc)
 			fd = ft_heredoc(items[index + 1].value);
 		if (fd != -1)
-			items[index + 1].value = &fd;
+			ft_save_redirects(sentence, index, fd);
 		fd = -1;
 		index++;
 	}

@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/02 13:09:15 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:06:40 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ static void	ft_prepare_exec_child(t_sentence sentence)
 	char	**env;
 
 	cmd = NULL;
-	env = ft_calloc(1, sizeof(char *));
-	ft_use_redirects(sentence.items);
+	env = ft_calloc(1, sizeof(char *)); // Substituir por uma "get_env" ou algo nesse sentido.
+	ft_use_redirects(&sentence);
+	dup2(sentence.infile, STDIN_FILENO);
+	dup2(sentence.outfile, STDOUT_FILENO);
 	result = ft_exec_builtin(sentence.items);
 	if (result >= 0)
 		exit(result);

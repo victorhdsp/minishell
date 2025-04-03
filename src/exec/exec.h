@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/01 13:29:17 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:08:36 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 int		ft_heredoc(char *exit);
 
 void	ft_prepare_exec(t_sentence *sentence);
-int		ft_input(char *path);
-void	ft_use_redirects(t_lexer_item *items);
+void	ft_use_redirects(t_sentence *sentence);
 
 #endif

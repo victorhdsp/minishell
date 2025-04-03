@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/02 13:01:45 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:38:42 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static void	ft_create_sentence(t_sentence *sentence, t_lexer_item *items,
 	{
 		if (items[*index].type == type_infile)
 		{
-			sentence->infile = items[*index + 1].value;
+			//sentence->infile = items[*index + 1].value;
 			*index = *index + 1;
 		}
 		else if (items[*index].type == type_outfile)
 		{
-			sentence->outfile = items[*index + 1].value;
+			//sentence->outfile = items[*index + 1].value;
 			*index = *index + 1;
 		}
 		else if (items[*index].type == type_word)
@@ -104,8 +104,8 @@ t_sentence	*ft_pipes(t_lexer_item *items)
 	sentences = ft_calloc(sentences_total + 1, sizeof(t_sentence));
 	while (sentences_index < sentences_total)
 	{
-		sentences[sentences_index].infile = NULL;
-		sentences[sentences_index].outfile = NULL;
+		sentences[sentences_index].infile = STDIN_FILENO;
+		sentences[sentences_index].outfile = STDOUT_FILENO;
 		sentences[sentences_index].args = NULL;
 		sentences[sentences_index].items = NULL;
 		ft_save_items(&sentences[sentences_index], items, items_index);
