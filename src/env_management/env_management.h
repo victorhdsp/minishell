@@ -12,5 +12,6 @@ int     ft_export(t_my_env **my_env, char **word);
 int		ft_strcmp(char *s1, char *s2);
 int    ft_unset(t_my_env **my_env, char *word);
 void    print_lst(t_my_env *ordered_head);
+void order(t_my_env *my_env);
 
 #endif

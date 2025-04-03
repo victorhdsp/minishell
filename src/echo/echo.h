@@ -7,6 +7,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-char *ft_echo(int ac, char **data);
+int ft_echo(int ac, char **data);
 
 #endif

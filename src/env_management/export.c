@@ -76,6 +76,8 @@ int check_overwriting(t_my_env *my_env, char *word)
     char    *key;
 
     value = ft_strchr(word, '='); //VERIFICAR ERRO QUANDO USO EXPORT (VAR) SEM =
+    if (!value)
+        value = word + ft_strlen(word);
     key = ft_calloc(value - word + 1, sizeof(char));
 	key = ft_memmove(key, word, value - word);    
     while (my_env)

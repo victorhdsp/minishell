@@ -11,12 +11,14 @@ t_my_env	*ft_lstnew_env(char *content)
     	return (NULL);
 	}
 	value = ft_strchr(content, '=');
+	if (!value)
+        value = content + ft_strlen(content);
 	result->key = ft_calloc(value - content + 1, sizeof(char));
 	result->key = ft_memmove(result->key, content, value - content);
 	result->next = NULL;
 	result->equal = NULL;
     result->value = NULL;
-	if (value)
+	if (value && value[0])
 	{
         result->equal = "=";
         result->value = ft_strdup(value + 1);

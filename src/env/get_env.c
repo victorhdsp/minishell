@@ -61,7 +61,7 @@ char **get_env_arr(t_my_env *my_env)
     return (my_env_arr);
 }
 
-void    print_env(t_my_env *my_env)
+int    print_env(t_my_env *my_env)
 {
     while (my_env != NULL)
     {
@@ -74,5 +74,6 @@ void    print_env(t_my_env *my_env)
         printf("\n");
         my_env = my_env->next;
     }
+    return (0);
 }
 
