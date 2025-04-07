@@ -5,23 +5,38 @@ int main(int ac, char **av, char **env)
     t_my_env *my_env = get_env(env);
     char *ret;
 
-     char    *param[] = {
-        "export",
-        "#RENATO",
-        NULL};
+     char    *envv[] = {
+        "GDMSESSION=ubuntu",
+        "DISPLAY=:0",
+        "SHLVL=1",
+        "OLDPWD=/home/rpassos-",
+        "MAIL=rpassos-@student.42.rio",
+        NULL
+        };
+    t_my_env *my_env2 = get_env(envv);
+
+    char    *envv2[] = {
+        "unset",
+        "GDMSESSION",
+        "DISPLAY",
+        NULL
+        };
+
 
     if (av[1] && (ft_strcmp(av[1], "env") == 0))
-        print_env(my_env);
+        print_env(my_env2);
     if (av[1] && (ft_strcmp(av[1], "export") == 0))
     {   
         ft_export(&my_env, av);
-        ft_export(&my_env, param);
-        //order(my_env);
+        //ft_export(&my_env, param);
+        //print_env(my_env);
     }
     if (av[1] && (ft_strcmp(av[1], "unset") == 0))
     {   
-        ft_export(&my_env, av);
-        ft_export(&my_env, param);
+        print_env(my_env2);
+        ft_unset(&my_env2, envv2);
+        
+        print_env(my_env2);
         //order(my_env);
     }
     if (av[1] && (ft_strcmp(av[1], "echo") == 0)) 

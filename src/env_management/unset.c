@@ -15,7 +15,7 @@ void print_lst(t_my_env *ordered_head)
     }
 }
 
-int ft_unset(t_my_env **my_env, char **word)
+int ft_unset(t_my_env **my_env, char *word)
 {
     t_my_env *current;
     t_my_env *prev;
@@ -42,4 +42,40 @@ int ft_unset(t_my_env **my_env, char **word)
     }
     return (0);
 }
+
+//setar unset para receber varios parametros
+
+/*int ft_unset(t_my_env **my_env, char **word)
+{
+    t_my_env    *current;
+    t_my_env    *prev;
+    int         index;
+    
+    index = 1;
+    if (!word[1])
+        return (0);
+    current = *my_env;
+    prev = NULL;
+    while (word[index] != NULL)
+    {
+        current = *my_env;
+        while (current)
+        {
+            if (ft_strcmp(current->key, word[index]) == 0)
+            {
+                if (prev == NULL)
+                    *my_env = current->next;
+                else
+                    prev->next = current->next;
+                free(current->key);
+                free(current->value);
+                free(current);
+            }
+            prev = current;
+            current = current->next;
+        }
+        index++;
+    }
+    return (0);
+}*/
 

@@ -41,7 +41,7 @@ Test(print_env, show_all_env_and_check_return, .init=redirect_all_stdout)
 
     int     ret = print_env(my_env);
 
-    cr_assert_stdout_eq_str("GDMSESSION=ubuntu\nDISPLAY=:0\nSHLVL=1\nOLDPWD=/home/rpassos-\nMAIL=rpassos-@student.42.rio", "Expected to print the env list with line break");
+    cr_assert_stdout_eq_str("GDMSESSION=ubuntu\nDISPLAY=:0\nSHLVL=1\nOLDPWD=/home/rpassos-\nMAIL=rpassos-@student.42.rio\n", "Não exibiu as variáveis da env");
 	cr_assert_eq(0, ret);
 }
 
@@ -61,7 +61,7 @@ Test(print_env, env_line_counter, .init=redirect_all_stdout)
     print_env(my_env);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -103,7 +103,7 @@ Test(ft_export, add_var_env_line_counter, .init=redirect_all_stdout)
     print_env(my_env);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -145,7 +145,7 @@ Test(ft_export, add_var_env_find_var, .init=redirect_all_stdout)
     print_env(my_env);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -179,7 +179,7 @@ Test(ft_export, add_var_with_equal_and_no_value_env_line_counter, .init=redirect
     print_env(my_env);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -221,7 +221,7 @@ Test(ft_export, add_var_env_with_equal_and_no_value_find_var, .init=redirect_all
     print_env(my_env);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -303,7 +303,7 @@ Test(ft_export, add_var_export_line_counter, .init=redirect_all_stdout)
     ft_export(&my_env, param2);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -347,13 +347,13 @@ Test(ft_export, add_var_export_find_var, .init=redirect_all_stdout)
     ft_export(&my_env, param2);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
 
-    cr_assert_not_null(ft_strnstr(output, "RENATO=TESTE", ft_strlen(output)), 
-        "A variável RENATO=TESTE não foi encontrada na saída do export ordenado");
+    cr_assert_not_null(ft_strnstr(output, "RENATO", ft_strlen(output)), 
+        "A variável RENATO não foi encontrada na saída do export ordenado");
 }
 
 //fazer somente export - lista as variaveis exportadas com um certo formato de texto
@@ -377,16 +377,16 @@ Test(ft_export, check_ordered_list, .init=redirect_all_stdout)
     ft_export(&my_env, param);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
 
-    cr_assert_str_eq(output, "declare -x DISPLAY=:0\ndeclare -x GDMSESSION=ubuntu\ndeclare -x MAIL=rpassos-@student.42.rio\ndeclare -x OLDPWD=/home/rpassos-\ndeclare -x SHLVL=1", "A lista não está em ordem");    
+    cr_assert_str_eq(output, "declare -x DISPLAY=\":0\"\ndeclare -x GDMSESSION=\"ubuntu\"\ndeclare -x MAIL=\"rpassos-@student.42.rio\"\ndeclare -x OLDPWD=\"/home/rpassos-\"\ndeclare -x SHLVL=\"1\"\n", "A lista não está em ordem");    
 }
 
 //fazer export com variavel com nome invalido - checar retorno 1 e msg de erro
-//Chamada da função export com key invalida para verificar o retorno, a msg de erro
+//Chamada da função export com key invalida para verificar o retorno e a msg de erro
 Test(ft_export, invalid_key_check_error_and_return, .init=redirect_all_stdout)
 {
     char    *env[] = {
@@ -409,7 +409,7 @@ Test(ft_export, invalid_key_check_error_and_return, .init=redirect_all_stdout)
     fflush(stdout);
     
     cr_assert_eq(ret, 1, "Retorno de erro errado");
-    cr_assert_stdout_eq_str("export: `#RENATO: not a valid identifier", "A lista não está em ordem"); 
+    cr_assert_stdout_eq_str("export: `#RENATO': not a valid identifier\n", "Mensagem de erro não funcionando"); 
 }
 
 //Chamada da função export com key invalida para verificar se a lista foi incrementada
@@ -482,7 +482,7 @@ Test(ft_export, add_multiple_vars_line_counter, .init=redirect_all_stdout)
     print_env(my_env);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -524,7 +524,7 @@ Test(ft_export, add_multiple_vars_find_vars, .init=redirect_all_stdout)
     print_env(my_env);
 
     fflush(stdout);
-    FILE *fp = cr_get_redirected_stdout();  // Correto: retorna FILE*
+    FILE *fp = cr_get_redirected_stdout();   
     char output[4096];
     size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
     output[bytes] = '\0'; 
@@ -595,7 +595,7 @@ Test(ft_export, add_multiple_invalid_and_valid_vars_find_valids, .init=redirect_
     print_env(my_env);
     
     fflush(stdout);
-    cr_assert_stdout_eq_str("GDMSESSION=ubuntu\nDISPLAY=:0\nSHLVL=1\nOLDPWD=/home/rpassos-\nMAIL=rpassos-@student.42.rio\nRENATO=123\nVICTOR=123\nMINISHELL=123\n", "Os elementos válidos não foram inseridos");
+    cr_assert_stdout_eq_str("export: `+REN=123': not a valid identifier\nexport: `+VIC=123': not a valid identifier\nGDMSESSION=ubuntu\nDISPLAY=:0\nSHLVL=1\nOLDPWD=/home/rpassos-\nMAIL=rpassos-@student.42.rio\nRENATO=123\nVICTOR=123\nMINISHELL=123\n", "Os elementos válidos não foram inseridos");
 }
 
 //fazer unset - decrementa um na env (contador decresce)
