@@ -55,14 +55,14 @@ int check_valid_name(char *word)
         return (0);
     if (word[0] != '_' && !ft_isalpha(word[0]))
     {
-            printf("export: `'%s': not a valid identifier", word);
+            printf("export: `%s': not a valid identifier\n", word);
             return (0);
     }
     while (word[index] != '\0')
     {
         if (word[index] != '_' && word[index] != '=' && !ft_isalnum(word[index]))
         {
-            printf("export: `'%s': not a valid identifier", word);
+            printf("export: `%s': not a valid identifier\n", word);
             return (0);
         }
         index++;
@@ -75,7 +75,7 @@ int check_overwriting(t_my_env *my_env, char *word)
     char    *value;
     char    *key;
 
-    value = ft_strchr(word, '='); //VERIFICAR ERRO QUANDO USO EXPORT (VAR) SEM =
+    value = ft_strchr(word, '=');
     if (!value)
         value = word + ft_strlen(word);
     key = ft_calloc(value - word + 1, sizeof(char));
@@ -99,8 +99,10 @@ int ft_export(t_my_env **my_env, char **word)
 {
     t_my_env    *new_node;
     int         index;
+    int         return_value;
 
-    index = 2;
+    return_value = 0;
+    index = 1;
     if (!word[index])
     {
         order(*my_env);
@@ -109,13 +111,13 @@ int ft_export(t_my_env **my_env, char **word)
     while (word[index] != NULL)
     { 
         if (!check_valid_name(word[index]))
-            return (1);
-        if (check_overwriting(*my_env, word[index]))
+            return_value = 1;
+        else if (check_overwriting(*my_env, word[index]))
         {
             new_node = ft_lstnew_env(word[index]);
             ft_lstadd_back_env(&(*my_env), new_node);
         }
         index++;
     }
-    return (0);
+    return (return_value);
 }

@@ -15,7 +15,7 @@ void print_lst(t_my_env *ordered_head)
     }
 }
 
-int ft_unset(t_my_env **my_env, char *word)
+int ft_unset(t_my_env **my_env, char **word)
 {
     t_my_env *current;
     t_my_env *prev;
