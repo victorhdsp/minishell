@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 RUN apt-get update && apt-get install -y gcc libcriterion-dev inotify-tools build-essential
 
-COPY .. /usr/src/app
+COPY . /usr/src/app
 
 COPY ./entrypoint.sh /entrypoint.sh
 

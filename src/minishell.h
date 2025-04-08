@@ -16,6 +16,9 @@
 #include "../include/libft/libft.h"
 #include "./tokenizer/tokenizer.h"
 #include "./sentences/sentences.h"
+#include "./env/env.h"
+#include "./env_management/env_management.h"
+#include "./echo/echo.h"
 //#include <readline/readline.h>
 //#include <readline/history.h>
 //#include <term.h>

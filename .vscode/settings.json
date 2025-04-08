@@ -68,6 +68,11 @@
     "array": "c",
     "tuple": "c",
     "type_traits": "c",
-    "utility": "c"
+    "utility": "c",
+    "env.h": "c",
+    "export.h": "c",
+    "sentences.h": "c",
+    "echo.h": "c",
+    "env_management.h": "c"
   }
 }
