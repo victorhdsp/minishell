@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 11:25:25 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/08 11:25:26 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env_management.h"
 
 char	**ft_clean_arr(char **result)
@@ -12,7 +24,7 @@ char	**ft_clean_arr(char **result)
 	}
 	free(result);
 	result = NULL;
-    return(result);
+	return (result);
 }
 
 void	ft_lstclear_env(t_my_env **lst)
@@ -23,18 +35,18 @@ void	ft_lstclear_env(t_my_env **lst)
 	while (*lst)
 	{
 		current = *lst;
-        free(current->key);
+		free(current->key);
 		if (current->value)
-            free(current->value);
+			free(current->value);
 		*lst = current->next;
 		free(current);
 	}
-    *lst = NULL;
+	*lst = NULL;
 }
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
