@@ -8,21 +8,15 @@
 testes:
 usar o redirecionador
 fazer env - verificar numero correto das envs
-fazer export com key=value - incrementar um na env e contar
-	|| achar o conteudo inserido com o chr
-fazer export somente com key=- incrementar um na env e contar
-	|| achar o conteudo inserido com o chr
-fazer export somente com key - nao incrementa na env (contador nao muda)
-	|| incrementa um no export (contador muda)
-	|| achar o conteudo inserido com o chr
-fazer somente export
-	- lista as variaveis exportadas com um certo formato de texto
+fazer export com key=value - incrementar um na env e contar || achar o conteudo inserido com o chr
+fazer export somente com key=- incrementar um na env e contar || achar o conteudo inserido com o chr
+fazer export somente com key - nao incrementa na env (contador nao muda) || incrementa um no export (contador muda) || achar o conteudo inserido com o chr
+fazer somente export - lista as variaveis exportadas com um certo formato de texto
+fazer export com nome já existente para mudar o conteúdo
 fazer export com variavel com nome invalido - checar retorno 1 || env nao muda
-fazer export com varias key=value e ver se entra tudo
-	- checar quantidade que incrementou e buscar o conteudo inserido
-fazer export com varias key, key=value e key com valor errado
-	- deve aceitar as certas e dar o erro pra errada
-	*se tiver mais de uma errada só da o erro da primeira
+fazer export com varias key=value e ver se entra tudo - checar quantidade que incrementou e buscar o conteudo inserido
+fazer export com varias key, key=value e key com valor errado - deve aceitar as certas e dar o erro pra errada
+	*se tiver mais de uma errada todos os erros são exibidos
 fazer unset - decrementa um na env (contador decresce)
 */
 
@@ -392,6 +386,39 @@ Test(ft_export, check_ordered_list, .init = redirect_all_stdout)
 
 	cr_assert_str_eq(output, "declare -x DISPLAY=\":0\"\ndeclare -x GDMSESSION=\"ubuntu\"\ndeclare -x MAIL=\"rpassos-@student.42.rio\"\ndeclare -x OLDPWD=\"/home/rpassos-\"\ndeclare -x SHLVL=\"1\"\n", "A lista não está em ordem");
 }
+// fazer export com nome já existente para mudar o conteúdo
+// Chamada da função export com key já existente para verificar se o conteúdo foi alterado
+Test(ft_export, existent_key_check_if_value_changes, .init = redirect_all_stdout)
+{
+	char		*env[] = {
+		"GDMSESSION=ubuntu",
+		"DISPLAY=:0", "SHLVL=1",
+		"OLDPWD=/home/rpassos-",
+		"MAIL=rpassos-@student.42.rio",
+		NULL
+	};
+
+	char		*param[] = {
+		"export",
+		"DISPLAY=CONTEUDO_ALTERADO", 
+		NULL
+	};
+
+	t_my_env	*my_env = get_env(env);
+	
+	ft_export(&my_env, param);
+	print_env(my_env);
+
+	fflush(stdout);
+	FILE *fp = cr_get_redirected_stdout(); 
+	char output[4096];
+	size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
+	output[bytes] = '\0';
+
+	cr_assert(strstr(output, "DISPLAY=CONTEUDO_ALTERADO"), "A variável existente não foi sobrescrita");
+
+}
+
 
 // fazer export com variavel com nome invalido - checar retorno 1 e msg de erro
 // Chamada da função export com key invalida para verificar o retorno e a msg de erro
