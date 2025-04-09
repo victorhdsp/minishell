@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:24:25 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/22 15:04:05 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:03:16 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ void    ft_free_str_list(char **str_list) {
         i++;
     }
     free(str_list);
+}
+
+void redirect_stdout(void)
+{
+	cr_redirect_stdout();
+}
+
+void redirect_stderr(void)
+{
+	cr_redirect_stderr();
 }
