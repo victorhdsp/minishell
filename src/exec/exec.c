@@ -75,7 +75,8 @@ static void	ft_prepare_exec_child(t_sentence sentence)
 	char	**env;
 
 	cmd = NULL;
-	env = ft_calloc(1, sizeof(char *)); // Substituir por uma "get_env" ou algo nesse sentido.
+	env = ft_calloc(1, sizeof(char *));
+		// Substituir por uma "get_env" ou algo nesse sentido.
 	ft_use_redirects(&sentence);
 	dup2(sentence.infile, STDIN_FILENO);
 	dup2(sentence.outfile, STDOUT_FILENO);

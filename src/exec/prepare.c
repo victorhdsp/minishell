@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "../minishell.h"
+#include "exec.h"
 
 static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 {
@@ -60,7 +60,7 @@ static int	ft_heredoc(char *exit)
 	return (fd);
 }
 
-static void ft_save_redirects(t_sentence *sentence, int index, int fd)
+static void	ft_save_redirects(t_sentence *sentence, int index, int fd)
 {
 	sentence->items[index + 1].value = &fd;
 	if (sentence->items[index].type == type_infile)

@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/03 11:38:42 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:39:46 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,10 @@ static void	ft_create_sentence(t_sentence *sentence, t_lexer_item *items,
 	{
 		if (items[*index].type == type_infile)
 		{
-			//sentence->infile = items[*index + 1].value;
 			*index = *index + 1;
 		}
 		else if (items[*index].type == type_outfile)
 		{
-			//sentence->outfile = items[*index + 1].value;
 			*index = *index + 1;
 		}
 		else if (items[*index].type == type_word)
