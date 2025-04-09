@@ -6,14 +6,14 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/03 14:09:02 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:53:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
 #include "exec.h"
+#include "../minishell.h"
 
-static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn) //Resolver caso passe uma pasta
+static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 {
 	int	fd;
 
@@ -33,7 +33,7 @@ static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn) //Resolver
 	return (fd);
 }
 
-int	ft_heredoc(char *exit)
+static int	ft_heredoc(char *exit)
 {
 	int		files_count;
 	char	*filename;
