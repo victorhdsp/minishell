@@ -71,6 +71,8 @@
     "utility": "c",
     "minishell.h": "c",
     "exec.h": "c",
-    "fcntl.h": "c"
+    "fcntl.h": "c",
+    "sentences.h": "c",
+    "cerrno": "c"
   }
 }
