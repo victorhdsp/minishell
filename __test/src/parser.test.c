@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/03 11:36:44 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:07:17 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ Test(parser, two_cmds_and_no_errors) {
     cr_assert(input[2].fn == fn_cmd);
 }
 
-Test(parser, error_in_pipe) {
+Test(parser, error_in_pipe, .init=redirect_stderr) {
     char *cmd[] = {"|", "comando2", ">", "output.txt=e", NULL};
     t_lexer_item *input = lexer((char **)cmd);
 
@@ -46,7 +46,7 @@ Test(parser, error_in_pipe) {
     cr_assert(expected == result);
 }
 
-Test(parser, error_in_redirect) {
+Test(parser, error_in_redirect, .init=redirect_stderr) {
     char *cmd[] = {"comando1", "|", "comando2", ">", "|", "=e", NULL};
     t_lexer_item *input = lexer((char **)cmd);
 
@@ -70,7 +70,7 @@ Test(parser, open_an_close_parenthesis_no_errors) {
     cr_assert(input[3].fn == fn_cmd);
 }
 
-Test(parser, open_parenthesis_and_not_close_has_error) {
+Test(parser, open_parenthesis_and_not_close_has_error, .init=redirect_stderr) {
     char *cmd[] = {"(", "comando1", "&&", "comando2", "||", "comando3", NULL};
     t_lexer_item *input = lexer((char **)cmd);
 
@@ -82,7 +82,7 @@ Test(parser, open_parenthesis_and_not_close_has_error) {
     cr_assert(input[3].fn == fn_cmd);
 }
 
-Test(parser, close_parenthesis_and_not_open_has_error) {
+Test(parser, close_parenthesis_and_not_open_has_error, .init=redirect_stderr) {
     char *cmd[] = {"comando1", "&&", "comando2", ")", "||", "comando3", NULL};
     t_lexer_item *input = lexer((char **)cmd);
 
