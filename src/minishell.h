@@ -19,6 +19,7 @@
 #include "./env/env.h"
 #include "./env_management/env_management.h"
 #include "./echo/echo.h"
+#include "./cd/cd.h"
 //#include <readline/readline.h>
 //#include <readline/history.h>
 //#include <term.h>
