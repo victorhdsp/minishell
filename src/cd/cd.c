@@ -54,11 +54,42 @@ static int	get_arr_size(char **arr)
 		index++;
 	return (index);
 }
-int	ft_cd(t_my_env *my_env, char **args)
+
+static int check_home(t_my_env **my_env)
+{
+	t_my_env *current;
+	char **arr;
+
+	current = *my_env;
+	while (current)
+	{
+		if (ft_strcmp(current->key, "HOME") == 0)
+		{
+			arr = set_arr_for_export("OLDPWD=");
+			chdir(current->value);
+			ft_export(my_env, arr);
+			cd_free(arr);
+			arr = set_arr_for_export("PWD=");
+			ft_export(my_env, arr);
+			cd_free(arr);
+			return (0);
+		}
+		current = current->next;
+	}
+	return (1);
+}
+
+int	ft_cd(t_my_env **my_env, char **args)
 {
 	int	ret;
 	char **arr;
 
+	if (!args[1])
+	{
+		ret = check_home(my_env);
+		//printf("funcionou");
+		return (ret);
+	}
 	if (get_arr_size(args) > 2)
 	{
 		printf("cd: too many arguments\n");
@@ -68,16 +99,15 @@ int	ft_cd(t_my_env *my_env, char **args)
 	ret = chdir(args[1]);
 	if (ret == 0)
 	{
-		printf("--------------%s\n", arr[1]);
-		ft_export(&my_env, arr);
+		ft_export(my_env, arr);
 		cd_free(arr);
 		arr = set_arr_for_export("PWD=");
-		ft_export(&my_env, arr);
+		ft_export(my_env, arr);
 		cd_free(arr);
 	}
 	else
 	{
-		print_error(arr[1]);
+		print_error(args[1]);
 		cd_free(arr);
 		return (ret);
 	}

@@ -21,6 +21,6 @@
 # include <unistd.h>
 # include <errno.h>
 
-int	ft_cd(t_my_env *my_env, char **args);
+int	ft_cd(t_my_env **my_env, char **args);
 
 #endif
