@@ -34,7 +34,7 @@ void	redirect_all_stdout_cd(void)
 Test(ft_cd, cd_with_no_args, .init = redirect_all_stdout_cd)
 {
 	char		*env[] = {
-		"HOME=/home/renato",
+		"HOME=/root",
 		"PWD=/usr/src/app/__test",
 		"OLDPWD=/home/renato",
 		NULL
@@ -58,6 +58,7 @@ Test(ft_cd, cd_with_no_args, .init = redirect_all_stdout_cd)
 	char output[4096];
 	size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
 	output[bytes] = '\0';
+
 	cr_assert_str_eq(output, "/root", "PWD: imprimiu: %s", output);
 
 	printf("%s", my_env->next->next->value);
@@ -70,9 +71,9 @@ Test(ft_cd, cd_with_no_args, .init = redirect_all_stdout_cd)
 
 
 
-/*	cr_assert_str_eq(my_env->next->value, "/root", "PWD não alterado");
+	cr_assert_str_eq(my_env->next->value, "/root", "PWD não alterado");
 	cr_assert_str_eq(my_env->next->next->value, "/usr/src/app/__test", "OLDPWD não alterado");
-*/
+
 
 }
 
@@ -128,7 +129,7 @@ Test(ft_cd, cd_go_up_and_enter_dir)
 	cr_assert_str_eq(my_env->next->next->value, "/usr/src/app/__test", "OLDPWD não alterado");
 }
 
-//cd ./src - entra na pasta src que está dentro do diretório atual.
+//cd ./src - entra na pasta testando que está dentro do diretório atual. AQUI TENHO QUE CRIAR ESSA PASTA TESTANDO
 Test(ft_cd, cd_enter_dir_on_present_dir)
 {
 	char		*env[] = {
@@ -199,31 +200,6 @@ Test(ft_cd, cd_go_up_two_dirs)
 	cr_assert_str_eq(my_env->next->value, "/usr/src", "PWD não alterado");
 	cr_assert_str_eq(my_env->next->next->value, "/usr/src/app/__test", "OLDPWD não alterado");
 }
-
-
-/*// cd src/utils - entra nas subpastas src depois utils
-Test(ft_cd, cd_go_sub_dir_two_times)
-{
-	char		*env[] = {
-		"HOME=/home/renato",
-		"PWD=/usr/src/app/__test",
-		"OLDPWD=/home/renato",
-		NULL
-	};
-	
-	char *args[] ={
-		"cd",
-		"src/echo",
-		NULL
-	};
-
-	t_my_env	*my_env = get_env(env);
-	int ret = ft_cd(&my_env, args);
-
-	cr_assert(0 == ret, "Error cd src/echo");
-	cr_assert_str_eq(my_env->next->value, "/home/renato/minishell/src/echo", "PWD não alterado");
-	cr_assert_str_eq(my_env->next->next->value, "/home/renato/minishell", "OLDPWD não alterado");
-}*/
 
 // cd ../minishell/include/ - sobe um nível, depois entra em minishell/src
 Test(ft_cd, cd_go_uo_and_go_sub_dir_two_times)
@@ -324,8 +300,9 @@ Test(ft_cd, cd_with_multiple_args, .init = redirect_all_stdout_cd)
 	size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
 	output[bytes] = '\0';
 
+
 	cr_assert_str_eq(output, "cd: too many arguments\n", "Erro multiple args diferente");
-	//cr_assert_stdout_eq_str("cd: too many arguments\n", "Erro multiple args diferente"); PQ NAO FUNCIONA????
+	//cr_assert_stderr_eq_str("cd: too many arguments\n", "Erro multiple args diferente"); //PQ NAO FUNCIONA????
 
 }
 
@@ -354,8 +331,6 @@ Test(ft_cd, cd_with_no_directory, .init = redirect_all_stdout_cd)
 	size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
 	output[bytes] = '\0';
 	
-	printf("------------------------ %s", output);
-
 	cr_assert(0 != ret, "Retorno do erro diferente");
 	cr_assert_str_eq(output, "cd: Dockerfile: Not a directory\n", "Erro não é um diretório");
 }
@@ -389,8 +364,8 @@ Test(ft_cd, cd_with_inexistent_directory, .init = redirect_all_stdout_cd)
 	cr_assert_str_eq(output, "cd: pasta_que_nao_existe: No such file or directory\n", "Erro diretório nao existe");
 	
 }
-/*
-// cd sem premissao: cd: diretório_secreto: Permission denied
+
+/*// cd sem premissao: cd: diretório_secreto: Permission denied
 Test(ft_cd, cd_with_no_permission, .init = redirect_all_stdout_cd)
 {
 	char		*env[] = {
@@ -409,7 +384,14 @@ Test(ft_cd, cd_with_no_permission, .init = redirect_all_stdout_cd)
 	t_my_env	*my_env = get_env(env);
 	int ret = ft_cd(&my_env, args);
 
-	cr_assert(-1 != ret, "Retorno do erro diferente");
-	cr_assert_stdout_eq_str("cd: test_no_permission: Permission denied\n", "Erro diretório sem permissao");
+	fflush(stdout);
+	FILE *fp = cr_get_redirected_stdout(); 
+	char output[4096];
+	size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
+	output[bytes] = '\0';
+
+	cr_assert(0 != ret, "Retorno do erro diferente: %d", ret);
+	cr_assert_str_eq(output, "cd: test_no_permission/: Permission denied\n", "imprimiu: %s", output); 
+	//cr_assert_stdout_eq_str("cd: test_no_permission: Permission denied\n", "Erro diretório sem permissao");
 
 }*/

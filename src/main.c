@@ -4,13 +4,14 @@ int main(int ac, char **av)
 {
     char		*envv[] = {
 		"HOME=/root",
-		"PWD=/usr/src/app/__test",
-		"OLDPWD=/home/renato",
+		"PWD=",
+		"OLDPWD=",
 		NULL
 	};
 	
 	char *args[] ={
 		"cd",
+		"no_permission",
 		NULL
 	};
 
@@ -24,7 +25,7 @@ int main(int ac, char **av)
         ret = ft_cd(&my_env, args);
 	}
     
-	printf("----------%d", ret);
+	printf("----------:%d", ret);
 
     ft_lstclear_env(&my_env); //lembrar de limpar a env na main pra nao dar leak
     
