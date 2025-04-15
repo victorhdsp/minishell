@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 18:25:23 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:16:32 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ static void     ft_get_first_word(const char *str, int *result)
         if (is_breaker(str[index], 0) && has_open_quote == 0)
             break;
         if ((str[index] == '\'' || str[index] == '\"') && has_open_quote == 0)
-            has_open_quote = 1;
-        else if ((str[index] == '\'' || str[index] == '\"') && has_open_quote == 1)
+            has_open_quote = str[index];
+        else if ((str[index] == has_open_quote) && has_open_quote != 0)
             has_open_quote = 0;
         result[1]++;
         index = result[0] + result[1];
     }
-    if (has_open_quote == 1)
+    if (has_open_quote != 0)
         result[1] = -1;
 }
 
