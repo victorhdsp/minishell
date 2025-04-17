@@ -1,4 +1,4 @@
-/*#include "./minishell.h"
+#include "./minishell.h"
 
 int main(int ac, char **av, char **env)
 {
@@ -23,6 +23,11 @@ int main(int ac, char **av, char **env)
         NULL
         };
 
+    char *args_pwd[] = {
+		"pwd",
+		NULL
+	};
+
 
     if (av[1] && (ft_strcmp(av[1], "env") == 0))
         print_env(my_env2);
@@ -42,12 +47,15 @@ int main(int ac, char **av, char **env)
         //order(my_env);
     }
     if (av[1] && (ft_strcmp(av[1], "echo") == 0)) 
- {
+    {
     //       ft_echo(ac, av);  
         ft_echo(1, input);
-}
+    }
+    if (av[1] && (ft_strcmp(av[1], "pwd") == 0)) 
+    {
+         ft_pwd(args_pwd);
+    }
     ft_lstclear_env(&my_env); //lembrar de limpar a env na main pra nao dar leak
     
     return (ac);
 }
-*/
