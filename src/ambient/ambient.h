@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:29:52 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/15 15:58:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/17 08:40:29 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ typedef struct      s_system
 t_system    get_system(t_system *new_system);
 void        set_system_exit_status(int exit_status);
 void        set_system_env(char **env);
+char        *get_system_env(char *key);
 
 #endif
