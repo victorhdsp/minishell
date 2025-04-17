@@ -39,7 +39,7 @@ Test(ambient, change_last_exit, .init = suite_setup)
 					expected_sys.last_exit_status);
 }
 
-Test(ambient, change_enb, .init = suite_setup)
+Test(ambient, change_env, .init = suite_setup)
 {
 	t_system	expected_sys;
 	char		*env[] = {"test=env", NULL};
@@ -47,6 +47,18 @@ Test(ambient, change_enb, .init = suite_setup)
 	set_system_env(env);
 	expected_sys = get_system(NULL);
 	cr_assert_str_eq(expected_sys.env[0], "test=env",
-                    "Env do sistema esperado está incorreto: esperado {(null)}, recebido {%s}",
+                    "Env do sistema esperado está incorreto: esperado {test=env}, recebido {%s}",
 					expected_sys.env[0]);
+}
+
+Test(ambient, get_env_var, .init = suite_setup)
+{
+	char		*expected_value;
+	char		*env[] = {"test=env", NULL};
+
+	set_system_env(env);
+	expected_value = get_system_env("test");
+	cr_assert_str_eq(expected_value, "env",
+                    "O retorna da variável esperado está incorreto: esperado {env}, recebido {%s}",
+					expected_value);
 }

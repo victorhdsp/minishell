@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 08:56:04 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/17 09:11:33 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	set_system_env(char **env)
 	t_system	new_system;
 
 	new_system = get_system(NULL);
-	free(new_system.env);
+	if (new_system.env && new_system.env[0])
+		free(new_system.env);
 	new_system.env = env;
 	get_system(&new_system);
 }
