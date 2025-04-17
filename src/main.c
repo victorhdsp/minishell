@@ -1,26 +1,53 @@
-#include "./minishell.h"
-#include "./ambient/ambient.h"
+/*#include "./minishell.h"
 
 int main(int ac, char **av, char **env)
 {
-    t_system    system;
-    char        *test;
+    t_my_env *my_env = get_env(env);
+    char *input[] = {"echo", NULL};
 
-    system.name = "victor";
-    system.last_exit_status = 0;
-    system.env = NULL;
+    char    *envv[] = {
+        "GDMSESSION=ubuntu",
+        "DISPLAY=:0",
+        "SHLVL=1",
+        "OLDPWD=/home/rpassos-",
+        "MAIL=rpassos-@student.42.rio",
+        NULL
+        };
+    t_my_env *my_env2 = get_env(envv);
 
-    get_system(&system);
-    set_system_exit_status(1);
+    char    *envv2[] = {
+        "unset",
+        "GDMSESSION",
+        "MAIL",
+        "OLDPWDA",
+        NULL
+        };
 
-    char		*param[] = {
-		"export",
-		"RENATO=TESTE",
-		NULL};
 
-	t_my_env	*my_env = get_env(env);
-    ft_export(&my_env, param);
-    set_system_env(get_env_arr(my_env));
-    get_system(NULL);
-    test = get_system_env("RENATO");
+    if (av[1] && (ft_strcmp(av[1], "env") == 0))
+        print_env(my_env2);
+    if (av[1] && (ft_strcmp(av[1], "export") == 0))
+    {   
+        ft_export(&my_env, av);
+        //ft_export(&my_env, param);
+        //print_env(my_env);
+    }
+    if (av[1] && (ft_strcmp(av[1], "unset") == 0))
+    {   
+        print_env(my_env2);
+        ft_unset(&my_env2, envv2);
+        printf("==========\n");
+        
+        print_env(my_env2);
+        //order(my_env);
+    }
+    if (av[1] && (ft_strcmp(av[1], "echo") == 0)) 
+ {
+    //       ft_echo(ac, av);  
+        ft_echo(1, input);
 }
+    ft_lstclear_env(&my_env); //lembrar de limpar a env na main pra nao dar leak
+    
+    return (ac);
+}
+*/

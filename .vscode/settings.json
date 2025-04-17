@@ -73,6 +73,10 @@
     "export.h": "c",
     "sentences.h": "c",
     "echo.h": "c",
-    "env_management.h": "c"
+    "env_management.h": "c",
+    "criterion.h": "c",
+    "stdio.h": "c",
+    "unistd.h": "c",
+    "cd.h": "c"
   }
 }

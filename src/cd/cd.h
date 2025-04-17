@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sentences.h                                        :+:      :+:    :+:   */
+/*   cd.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 09:12:53 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/03 11:16:43 by vide-sou         ###   ########.fr       */
+/*   Created: 2025/04/08 15:44:35 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/14 13:55:39 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SENTENCES_H
-# define SENTENCES_H
+#ifndef CD_H
+# define CD_H
 
 # include "../../include/libft/libft.h"
-# include "../tokenizer/tokenizer.h"
+# include "../env/env.h"
+# include "../env_management/env_management.h"
+# include <errno.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-typedef struct s_sentence
-{
-	int				infile;
-	int				outfile;
-	char			**args;
-	t_lexer_item	*items;
-}					t_sentence;
-
-t_sentence			*ft_pipes(t_lexer_item *items);
+void	cd_free(char **arr);
+int		ft_cd(t_my_env **my_env, char **args);
 
 #endif
