@@ -2,7 +2,7 @@
 #include "../../src/exec/exec.h"
 #include "../../src/minishell.h"
 
-void suite_setup(void) {
+void suite_setup_ambient(void) {
     redirect_stderr();
 }
 
@@ -43,7 +43,7 @@ Test(prepare_exec, test_redirect_input_from_file)
 }
 
 // Test case: Invalid file descriptor
-Test(prepare_exec, test_invalid_file_descriptor, .init=suite_setup, .fini=suite_teardown, .exit_code = 1)
+Test(prepare_exec, test_invalid_file_descriptor, .init=suite_setup_ambient, .fini=suite_teardown, .exit_code = 1)
 {
     char *filename = "/usr/src/app/__test/local/tmp/test_invalid_fd.txt";
     t_lexer_item input[] = {
@@ -57,7 +57,7 @@ Test(prepare_exec, test_invalid_file_descriptor, .init=suite_setup, .fini=suite_
 
 
 // Test case: Invalid file path
-Test(prepare_exec, test_invalid_file_path, .init=suite_setup, .fini=suite_teardown, .exit_code = 1)
+Test(prepare_exec, test_invalid_file_path, .init=suite_setup_ambient, .fini=suite_teardown, .exit_code = 1)
 {
     char *filename = "/invalid/path";
     t_lexer_item input[] = {
@@ -85,7 +85,7 @@ Test(prepare_exec, test_redirect_append_to_file) {
 }
 
 // Test case: Redirect output to a file with invalid path
-Test(prepare_exec, test_redirect_output_to_invalid_file, .init=suite_setup, .fini=suite_teardown, .exit_code = 1) {
+Test(prepare_exec, test_redirect_output_to_invalid_file, .init=suite_setup_ambient, .fini=suite_teardown, .exit_code = 1) {
     char      *filename = "/invalid/path/test_output.txt";
     t_lexer_item    input[] = {
         {.value = ">", .type = type_outfile, .fn = fn_output},
@@ -99,7 +99,7 @@ Test(prepare_exec, test_redirect_output_to_invalid_file, .init=suite_setup, .fin
 }
 
 // Test case: Redirect input from a file with invalid path
-Test(prepare_exec, test_redirect_input_from_invalid_file, .init=suite_setup, .fini=suite_teardown, .exit_code = 1) {
+Test(prepare_exec, test_redirect_input_from_invalid_file, .init=suite_setup_ambient, .fini=suite_teardown, .exit_code = 1) {
     char *filename = "/invalid/path/test_input.txt";
     t_lexer_item input[] = {
         {.value = "<", .type = type_infile, .fn = fn_input},
