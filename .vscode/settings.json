@@ -69,10 +69,10 @@
     "tuple": "c",
     "type_traits": "c",
     "utility": "c",
-    "minishell.h": "c",
-    "exec.h": "c",
-    "fcntl.h": "c",
+    "env.h": "c",
+    "export.h": "c",
     "sentences.h": "c",
-    "cerrno": "c"
+    "echo.h": "c",
+    "env_management.h": "c"
   }
 }

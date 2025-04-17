@@ -1,59 +1,53 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 15:30:53 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/09 15:31:13 by vide-sou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/*#include "./minishell.h"
 
-#include "./minishell.h"
-
-int	main(void)
-{/*
-	t_sentence		*result;
-	t_lexer_item	input[] = {
-		{.value = ">", .type = type_outfile, .fn = fn_output},
-		{.value = "local/tmp", .type = type_word, .fn = fn_null},
-		{.value = "cat", .type = type_word, .fn = fn_cmd},
-		{.value = "Makefile", .type = type_word, .fn = fn_null},
-		{.value = NULL}
-	};
-	result = ft_pipes((t_lexer_item *)input);
-	ft_prepare_exec(result);
-*/
-/*
-	char      *filename = "/home/vide-sou/projetos/pessoal/rank3/minishell/local/tmp/test_output.txt";
-    t_lexer_item    input[] = {
-		{.value = ">", .type = type_outfile, .fn = fn_output},
-		{.value = filename, .type = type_word, .fn = fn_null},
-		{.value = NULL}
-	};
-    t_sentence *sentence = ft_pipes((t_lexer_item *)input);
-    ft_use_redirects(sentence);
-    int result = access(filename, F_OK);
-*/
-char *heredoc_content = "test heredoc content\n";
-char *heredoc_delimiter = "EOF\n";
-t_lexer_item input[] = {
-	{.value = "<<", .type = type_infile, .fn = fn_heredoc},
-	{.value = heredoc_delimiter, .type = type_word, .fn = fn_null},
-	{.value = NULL}
-};
-t_sentence *sentence = ft_pipes((t_lexer_item *)input);
-
-int fd = fork();
-if (fd == 0)
+int main(int ac, char **av, char **env)
 {
-	ft_use_redirects(sentence);
-} else 
-{
-	fflush(0);
-	write(0, heredoc_content, strlen(heredoc_content));
-	write(0, heredoc_delimiter, strlen(heredoc_delimiter));
-	waitpid(fd, NULL, 0);
+    t_my_env *my_env = get_env(env);
+    char *input[] = {"echo", NULL};
+
+    char    *envv[] = {
+        "GDMSESSION=ubuntu",
+        "DISPLAY=:0",
+        "SHLVL=1",
+        "OLDPWD=/home/rpassos-",
+        "MAIL=rpassos-@student.42.rio",
+        NULL
+        };
+    t_my_env *my_env2 = get_env(envv);
+
+    char    *envv2[] = {
+        "unset",
+        "GDMSESSION",
+        "MAIL",
+        "OLDPWDA",
+        NULL
+        };
+
+
+    if (av[1] && (ft_strcmp(av[1], "env") == 0))
+        print_env(my_env2);
+    if (av[1] && (ft_strcmp(av[1], "export") == 0))
+    {   
+        ft_export(&my_env, av);
+        //ft_export(&my_env, param);
+        //print_env(my_env);
+    }
+    if (av[1] && (ft_strcmp(av[1], "unset") == 0))
+    {   
+        print_env(my_env2);
+        ft_unset(&my_env2, envv2);
+        printf("==========\n");
+        
+        print_env(my_env2);
+        //order(my_env);
+    }
+    if (av[1] && (ft_strcmp(av[1], "echo") == 0)) 
+ {
+    //       ft_echo(ac, av);  
+        ft_echo(1, input);
 }
+    ft_lstclear_env(&my_env); //lembrar de limpar a env na main pra nao dar leak
+    
+    return (ac);
 }
+*/
