@@ -69,10 +69,9 @@ static int	check_valid_name(char *word)
 		printf("export: `%s': not a valid identifier\n", word);
 		return (0);
 	}
-	while (word[index] != '\0')
+	while (word[index] != '\0' && word[index] != '=')
 	{
-		if (word[index] != '_' && word[index] != '='
-			&& !ft_isalnum(word[index]))
+		if (word[index] != '_' && !ft_isalnum(word[index]))
 		{
 			printf("export: `%s': not a valid identifier\n", word);
 			return (0);

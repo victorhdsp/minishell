@@ -48,7 +48,8 @@ Test(print_env, show_all_env_and_check_return, .init = redirect_all_stdout)
 	size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
 	output[bytes] = '\0';
 
-	//cr_assert_stdout_eq_str("GDMSESSION=ubuntu\nDISPLAY=:0\nSHLVL=1\nOLDPWD=/home/rpassos-\nMAIL=rpassos-@student.42.rio\n", "Não exibiu as variáveis da env");//PQ NAO FUNCIONA???
+	//PQ NAO FUNCIONA???
+	//cr_assert_stdout_eq_str("GDMSESSION=ubuntu\nDISPLAY=:0\nSHLVL=1\nOLDPWD=/home/rpassos-\nMAIL=rpassos-@student.42.rio\n", "Não exibiu as variáveis da env");
 	cr_assert(strstr(output, "GDMSESSION=ubuntu"), "GDMSESSION não está presente");
 	cr_assert(strstr(output, "DISPLAY=:0"), "DISPLAY não está presente");
 	cr_assert(strstr(output, "SHLVL=1"), "SHLVL não está presente");
@@ -400,7 +401,7 @@ Test(ft_export, existent_key_check_if_value_changes, .init = redirect_all_stdout
 
 	char		*param[] = {
 		"export",
-		"DISPLAY=CONTEUDO_ALTERADO", 
+		"DISPLAY=CONTEUDO+ALTERADO", 
 		NULL
 	};
 
@@ -415,7 +416,7 @@ Test(ft_export, existent_key_check_if_value_changes, .init = redirect_all_stdout
 	size_t bytes = fread(output, 1, sizeof(output) - 1, fp);
 	output[bytes] = '\0';
 
-	cr_assert(strstr(output, "DISPLAY=CONTEUDO_ALTERADO"), "A variável existente não foi sobrescrita");
+	cr_assert(strstr(output, "DISPLAY=CONTEUDO+ALTERADO"), "A variável existente não foi sobrescrita");
 
 }
 

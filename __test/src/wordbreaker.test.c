@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/31 09:11:34 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:56:48 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,17 @@ Test(wordbreaker, divide_with_escape) {
 Test(wordbreaker, divide_with_quotes_not_complete) {
     const char *input = "comando \"argumento não fechado";
     char *expected[] = {"comando", "argumento não fechado", NULL};
+    char **result = word_breaker(input);
+
+    cr_assert(result == 0);
+}
+
+// Divisão com aspas fechadas de forma incorreta:
+// Entrada: "comando \"argumento não fechado\'"
+// Saída esperada: NULL
+Test(wordbreaker, divide_with_quotes_closed_with_different_quote) {
+    const char *input = "comando \"argumento não fechado\'";
+    char *expected[] = {"comando", "argumento não fechado\'", NULL};
     char **result = word_breaker(input);
 
     cr_assert(result == 0);
