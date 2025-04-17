@@ -2,4 +2,6 @@
 /**/*.out
 /**/*.a
 minishell
+local/heredoc/*
+local/tmp/*
 ./test
