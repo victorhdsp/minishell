@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/18 03:04:33 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/18 07:20:06 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void    variable_traitement(t_lexer_item *args)
                 tmp = get_new_value(key + 1, args[index].value);
                 free(args[index].value);
                 args[index].value = tmp;
+                continue;
             }
         }
         index++;
