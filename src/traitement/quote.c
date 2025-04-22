@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/18 01:37:54 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:57:56 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void    quote_traitement(t_lexer_item *args)
         if (str[0] == '\'' || str[0] == '\"')
         {
             str_size = ft_strlen(str + 1) - 1;
-            tmp = ft_calloc(str_size, sizeof(char));
+            tmp = ft_calloc(str_size + 1, sizeof(char));
             ft_memmove(tmp, str + 1, str_size);
             free(args[index].value);
             args[index].value = tmp;
