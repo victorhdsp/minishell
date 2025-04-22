@@ -6,11 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 08:45:42 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:05:41 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "flow.h"
+#include "../env/env.h"
 
 t_system	get_system(t_system *new_system)
 {
@@ -63,4 +64,16 @@ char	*get_system_env(char *key)
 		index++;
 	}
 	return (result);
+}
+
+void	system_flow(char **env, char *name)
+{
+	t_system	new_system;
+	t_my_env	*list_env;
+
+	new_system.last_exit_status = -1;
+	new_system.name = name;
+	list_env = get_env(env);
+	new_system.env = get_env_arr(list_env);
+	get_system(&new_system);
 }
