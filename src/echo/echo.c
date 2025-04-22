@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:12 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/08 11:37:30 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:37:22 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	check_args(char **data, int *flag_beginning, int *index,
 	return (1);
 }
 
-int	ft_echo(int ac, char **data)
+int	ft_echo(char **data)
 {
 	int	flag_not_at_beginning;
 	int	flag_check;
@@ -63,7 +63,7 @@ int	ft_echo(int ac, char **data)
 	{
 		if (!check_args(data, &flag_not_at_beginning, &index, &flag_check))
 			break ;
-		if (index != ac - 1)
+		if (data[index + 1])
 			printf(" ");
 		index++;
 	}
