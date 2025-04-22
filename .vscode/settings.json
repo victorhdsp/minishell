@@ -77,6 +77,8 @@
     "criterion.h": "c",
     "stdio.h": "c",
     "unistd.h": "c",
-    "cd.h": "c"
+    "cd.h": "c",
+    "minishell.h": "c",
+    "flow.h": "c"
   }
 }
