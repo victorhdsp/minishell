@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 10:12:35 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:04:20 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	ft_exec_builtin(t_lexer_item *items)
 	int	index;
 
 	index = 0;
+	// Adicionar built-ins
 	while (items[index].value && items[index].fn != fn_cmd)
 		index++;
 	if (!items[index].value)
