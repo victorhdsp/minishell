@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:44:35 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/14 13:55:39 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:22:05 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/stat.h>
 
 void	cd_free(char **arr);
 int		ft_cd(t_my_env **my_env, char **args);

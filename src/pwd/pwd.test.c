@@ -198,6 +198,7 @@ Test(ft_pwd, functions_with_no_permission_dir, .init = redirect_all_stdout_pwd)
 
 	t_my_env	*my_env = get_env(env);
 
+	mkdir("test_no_permission", 0700);
 	ft_cd(&my_env, args_cd);
 	chmod("../test_no_permission", 000);
 	ft_pwd(&my_env, args);
