@@ -6,12 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:29:52 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 08:40:29 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 08:44:27 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AMBIENT_H
-# define AMBIENT_H
+#ifndef FLOW_H
+# define FLOW_H
 
 # include "../../include/libft/libft.h"
 
