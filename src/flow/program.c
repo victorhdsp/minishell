@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 10:05:06 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:41:04 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ int minishell_flow(char *cmd)
     quote_traitement(lexed_cmd);
     sentence_cmd = create_pipes(lexed_cmd);
     exec_command(sentence_cmd);
+    return(get_system(NULL).last_exit_status);
 }
