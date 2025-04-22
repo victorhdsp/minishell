@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/03 11:39:55 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:14:29 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ Test(pipes, identify_by_simple_words) {
         },
     };
 
-    t_sentence  *result = ft_pipes((t_lexer_item *)input);
+    t_sentence  *result = create_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
@@ -142,7 +142,7 @@ Test(pipes, identify_by_pipe) {
         },
     };
 
-    t_sentence  *result = ft_pipes((t_lexer_item *)input);
+    t_sentence  *result = create_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
@@ -179,7 +179,7 @@ Test(pipes, identify_by_pipe_and_logical_operator) {
         },
     };
 
-    t_sentence  *result = ft_pipes((t_lexer_item *)input);
+    t_sentence  *result = create_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
@@ -202,7 +202,7 @@ Test(pipes, identify_by_output) {
         { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL},
     };
 
-    t_sentence  *result = ft_pipes((t_lexer_item *)input);
+    t_sentence  *result = create_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
@@ -225,7 +225,7 @@ Test(pipes, identify_by_input) {
         { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_lexer_item *)input);
+    t_sentence  *result = create_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
@@ -250,7 +250,7 @@ Test(pipes, identify_by_input_and_output) {
         { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_lexer_item *)input);
+    t_sentence  *result = create_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
@@ -282,7 +282,7 @@ Test(pipes, identify_by_input_output_and_pipes) {
         { .infile = STDIN_FILENO, .outfile = STDOUT_FILENO, .args = NULL },
     };
 
-    t_sentence  *result = ft_pipes((t_lexer_item *)input);
+    t_sentence  *result = create_pipes((t_lexer_item *)input);
     ft_assert_pipes(result, expected);
 }
 
