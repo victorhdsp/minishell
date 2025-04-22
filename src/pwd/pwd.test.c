@@ -24,6 +24,14 @@ void	redirect_all_stdout_pwd(void)
 	cr_redirect_stderr();
 }
 
+//remover a pasta do docker pós execução do teste
+void cleanup_deleted_dir(void)
+{
+	chdir("..");
+	rmdir("pasta_deletada");
+}
+
+
 Test(ft_pwd, functions_with_no_args, .init = redirect_all_stdout_pwd)
 {
 	char		*env[] = {
@@ -131,7 +139,7 @@ Test(ft_pwd, functions_with_modified_pwd, .init = redirect_all_stdout_pwd)
 	cr_assert_stdout_eq_str("/usr/src/app/__test\n", "Retorno PWD alterada\n");
 }
 
-Test(ft_pwd, functions_with_deleted_dir, .init = redirect_all_stdout_pwd)
+Test(ft_pwd, functions_with_deleted_dir, .init = redirect_all_stdout_pwd, .fini = cleanup_deleted_dir)
 {
 	char		*env[] = {
 		"HOME=/root",
