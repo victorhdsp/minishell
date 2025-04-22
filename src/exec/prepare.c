@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/09 13:53:18 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:44:47 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	ft_save_redirects(t_sentence *sentence, int index, int fd)
 		sentence->outfile = fd;
 }
 
-void	ft_use_redirects(t_sentence *sentence)
+void	prepare_redirects(t_sentence *sentence)
 {
 	int				fd;
 	int				index;
@@ -93,13 +93,4 @@ void	ft_use_redirects(t_sentence *sentence)
 		fd = -1;
 		index++;
 	}
-}
-
-void	ft_check_cmd_path(t_lexer_item *items)
-{
-	int	index;
-
-	index = 0;
-	while (items[index].value && items[index].fn != fn_cmd)
-		index++;
 }
