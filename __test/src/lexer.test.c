@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/31 09:11:06 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:46:26 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,29 @@ Test(lexer, divide_with_simple_quotes) {
         { .value = "-e", .type = type_word, .fn = fn_null },
         { .value = "|", .type = type_logic, .fn = fn_pipe },
         { .value = "ls", .type = type_word, .fn = fn_null },
+        { .value = NULL }
+    };
+    
+    t_lexer_item *result = lexer((char **)input);
+
+    ft_assert_lexer_list(result, expected);
+    ft_free_lexer_list(result);
+}
+
+
+// ["cat", "echo", ">", "ls", "grep", ">", "find", "k"]
+Test(lexer, divide_with_special_caracter_no_quotes) {
+    char *input[] = {"cat", "echo", ">", "ls", "grep", ">", "find", "k", NULL};
+
+    t_lexer_item expected[] = {
+        { .value = "cat", .type = type_word, .fn = fn_null },
+        { .value = "echo", .type = type_word, .fn = fn_null },
+        { .value = ">", .type = type_outfile, .fn = fn_output },
+        { .value = "ls", .type = type_word, .fn = fn_null },
+        { .value = "grep", .type = type_word, .fn = fn_null },
+        { .value = ">", .type = type_outfile, .fn = fn_output },
+        { .value = "find", .type = type_word, .fn = fn_null },
+        { .value = "k", .type = type_word, .fn = fn_null },
         { .value = NULL }
     };
     

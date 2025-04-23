@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 15:18:01 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:42:05 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,17 @@ Test(wordbreaker, divide_with_only_space) {
 Test(wordbreaker, divide_with_simple_quotes) {
     const char *input = "tr '' ',' | cat -e | ls";
     char *expected[] = {"tr", "''", "','", "|", "cat", "-e", "|", "ls", NULL};
+    char **result = word_breaker(input);
+
+    ft_assert_str_list(result, expected);
+    ft_free_str_list(result);
+}
+
+//> cat echo > ls grep > find k
+// Saída esperada: ["cat", "echo", ">", "ls", "grep", ">", "find", "k"]
+Test(wordbreaker, divide_with_special_caracter_no_quotes) {
+    const char *input = "cat echo > ls grep > find k";
+    char *expected[] = {"cat", "echo", ">", "ls", "grep", ">", "find", "k", NULL};
     char **result = word_breaker(input);
 
     ft_assert_str_list(result, expected);
