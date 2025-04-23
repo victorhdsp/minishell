@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 11:55:18 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:30:53 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 	char	**path_var_items;
 	int		index;
 
-	result = NULL;
 	path_var = get_system_env("PATH");
 	path_var_items = ft_split(path_var, ':');
 	index = 0;
@@ -38,7 +37,8 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 		free(result);
 		index++;
 	}
-	printf("%s: command not found\n", (char *)(*items).value);
+	if ((*items).value)
+		printf("%s: command not found\n", (char *)(*items).value);
 	return (NULL);
 }
 
