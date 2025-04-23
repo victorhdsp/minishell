@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 12:59:36 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:29:37 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_exec_command_child(t_sentence sentence)
 	if (result >= 0)
 		exit(result);
 	cmd = ft_get_extern_cmd(sentence.items);
-	if (cmd)
+	if (cmd && cmd[0])
 		set_system_exit_status(execve(cmd, sentence.args, system.env));
 	exit(EXIT_FAILURE);
 }
@@ -36,10 +36,10 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 {
 	int		pid;
 
+	prepare_redirects(&sentences[index]);
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);
-	prepare_redirects(&sentences[index]);
 	if (pid == 0)
 	{
 		if (index != size - 1 && sentences[index].outfile == STDOUT_FILENO)
