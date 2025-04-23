@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:15:31 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 11:39:41 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 13:38:30 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../env/env.h"
 #include "../cd/cd.h"
 
+// Add save in ambient variable
 int export_builtin(char **args)
 {
     t_system    system;
