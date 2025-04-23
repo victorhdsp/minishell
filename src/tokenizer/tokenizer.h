@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 09:12:50 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/01 11:12:49 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 13:30:22 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ enum							e_type_sentence_item
 	type_outfile,
 	type_logic,
 	type_parenthesis,
-	type_word
+	type_word,
+	type_null
 };
 
 enum							e_fn_sentence_item
@@ -41,7 +42,8 @@ enum							e_fn_sentence_item
 
 typedef struct s_lexer_item
 {
-	void						*value;
+	char						*value;
+	int							fd;
 	enum e_type_sentence_item	type;
 	enum e_fn_sentence_item		fn;
 }								t_lexer_item;

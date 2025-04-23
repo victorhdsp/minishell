@@ -6,68 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 11:51:35 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:06:16 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "exec.h"
-
-static char	*ft_get_extern_cmd(t_lexer_item *items)
-{
-	char	*path_var;
-	char	*result;
-	char	*tmp;
-	char	**path_var_items;
-	int		index;
-
-	result = NULL;
-	path_var = get_system_env("PATH");
-	path_var_items = ft_split(path_var, ':');
-	index = 0;
-	while (items[index].value && items[index].fn != fn_cmd)
-		items++;
-	index = 0;
-	while (path_var_items[index] && (*items).value)
-	{
-		tmp = ft_strjoin(path_var_items[index], "/");
-		result = ft_strjoin(tmp, (*items).value);
-		free(tmp);
-		if (access(result, R_OK) == 0)
-			return (result);
-		free(result);
-		index++;
-	}
-	printf("%s: command not found\n", (char *)(*items).value);
-	return (NULL);
-}
-
-static int	ft_exec_builtin(t_lexer_item *items, char **args)
-{
-	int	index;
-
-	index = 0;
-	// Adicionar built-ins
-	while (items[index].value && items[index].fn != fn_cmd)
-		index++;
-	if (!items[index].value)
-		return (-1);
-	if (!ft_strncmp(items[index].value, "echo", 4))
-		return (ft_echo(args));
-	else if (!ft_strncmp(items[index].value, "cd", 2))
-		return (cd_builtin(args));
-	else if (!ft_strncmp(items[index].value, "pwd", 3))
-		return (0);
-	else if (!ft_strncmp(items[index].value, "export", 6))
-		return (export_builtin(args));
-	else if (!ft_strncmp(items[index].value, "unset", 5))
-		return (unset_builtin(args));
-	else if (!ft_strncmp(items[index].value, "env", 3))
-		return (env_builtin());
-	else if (!ft_strncmp(items[index].value, "exit", 4))
-		return (0);
-	return (-1);
-}
 
 static void	ft_exec_command_child(t_sentence sentence)
 {
@@ -114,6 +58,31 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 	}
 }
 
+static void	free_exec(t_sentence *sentences, int **tube)
+{
+	int	sent_index;
+	int	item_index;
+
+	sent_index = 0;
+	item_index = 0;
+	while (sentences[sent_index].args)
+	{
+		while (sentences[sent_index].items[item_index].value)
+		{
+			if (sentences[sent_index].items[item_index].type == type_infile
+				|| sentences[sent_index].items[item_index].type == type_outfile)
+				close(*(int *)sentences[sent_index].items[item_index].value);
+			item_index++;
+		}
+		free(sentences[sent_index].items);
+		free(sentences[sent_index].args);
+		free(tube[sent_index]);
+		sent_index++;
+	}
+	free(sentences);
+	free(tube);
+}
+
 void	exec_command(t_sentence *sentences)
 {
 	int	index;
@@ -140,4 +109,5 @@ void	exec_command(t_sentence *sentences)
 	}
 	close(tube[index - 1][0]);
 	close(tube[index - 1][1]);
+	free_exec(sentences, tube);
 }

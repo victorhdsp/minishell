@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 18:39:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 13:33:48 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_redirect(t_lexer_item *cmds, int index, int *result)
 	if (cmds[index].type == type_infile || cmds[index].type == type_outfile)
 	{
 		if (cmds[index + 1].type != type_word)
-			*result = index + 2;
+			*result = index + 1;
 	}
 }
 
