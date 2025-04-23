@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 09:44:47 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:55:52 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	ft_heredoc(char *exit)
 
 static void	ft_save_redirects(t_sentence *sentence, int index, int fd)
 {
-	sentence->items[index + 1].value = &fd;
+	sentence->items[index + 1].fd = fd;
 	if (sentence->items[index].type == type_infile)
 		sentence->infile = fd;
 	if (sentence->items[index].type == type_outfile)
