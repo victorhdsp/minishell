@@ -9,8 +9,8 @@ int main(int ac, char **av, char **env)
     (void) ac;
     (void) av;
     system_flow(env, "minishell");
-    cmd = readline("minishel: ");
-    //cmd = ft_strdup("ls");
+    //cmd = readline("minishel: ");
+    cmd = ft_strdup("ls | cat -e | cat -e | cat -e > c");
     minishell_flow(cmd);
     return (0);
 }

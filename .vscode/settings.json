@@ -80,6 +80,7 @@
     "cd.h": "c",
     "minishell.h": "c",
     "flow.h": "c",
-    "exec.h": "c"
+    "exec.h": "c",
+    "traitement.h": "c"
   }
 }

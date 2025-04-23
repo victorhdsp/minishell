@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 11:04:20 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:51:35 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ft_get_extern_cmd(t_lexer_item *items)
 	return (NULL);
 }
 
-static int	ft_exec_builtin(t_lexer_item *items)
+static int	ft_exec_builtin(t_lexer_item *items, char **args)
 {
 	int	index;
 
@@ -53,17 +53,17 @@ static int	ft_exec_builtin(t_lexer_item *items)
 	if (!items[index].value)
 		return (-1);
 	if (!ft_strncmp(items[index].value, "echo", 4))
-		return (0);
+		return (ft_echo(args));
 	else if (!ft_strncmp(items[index].value, "cd", 2))
-		return (0);
+		return (cd_builtin(args));
 	else if (!ft_strncmp(items[index].value, "pwd", 3))
 		return (0);
 	else if (!ft_strncmp(items[index].value, "export", 6))
-		return (0);
+		return (export_builtin(args));
 	else if (!ft_strncmp(items[index].value, "unset", 5))
-		return (0);
+		return (unset_builtin(args));
 	else if (!ft_strncmp(items[index].value, "env", 3))
-		return (0);
+		return (env_builtin());
 	else if (!ft_strncmp(items[index].value, "exit", 4))
 		return (0);
 	return (-1);
@@ -78,60 +78,66 @@ static void	ft_exec_command_child(t_sentence sentence)
 	cmd = NULL;
 	system = get_system(NULL);
 	prepare_redirects(&sentence);
-	dup2(sentence.infile, STDIN_FILENO);
 	dup2(sentence.outfile, STDOUT_FILENO);
-	result = ft_exec_builtin(sentence.items);
+	dup2(sentence.infile, STDIN_FILENO);
+	result = ft_exec_builtin(sentence.items, sentence.args);
 	if (result >= 0)
 		exit(result);
 	cmd = ft_get_extern_cmd(sentence.items);
 	if (cmd)
-		result = execve(cmd, sentence.args, system.env);
+		set_system_exit_status(execve(cmd, sentence.args, system.env));
 	exit(EXIT_FAILURE);
 }
 
-static void	finish_command(int	*pid, t_sentence *sentence)
+static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int size)
 {
-	int				sent_index;
-	int				item_index;
-	t_lexer_item	item;
+	int		pid;
 
-	sent_index = 0;
-	while (sentence[sent_index].args)
+	pid = fork();
+	if (pid < 0)
+		exit(EXIT_FAILURE);
+	if (pid == 0)
 	{
-		waitpid(pid[sent_index], NULL, 0);
-		item_index = 0;
-		while (sentence[sent_index].items[item_index].value)
-		{
-			item = sentence[sent_index].items[item_index];
-			if (item.type == type_infile || item.type == type_outfile)
-				close(*(int *)item.value);
-			item_index++;
-		}
-		sent_index++;
+		if (index != size - 1 && sentences[index].outfile == STDOUT_FILENO)
+			sentences[index].outfile = tube[index][1];
+		if (index != 0 && sentences[index].infile == STDIN_FILENO)
+			sentences[index].infile = tube[index - 1][0];
+		ft_exec_command_child(sentences[index]);
+	}
+	else
+	{
+		if (index != 0)
+			close(tube[index - 1][0]);
+		if (index != size - 1)
+			close(tube[index][1]);
+		waitpid(pid, NULL, 0);
 	}
 }
 
-void	exec_command(t_sentence *sentence)
+void	exec_command(t_sentence *sentences)
 {
 	int	index;
-	int	*pid;
+	int	size;
+	int	**tube;
 
+	size = 0;
+	while (sentences[size].args)
+		size++;
+	tube = ft_calloc(size, sizeof(int *));
 	index = 0;
-	while (sentence[index].args)
-		index++;
-	pid = ft_calloc(index + 1, sizeof(int));
-	index = 0;
-	while (sentence[index].args)
+	while (index < size)
 	{
-		pid[index] = fork();
-		if (pid[index] < 0)
-		{
-			ft_putstr_fd("unexpected error on create child process", 2);
+		tube[index] = ft_calloc(2, sizeof(int));
+		if (pipe(tube[index]) == -1)
 			exit(EXIT_FAILURE);
-		}
-		if (pid[index] == 0)
-			ft_exec_command_child(sentence[index]);
 		index++;
 	}
-	finish_command(pid, sentence);
+	index = 0;
+	while (sentences[index].args)
+	{
+		prepare_child(sentences, tube, index, size);
+		index++;
+	}
+	close(tube[index - 1][0]);
+	close(tube[index - 1][1]);
 }
