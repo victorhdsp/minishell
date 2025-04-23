@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 15:28:49 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:14:14 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "./env_management/env_management.h"
 #include "./echo/echo.h"
 #include "./cd/cd.h"
+#include "./pwd/pwd.h"
 #include "./ambient/ambient.h"
 //#include <readline/readline.h>
 //#include <readline/history.h>

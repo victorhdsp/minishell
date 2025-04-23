@@ -146,6 +146,7 @@ Test(ft_cd, cd_enter_dir_on_present_dir)
 	};
 
 	t_my_env	*my_env = get_env(env);
+	mkdir("testando", 0700);
 	int ret = ft_cd(&my_env, args);
 
 	cr_assert(0 == ret, "Error cd ./testando");
