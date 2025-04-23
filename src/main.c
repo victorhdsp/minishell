@@ -1,32 +1,32 @@
 #include "./minishell.h"
+#include "./traitement/traitement.h"
 
 int main(int ac, char **av, char **env)
 {
-    t_my_env *my_env = get_env(env);
-    char *input[] = {"echo", NULL};
+    /*char *input = "\"comando\" \"$PATH\"";
+    char **breaked = word_breaker(input);
 
-    char    *envv[] = {
-        "GDMSESSION=ubuntu",
-        "DISPLAY=:0",
-        "SHLVL=1",
-        "OLDPWD=/home/rpassos-",
-        "MAIL=rpassos-@student.42.rio",
-        NULL
-        };
-    t_my_env *my_env2 = get_env(envv);
-
+    t_lexer_item *lexed = lexer(breaked);
+    variable_traitement(lexed);
+    quote_traitement(lexed);*/
+    t_system system;
+    system.name = "victor";
+    system.last_exit_status = 0;
+    system.env = env;
+    get_system(&system);
+  
     char    *envv2[] = {
-        "unset",
-        "GDMSESSION",
-        "MAIL",
-        "OLDPWDA",
-        NULL
-        };
+      "unset",
+      "GDMSESSION",
+      "MAIL",
+      "OLDPWDA",
+      NULL
+    };
 
-    char *args_pwd[] = {
-		"pwd",
-		NULL
-	};
+      char *args_pwd[] = {
+      "pwd",
+      NULL
+    };
 
 
     if (av[1] && (ft_strcmp(av[1], "env") == 0))
