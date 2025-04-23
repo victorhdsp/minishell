@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 12:06:16 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:59:36 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	ft_exec_command_child(t_sentence sentence)
 
 	cmd = NULL;
 	system = get_system(NULL);
-	prepare_redirects(&sentence);
 	dup2(sentence.outfile, STDOUT_FILENO);
 	dup2(sentence.infile, STDIN_FILENO);
 	result = ft_exec_builtin(sentence.items, sentence.args);
@@ -40,6 +39,7 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);
+	prepare_redirects(&sentences[index]);
 	if (pid == 0)
 	{
 		if (index != size - 1 && sentences[index].outfile == STDOUT_FILENO)
@@ -58,28 +58,18 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 	}
 }
 
-static void	free_exec(t_sentence *sentences, int **tube)
+static void	free_tubes(int size, int **tube)
 {
-	int	sent_index;
-	int	item_index;
+	int	index;
 
-	sent_index = 0;
-	item_index = 0;
-	while (sentences[sent_index].args)
+	index = 0;
+	while (index < size)
 	{
-		while (sentences[sent_index].items[item_index].value)
-		{
-			if (sentences[sent_index].items[item_index].type == type_infile
-				|| sentences[sent_index].items[item_index].type == type_outfile)
-				close(*(int *)sentences[sent_index].items[item_index].value);
-			item_index++;
-		}
-		free(sentences[sent_index].items);
-		free(sentences[sent_index].args);
-		free(tube[sent_index]);
-		sent_index++;
+		close(tube[index][0]);
+		close(tube[index][1]);
+		free(tube[index]);
+		index++;
 	}
-	free(sentences);
 	free(tube);
 }
 
@@ -107,7 +97,5 @@ void	exec_command(t_sentence *sentences)
 		prepare_child(sentences, tube, index, size);
 		index++;
 	}
-	close(tube[index - 1][0]);
-	close(tube[index - 1][1]);
-	free_exec(sentences, tube);
+	free_tubes(size, tube);
 }
