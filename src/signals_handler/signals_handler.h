@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readline.c                                         :+:      :+:    :+:   */
+/*   signals_handler.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/24 12:11:52 by rpassos-         ###   ########.fr       */
+/*   Created: 2025/04/24 11:18:23 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/24 12:50:30 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "my_readline.h"
-#include "../signals_handler/signals_handler.h"
+#ifndef SIGNALS_HANDLER_H
+# define SIGNALS_HANDLER_H
 
-void	read_entrys(void)
-{
-	char	*line;
-	
-	signal_handler();
-	while(1)
-	{
-		line = readline("minishell$: ");
-		if (line == NULL)
-		{
-			printf("exit\n");
-			exit(0);
-		}
-		add_history(line);
-		printf("%s\n", line);
-		//começa a executar a cadeia de comandos
-		free(line);
-	}
-}
+#include <signal.h>
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+void signal_handler(void);
+
+#endif
