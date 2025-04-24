@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 11:25:06 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/24 10:55:51 by rpassos-         ###   ########.fr       */
+/*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/24 10:54:44 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#include "my_readline.h"
 
-# include "../../include/libft/libft.h"
-# include "../env/env.h"
-# include "../env_management/env_management.h"
-# include <stdio.h>
-# include <stdlib.h>
-
-int	ft_echo(char **data);
-
-#endif
+void	read_entrys(void)
+{
+	char	*line;
+	
+	//signal_handler();
+	while(1)
+	{
+		line = readline("minishell$: ");
+		if (line == NULL)
+			exit(0);
+		add_history(line);
+		printf(line);
+		//começa a executar a cadeia de comandos
+		free(line);
+	}
+}
