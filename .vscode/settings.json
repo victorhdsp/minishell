@@ -81,6 +81,7 @@
     "minishell.h": "c",
     "flow.h": "c",
     "exec.h": "c",
-    "traitement.h": "c"
+    "traitement.h": "c",
+    "stat.h": "c"
   }
 }
