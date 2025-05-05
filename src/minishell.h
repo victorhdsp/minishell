@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 11:31:57 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:35:12 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "./env_management/env_management.h"
 #include "./echo/echo.h"
 #include "./cd/cd.h"
-#include "./flow/flow.h"
-#include "./builtin/builtin.h"
+#include "./ambient/ambient.h"
+//#include <readline/readline.h>
 //#include <readline/history.h>
 //#include <term.h>
 # include <dirent.h>
