@@ -2,7 +2,7 @@ FROM debian:12-slim
 
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y gcc libcriterion-dev inotify-tools build-essential
+RUN apt-get update && apt-get install -y gcc libcriterion-dev inotify-tools build-essential libreadline-dev 
 
 COPY . /usr/src/app
 
