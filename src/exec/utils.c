@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 16:30:53 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 15:55:27 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ int		ft_exec_builtin(t_lexer_item *items, char **args)
 	else if (!ft_strncmp(items[index].value, "env", 3))
 		return (env_builtin());
 	else if (!ft_strncmp(items[index].value, "exit", 4))
-		return (0);
+		exit(EXIT_SUCCESS);
 	return (-1);
 }
