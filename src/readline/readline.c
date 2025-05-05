@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 17:04:28 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:20:01 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "my_readline.h"
 #include "../signals_handler/signals_handler.h"
-#include "../ambient/ambient.h"
+#include "../flow/flow.h"
 
 char	*set_prompt()
 {
