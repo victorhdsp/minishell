@@ -6,114 +6,89 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/03 12:06:40 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:04:36 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "exec.h"
 
-static char	*ft_get_extern_cmd(t_lexer_item *items)
+static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
 {
-	char	*path_var;
-	char	*result;
-	char	*tmp;
-	char	**path_var_items;
-	int		index;
-
-	result = NULL;
-	path_var = "/home/vide-sou/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/vide-sou/.local/bin";
-	// Substituir por uma "get_path" ou algo nesse sentido.
-	path_var_items = ft_split(path_var, ':');
-	index = 0;
-	while (items[index].value && items[index].fn != fn_cmd)
-		items++;
-	index = 0;
-	while (path_var_items[index] && (*items).value)
-	{
-		tmp = ft_strjoin(path_var_items[index], "/");
-		result = ft_strjoin(tmp, (*items).value);
-		free(tmp);
-		if (access(result, R_OK) == 0)
-			return (result);
-		free(result);
-		index++;
-	}
-	return (NULL);
-}
-
-static int	ft_exec_builtin(t_lexer_item *items)
-{
-	int	index;
-
-	index = 0;
-	while (items[index].value && items[index].fn != fn_cmd)
-		index++;
-	if (!items[index].value)
-		return (-1);
-	if (!ft_strncmp(items[index].value, "echo", 4))
-		return (0);
-	else if (!ft_strncmp(items[index].value, "cd", 2))
-		return (0);
-	else if (!ft_strncmp(items[index].value, "pwd", 3))
-		return (0);
-	else if (!ft_strncmp(items[index].value, "export", 6))
-		return (0);
-	else if (!ft_strncmp(items[index].value, "unset", 5))
-		return (0);
-	else if (!ft_strncmp(items[index].value, "env", 3))
-		return (0);
-	else if (!ft_strncmp(items[index].value, "exit", 4))
-		return (0);
-	return (-1);
-}
-
-static void	ft_prepare_exec_child(t_sentence sentence)
-{
-	int		result;
-	char	*cmd;
-	char	**env;
+	int			result;
+	char		*cmd;
+	t_system	system;
+	int			index;
 
 	cmd = NULL;
-	env = ft_calloc(1, sizeof(char *));
-		// Substituir por uma "get_env" ou algo nesse sentido.
-	ft_use_redirects(&sentence);
+	system = get_system(NULL);
+	cmd = ft_get_extern_cmd(sentence.items);
 	dup2(sentence.infile, STDIN_FILENO);
 	dup2(sentence.outfile, STDOUT_FILENO);
-	result = ft_exec_builtin(sentence.items);
-	if (result >= 0)
-		exit(result);
-	cmd = ft_get_extern_cmd(sentence.items);
-	if (cmd)
-		result = execve(cmd, sentence.args, env);
-	exit(EXIT_SUCCESS);
+	index = 0;
+	while (index <= size)
+	{
+		close(tube[index][0]);
+		close(tube[index][1]);
+		index++;
+	}
+	if (cmd && cmd[0])
+		set_system_exit_status(execve(cmd, sentence.args, system.env));
+	exit(EXIT_FAILURE);
 }
 
-void	ft_prepare_exec(t_sentence *sentence)
+static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int size)
 {
-	int	index;
-	int	*pid;
+	pid_t		pid;
+	int			result;
+	prepare_redirects(&sentences[index]);
+	
+	pid = fork();
+	if (pid < 0)
+		exit(EXIT_FAILURE);
+	if (pid == 0)
+	{
+		if (index < size - 1 && sentences[index].outfile == STDOUT_FILENO)
+			sentences[index].outfile = tube[index][1];
+		else if (index > 0 && sentences[index].infile == STDIN_FILENO)
+			sentences[index].infile = tube[index - 1][0];
+		ft_exec_command_child(sentences[index], tube, index);
+	}
+	else if (index > 0)
+	{
+		result = ft_exec_builtin(sentences[index].items, sentences[index].args);
+		if (result >= 0)
+			set_system_exit_status(result);
+		close(tube[index - 1][0]);
+		close(tube[index - 1][1]);
+	}
+}
 
+void	exec_command(t_sentence *sentences)
+{
+	int		index;
+	int		size;
+	int		**tube;
+
+	size = 0;
+	while (sentences[size].args)
+		size++;
+	tube = ft_calloc(size, sizeof(int *));
 	index = 0;
-	while (sentence[index].args)
-		index++;
-	pid = ft_calloc(index + 1, sizeof(int));
-	index = 0;
-	while (sentence[index].args)
+	while (tube && index < size)
 	{
-		pid[index] = fork();
-		if (pid[index] < 0)
-		{
-			ft_putstr_fd("unexpected error on create child process", 2);
+		tube[index] = ft_calloc(2, sizeof(int));
+		if (pipe(tube[index]) == -1)
 			exit(EXIT_FAILURE);
-		}
-		if (pid[index] != 0)
-			ft_prepare_exec_child(sentence[index]);
+		prepare_child(sentences, tube, index, size);
 		index++;
 	}
-	while (sentence[index].args)
+	index = 0;
+	while (index < size)
 	{
-		waitpid(pid[index], NULL, 0);
+		wait(NULL);
+		free(tube[index]);
 		index++;
 	}
+	free(tube);
 }

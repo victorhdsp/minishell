@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:50:05 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 14:53:01 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:01:57 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*ft_correct_path(char *path)
 	char	*result;
 	char	*tmp;
 
+	//Corrigir essa porra
 	tmp = ft_calloc(100, sizeof(char));
 	getcwd(tmp, 100);
 	if (path[0] == '/')

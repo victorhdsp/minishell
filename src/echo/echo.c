@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:12 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/17 19:03:42 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:39:43 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	check_args(char **data, int *flag_beginning, int *index,
 	return (1);
 }
 
-int	ft_echo(int ac, char **data)
+int	ft_echo(char **data)
 {
 	int	flag_not_at_beginning;
 	int	flag_check;
@@ -67,7 +67,7 @@ int	ft_echo(int ac, char **data)
 	{
 		if (!check_args(data, &flag_not_at_beginning, &index, &flag_check))
 			break ;
-		if (index != args - 1)
+		if (data[index + 1])
 			printf(" ");
 		index++;
 	}

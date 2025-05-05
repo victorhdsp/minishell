@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 18:39:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 13:30:46 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void	ft_identify_item(char *str, t_lexer_item *item)
 	item->value = str;
 	item->fn = fn_null;
 	item->type = type_word;
+	item->fd = -1;
 	ft_identify_redirect(str, item, len);
 	ft_identify_groups(str, item, len);
 }
@@ -94,6 +95,7 @@ t_lexer_item	*lexer(char **strs)
 	}
 	result[index].value = NULL;
 	result[index].fn = fn_null;
-	result[index].type = type_word;
+	result[index].type = type_null;
+	result[index].fd = -1;
 	return (result);
 }

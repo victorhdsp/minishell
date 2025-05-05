@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.h                                              :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 17:12:04 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 16:40:53 by rpassos-         ###   ########.fr       */
+/*   Created: 2025/04/08 11:24:26 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/22 11:31:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-#ifndef PWD_H
-# define PWD_H
-
-#include "../flow/flow.h"
-#include "../env_management/env_management.h"
-# include <unistd.h>
-# include <stdio.h>
-#include <sys/stat.h> 
-
-void    ft_pwd(t_my_env **my_env, char **args);
+int     export_builtin(char **args);
+int     unset_builtin(char **args);
+int     env_builtin();
+int     cd_builtin(char **args);
 
 #endif

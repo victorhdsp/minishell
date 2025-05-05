@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.h                                              :+:      :+:    :+:   */
+/*   ambient_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 17:12:04 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 16:40:53 by rpassos-         ###   ########.fr       */
+/*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
+/*   Updated: 2025/05/05 16:14:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef PWD_H
-# define PWD_H
-
-#include "../flow/flow.h"
+#include "flow.h"
+#include "../env/env.h"
 #include "../env_management/env_management.h"
-# include <unistd.h>
-# include <stdio.h>
-#include <sys/stat.h> 
 
-void    ft_pwd(t_my_env **my_env, char **args);
+void	free_all_system(void)
+{
+	t_system	system;
 
-#endif
+	system = get_system(NULL);
+	if (system.env)
+		ft_clean_arr(system.env);
+	if (system.name)
+		free(system.name);
+}
