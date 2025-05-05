@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambient.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 17:32:05 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:34:40 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_system_exit_status(int exit_status)
 	get_system(&new_system);
 }
 
-void	set_system_name_status(char *name)
+void	set_system_name(char *name)
 {
 	t_system	new_system;
 

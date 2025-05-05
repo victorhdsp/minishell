@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flow.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:29:52 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 17:32:01 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:34:46 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct      s_system
 
 t_system    get_system(t_system *new_system);
 void        set_system_exit_status(int exit_status);
-void        set_system_name_status(char *name);
+void        set_system_name(char *name);
 void        set_system_env(char **env);
 char        *get_system_env(char *key);
 void        free_all_system(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 17:20:01 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:48:28 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,24 @@
 #include "../signals_handler/signals_handler.h"
 #include "../flow/flow.h"
 
-char	*set_prompt()
+void	set_prompt()
 {
 	char	*pwd;
 	char	*user;
 	char	*result;
+	char 	*tmp;
 
 	user = get_system_env("USER");
 	pwd = get_system_env("PWD");
 	result = ft_strnstr(pwd, user, ft_strlen(pwd));
 	if (!result)
-		return (pwd);
-	return (result);
+		result = pwd;
+	tmp = ft_strjoin(":~", result);
+	result = ft_strjoin(user, tmp);
+	set_system_name(result);
+	free(tmp);
+	free(user);
+	free(pwd);
 }
 
 void	read_entrys(void)
