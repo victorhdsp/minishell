@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:15:31 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 16:04:34 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:14:55 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int export_builtin(char **args)
     system = get_system(NULL);
     list_env = get_env(system.env);
     result = ft_export(&list_env, args);
+    arr_env = get_env_arr(list_env);
     set_system_env(arr_env);
     return (result);
 }
@@ -67,6 +68,7 @@ int cd_builtin(char **args)
     system = get_system(NULL);
     list_env = get_env(system.env);
     result = ft_cd(&list_env, args);
+    arr_env = get_env_arr(list_env);
     set_system_env(arr_env);
     return (result);
 }

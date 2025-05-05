@@ -80,6 +80,7 @@
     "cd.h": "c",
     "signal.h": "c",
     "flow.h": "c",
-    "signals_handler.h": "c"
+    "signals_handler.h": "c",
+    "my_readline.h": "c"
   }
 }

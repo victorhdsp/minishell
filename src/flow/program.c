@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 13:30:29 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:38:56 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,20 @@ void	system_flow(char **env, char *name)
 {
 	t_system	new_system;
 	t_my_env	*list_env;
+    char        *username;
 
 	new_system.last_exit_status = -1;
 	new_system.name = name;
+    new_system.username = ft_strdup("user");;
 	list_env = get_env(env);
 	new_system.env = get_env_arr(list_env);
 	get_system(&new_system);
+    username = get_system_env("USER");
+    if (username)
+    {
+        new_system.username = username;
+        get_system(&new_system);
+    }
     ft_lstclear_env(&list_env);
 }
 

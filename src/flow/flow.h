@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:29:52 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 17:34:46 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:27:18 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct      s_system
 	char            *name;
     int             last_exit_status;
     char            **env;
+    char            *username;
 }					t_system;
 
 t_system    get_system(t_system *new_system);

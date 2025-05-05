@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 15:55:27 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:50:50 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		ft_exec_builtin(t_lexer_item *items, char **args)
 	else if (!ft_strncmp(items[index].value, "cd", 2))
 		return (cd_builtin(args));
 	else if (!ft_strncmp(items[index].value, "pwd", 3))
-		return (0);
+		return (ft_pwd());
 	else if (!ft_strncmp(items[index].value, "export", 6))
 		return (export_builtin(args));
 	else if (!ft_strncmp(items[index].value, "unset", 5))

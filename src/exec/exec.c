@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 16:04:36 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:02:52 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 	int			result;
 	prepare_redirects(&sentences[index]);
 	
+	result = ft_exec_builtin(sentences[index].items, sentences[index].args);
+	if (result >= 0)
+		set_system_exit_status(result);
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);
@@ -52,13 +55,11 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 			sentences[index].outfile = tube[index][1];
 		else if (index > 0 && sentences[index].infile == STDIN_FILENO)
 			sentences[index].infile = tube[index - 1][0];
-		ft_exec_command_child(sentences[index], tube, index);
+		if (result == -1)
+			ft_exec_command_child(sentences[index], tube, index);
 	}
 	else if (index > 0)
-	{
-		result = ft_exec_builtin(sentences[index].items, sentences[index].args);
-		if (result >= 0)
-			set_system_exit_status(result);
+	{	
 		close(tube[index - 1][0]);
 		close(tube[index - 1][1]);
 	}
