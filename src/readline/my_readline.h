@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   my_readline.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 11:25:06 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 17:13:11 by vide-sou         ###   ########.fr       */
+/*   Created: 2025/04/24 10:53:31 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/24 10:53:32 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#ifndef MY_READLINE_H
+# define MY_READLINE_H
 
-# include "../../include/libft/libft.h"
-# include "../env/env.h"
-# include "../env_management/env_management.h"
-# include <stdio.h>
-# include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-int	ft_echo(char **data);
+void read_entrys(void);
 
 #endif

@@ -78,10 +78,8 @@
     "stdio.h": "c",
     "unistd.h": "c",
     "cd.h": "c",
-    "minishell.h": "c",
+    "signal.h": "c",
     "flow.h": "c",
-    "exec.h": "c",
-    "traitement.h": "c",
-    "stat.h": "c"
+    "signals_handler.h": "c"
   }
 }
