@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/26 10:41:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:04:36 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
 
 	cmd = NULL;
 	system = get_system(NULL);
-	result = ft_exec_builtin(sentence.items, sentence.args);
-	if (result >= 0)
-		exit(result);
 	cmd = ft_get_extern_cmd(sentence.items);
 	dup2(sentence.infile, STDIN_FILENO);
 	dup2(sentence.outfile, STDOUT_FILENO);
@@ -42,7 +39,8 @@ static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
 
 static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int size)
 {
-	pid_t	pid;
+	pid_t		pid;
+	int			result;
 	prepare_redirects(&sentences[index]);
 	
 	pid = fork();
@@ -58,6 +56,9 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 	}
 	else if (index > 0)
 	{
+		result = ft_exec_builtin(sentences[index].items, sentences[index].args);
+		if (result >= 0)
+			set_system_exit_status(result);
 		close(tube[index - 1][0]);
 		close(tube[index - 1][1]);
 	}
