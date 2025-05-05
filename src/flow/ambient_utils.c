@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   ambient_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 11:25:06 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 17:13:11 by vide-sou         ###   ########.fr       */
+/*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
+/*   Updated: 2025/05/05 16:14:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#include "flow.h"
+#include "../env/env.h"
+#include "../env_management/env_management.h"
 
-# include "../../include/libft/libft.h"
-# include "../env/env.h"
-# include "../env_management/env_management.h"
-# include <stdio.h>
-# include <stdlib.h>
+void	free_all_system(void)
+{
+	t_system	system;
 
-int	ft_echo(char **data);
-
-#endif
+	system = get_system(NULL);
+	if (system.env)
+		ft_clean_arr(system.env);
+	if (system.name)
+		free(system.name);
+}

@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 11:25:06 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 17:13:11 by vide-sou         ###   ########.fr       */
+/*   Created: 2025/04/08 11:24:26 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/22 11:31:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-# include "../../include/libft/libft.h"
-# include "../env/env.h"
-# include "../env_management/env_management.h"
-# include <stdio.h>
-# include <stdlib.h>
-
-int	ft_echo(char **data);
+int     export_builtin(char **args);
+int     unset_builtin(char **args);
+int     env_builtin();
+int     cd_builtin(char **args);
 
 #endif

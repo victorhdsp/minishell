@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/09 15:39:46 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:06:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	ft_save_items(t_sentence *sentence, t_lexer_item *items,
 	}
 }
 
-t_sentence	*ft_pipes(t_lexer_item *items)
+t_sentence	*create_pipes(t_lexer_item *items)
 {
 	t_sentence	*sentences;
 	int			sentences_total;

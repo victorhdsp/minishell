@@ -6,22 +6,24 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/03/26 18:39:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:12:41 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static void	ft_redirect(t_lexer_item *cmds, int index, int *result)
+static int	ft_redirect(t_lexer_item *cmds, int index, int *result)
 {
 	if (cmds[index].type == type_infile || cmds[index].type == type_outfile)
 	{
 		if (cmds[index + 1].type != type_word)
-			*result = index + 2;
+			*result = index + 1;
+		return (1);
 	}
+	return (0);
 }
 
-static void	ft_logic(t_lexer_item *cmds, int index, int *result, int *has_cmd)
+static int	ft_logic(t_lexer_item *cmds, int index, int *result, int *has_cmd)
 {
 	if (cmds[index].type == type_logic)
 	{
@@ -31,10 +33,12 @@ static void	ft_logic(t_lexer_item *cmds, int index, int *result, int *has_cmd)
 			*result = index + 1;
 		if (*result == 0)
 			*has_cmd = 0;
+		return (1);
 	}
+	return (0);
 }
 
-static void	ft_parenthesis(t_lexer_item *cmds, int index, int *result,
+static int	ft_parenthesis(t_lexer_item *cmds, int index, int *result,
 		int *has_open_parenthesis)
 {
 	if (cmds[index].fn == fn_open_parenthesis)
@@ -42,6 +46,7 @@ static void	ft_parenthesis(t_lexer_item *cmds, int index, int *result,
 		if (cmds[index + 1].type == type_logic)
 			*result = index + 1;
 		*has_open_parenthesis = *has_open_parenthesis + 1;
+		return (1);
 	}
 	if (cmds[index].fn == fn_close_parenthesis)
 	{
@@ -50,7 +55,9 @@ static void	ft_parenthesis(t_lexer_item *cmds, int index, int *result,
 		*has_open_parenthesis = *has_open_parenthesis - 1;
 		if (*has_open_parenthesis < 0)
 			*result = index + 1;
+		return (1);
 	}
+	return (0);
 }
 
 static int	ft_command(t_lexer_item **cmds, int *has_open_parenthesis)
@@ -64,14 +71,14 @@ static int	ft_command(t_lexer_item **cmds, int *has_open_parenthesis)
 	has_cmd = 0;
 	while ((*cmds)[index].value)
 	{
-		ft_redirect(*cmds, index, &result);
-		ft_logic(*cmds, index, &result, &has_cmd);
-		ft_parenthesis(*cmds, index, &result, has_open_parenthesis);
 		if ((*cmds)[index].type == type_word && has_cmd == 0)
 		{
 			(*cmds)[index].fn = fn_cmd;
 			has_cmd = 1;
 		}
+		index += ft_redirect(*cmds, index, &result);
+		ft_logic(*cmds, index, &result, &has_cmd);
+		ft_parenthesis(*cmds, index, &result, has_open_parenthesis);
 		if (result != 0)
 			break ;
 		index++;

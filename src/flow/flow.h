@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient.h                                          :+:      :+:    :+:   */
+/*   flow.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:29:52 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 08:40:29 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:25:00 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AMBIENT_H
-# define AMBIENT_H
+#ifndef FLOW_H
+# define FLOW_H
 
 # include "../../include/libft/libft.h"
 
@@ -26,5 +26,9 @@ t_system    get_system(t_system *new_system);
 void        set_system_exit_status(int exit_status);
 void        set_system_env(char **env);
 char        *get_system_env(char *key);
+void        free_all_system(void);
+
+void        system_flow(char **env, char *name);
+int         minishell_flow(char *cmd);
 
 #endif

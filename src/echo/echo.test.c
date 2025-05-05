@@ -16,7 +16,7 @@ Test(ft_echo, functions_with_no_args, .init = redirect_all_stdout_echo)
 {
 	char	*input[] = {"echo", NULL};
 
-	ft_echo(1, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("\n", "Retorno diferente de \n");
 }
@@ -26,7 +26,7 @@ Test(ft_echo, functions_with_no_args_and_flag, .init = redirect_all_stdout_echo)
 {
 	char	*input[] = {"echo", "-n", NULL};
 
-	ft_echo(2, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("", "Retorno diferente de ''");
 }
@@ -37,7 +37,7 @@ Test(ft_echo, functions_with_wrong_flag_and_args,
 {
 	char	*input[] = {"echo", "-nx", "renato", NULL};
 
-	ft_echo(3, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("-nx renato\n", "Retorno diferente de -nx renato\\n");
 }
@@ -47,7 +47,7 @@ Test(ft_echo, functions_with_args, .init = redirect_all_stdout_echo)
 {
 	char	*input[] = {"echo", "renato", "passos", "oi", NULL};
 
-	ft_echo(4, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("renato passos oi\n",
 		"Retorno diferente de renato passos oi\\n");
@@ -58,7 +58,7 @@ Test(ft_echo, functions_with_args_and_flag, .init = redirect_all_stdout_echo)
 {
 	char	*input[] = {"echo", "-n", "renato", "passos", "oi", NULL};
 
-	ft_echo(sizeof(input) / sizeof(char *) - 1, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("renato passos oi",
 		"Retorno diferente de renato passos oi");
@@ -71,7 +71,7 @@ Test(ft_echo, functions_with_args_and_consecutive_flags,
 	char	*input[] = {"echo", "-n", "-n", "-n", "-n", "-n", "renato",
 			"passos", "oi", NULL};
 
-	ft_echo(9, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("renato passos oi",
 		"Retorno diferente de renato passos oi");
@@ -84,7 +84,7 @@ Test(ft_echo, functions_with_args_and_multiple_char_in_flag,
 	char	*input[] = {"echo", "-nnnnnnnnnnnnn", "renato", "passos", "oi",
 			NULL};
 
-	ft_echo(5, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("renato passos oi",
 		"Retorno diferente de renato passos oi");
@@ -96,7 +96,7 @@ Test(ft_echo, functions_with_args_and_flag_on_middle,
 {
 	char	*input[] = {"echo", "renato", "passos", "-n", "oi", NULL};
 
-	ft_echo(5, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("renato passos -n oi\n",
 		"Retorno diferente de renato passos -n oi\\n");
@@ -108,7 +108,7 @@ Test(ft_echo, functions_with_args_and_flag_on_end,
 {
 	char	*input[] = {"echo", "renato", "passos", "oi", "-n", NULL};
 
-	ft_echo(5, input);
+	ft_echo(input);
 	fflush(stdout);
 	cr_assert_stdout_eq_str("renato passos oi -n\n", "Retorno diferente de renato passos oi -n\\n");
 }

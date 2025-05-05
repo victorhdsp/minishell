@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 16:47:53 by rpassos-         ###   ########.fr       */
+/*   Created: 2025/04/17 17:07:57 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/04/17 18:52:11 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "pwd.h"
 
-# include "../builtin/builtin.h"
-# include "../sentences/sentences.h"
-# include <fcntl.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-
-void	exec_command(t_sentence *sentence);
-void	prepare_redirects(t_sentence *sentence);
-char	*ft_get_extern_cmd(t_lexer_item *items);
-int		ft_exec_builtin(t_lexer_item *items, char **args);
-
-#endif
+void    ft_pwd(t_my_env **my_env, char **args)
+{
+    char *cwd;
+    
+    cwd = getcwd(NULL, 0);
+    if (cwd == NULL)
+        cwd = get_system_env("PWD");
+    printf("%s\n", cwd);
+    free(cwd);
+}
