@@ -16,6 +16,7 @@ int main(int ac, char **av, char **env)
     //cmd = ft_strdup("ls | cat -e > c");
     //cmd = ft_strdup("< c");
     minishell_flow(cmd);
+    //read_entrys();
     free(cmd);
     free_all_system();
     return (0);
