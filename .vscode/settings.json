@@ -79,6 +79,7 @@
     "unistd.h": "c",
     "cd.h": "c",
     "signal.h": "c",
-    "flow.h": "c"
+    "flow.h": "c",
+    "signals_handler.h": "c"
   }
 }
