@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 13:11:16 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:14:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,4 @@ char	*get_system_env(char *key)
 		index++;
 	}
 	return (result);
-}
-
-void	free_all_system(void)
-{
-	t_system	system;
-
-	system = get_system(NULL);
-	if (system.env)
-		ft_clean_arr(system.env);
-	if (system.name)
-		free(system.name);
 }
