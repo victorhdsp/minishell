@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 16:14:18 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:32:05 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ void	set_system_exit_status(int exit_status)
 
 	new_system = get_system(NULL);
 	new_system.last_exit_status = exit_status;
+	get_system(&new_system);
+}
+
+void	set_system_name_status(char *name)
+{
+	t_system	new_system;
+
+	new_system = get_system(NULL);
+	new_system.name = name;
 	get_system(&new_system);
 }
 
