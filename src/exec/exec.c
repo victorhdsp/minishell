@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 20:02:52 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:43:54 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
 {
 	int			result;
 	char		*cmd;
-	t_system	system;
 	int			index;
 
 	cmd = NULL;
-	system = get_system(NULL);
-	cmd = ft_get_extern_cmd(sentence.items);
 	dup2(sentence.infile, STDIN_FILENO);
 	dup2(sentence.outfile, STDOUT_FILENO);
+	result = ft_exec_builtin(sentence.items, sentence.args);
 	index = 0;
 	while (index <= size)
 	{
@@ -32,20 +30,24 @@ static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
 		close(tube[index][1]);
 		index++;
 	}
+	if (result > -1)
+	{
+		set_system_exit_status(result);
+		exit(EXIT_SUCCESS);
+	}
+	cmd = ft_get_extern_cmd(sentence.items);
 	if (cmd && cmd[0])
-		set_system_exit_status(execve(cmd, sentence.args, system.env));
+		set_system_exit_status(execve(cmd, sentence.args, get_system(NULL).env));
 	exit(EXIT_FAILURE);
 }
 
 static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int size)
 {
 	pid_t		pid;
-	int			result;
+	int			stdout_backup;
+
 	prepare_redirects(&sentences[index]);
-	
-	result = ft_exec_builtin(sentences[index].items, sentences[index].args);
-	if (result >= 0)
-		set_system_exit_status(result);
+	stdout_backup = dup(STDOUT_FILENO);
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);
@@ -53,16 +55,19 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 	{
 		if (index < size - 1 && sentences[index].outfile == STDOUT_FILENO)
 			sentences[index].outfile = tube[index][1];
-		else if (index > 0 && sentences[index].infile == STDIN_FILENO)
+		if (index > 0 && sentences[index].infile == STDIN_FILENO)
 			sentences[index].infile = tube[index - 1][0];
-		if (result == -1)
-			ft_exec_command_child(sentences[index], tube, index);
+		ft_exec_command_child(sentences[index], tube, index);
 	}
 	else if (index > 0)
 	{	
 		close(tube[index - 1][0]);
 		close(tube[index - 1][1]);
 	}
+	close(STDOUT_FILENO);
+	ft_exec_builtin(sentences[index].items, sentences[index].args);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdout_backup);
 }
 
 void	exec_command(t_sentence *sentences)

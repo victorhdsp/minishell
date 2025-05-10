@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 19:50:50 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:33:55 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_exec_builtin(t_lexer_item *items, char **args)
 	while (items[index].value && items[index].fn != fn_cmd)
 		index++;
 	if (!items[index].value)
-		return (-1);
+		return (0);
 	if (!ft_strncmp(items[index].value, "echo", 4))
 		return (ft_echo(args));
 	else if (!ft_strncmp(items[index].value, "cd", 2))
