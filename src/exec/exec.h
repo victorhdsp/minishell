@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 16:47:53 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:22:46 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 
-void	exec_command(t_sentence *sentence);
+void	exec_command_in_childs(t_sentence *sentences);
+void    exec_command_in_parent(t_sentence *sentences);
 void	prepare_redirects(t_sentence *sentence);
 char	*ft_get_extern_cmd(t_lexer_item *items);
 int		ft_exec_builtin(t_lexer_item *items, char **args);
