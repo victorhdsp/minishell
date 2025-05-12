@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 16:26:50 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:13:24 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 	{
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		exit(EXIT_FAILURE);
+		set_system_exit_status(EXIT_FAILURE);
 	}
 	return (fd);
 }
