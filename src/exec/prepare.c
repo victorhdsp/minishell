@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 13:13:24 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:50:46 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	ft_heredoc(char *exit)
 	free(tmp);
 	free(content);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
-	free(filename);
 	ft_putstr_fd("> ", 0);
 	content = ft_get_next_line(0);
 	while (ft_strncmp(content, exit, ft_strlen(exit)))
@@ -58,7 +57,10 @@ static int	ft_heredoc(char *exit)
 		ft_putstr_fd("> ", 0);
 		content = ft_get_next_line(0);
 	}
+	close(fd);
+	fd = open(filename, O_RDWR);
 	free(content);
+	free(filename);
 	return (fd);
 }
 
