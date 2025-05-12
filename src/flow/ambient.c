@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambient.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 17:34:40 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:43:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_system_env(char *key)
 	index = 0;
 	result = NULL;
 	key_len = ft_strlen(key);
-	while (system.env[index])
+	while (key && key[0] && system.env[index])
 	{
 		if (!ft_strncmp(key, system.env[index], key_len))
 		{
