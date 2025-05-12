@@ -1,6 +1,5 @@
-#include "../../__test/utils.h"
-#include "./flow.h"
-
+#include "../utils.h"
+#include "../../src/flow/flow.h"
 
 void suite_setup(void) {
     char		*env[] = {NULL};

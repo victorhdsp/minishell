@@ -21,4 +21,4 @@ fclean:
 re: fclean all
 
 %.o: %.c
-	@ $(COMPILADOR) -c $< -o $@
+	@ $(COMPILADOR) -c $< -o $@ $(CC_LIB_FLAG)

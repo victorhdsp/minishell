@@ -1,5 +1,5 @@
-#include "../../__test/utils.h"
-#include "./env.h"
+#include "../utils.h"
+#include "../../src/env/env.h"
 
 // teste funcs
 

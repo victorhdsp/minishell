@@ -1,7 +1,7 @@
-#include "../../__test/utils.h"
-#include "../env_management/env_management.h"
-#include "../cd/cd.h"
-#include "pwd.h"
+#include "../utils.h"
+#include "../../src/env_management/env_management.h"
+#include "../../src/cd/cd.h"
+#include "../../src/pwd/pwd.h"
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 

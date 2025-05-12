@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 19:37:05 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:19:35 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ void	read_entrys(void)
 			printf("exit\n");
 			exit(0);
 		}
-		add_history(line);
-		minishell_flow(line);
+		if (line && line[0])
+		{
+			add_history(line);
+			minishell_flow(line);
+		}
 		free(line);
 	}
 }

@@ -1,6 +1,5 @@
-#include "../../__test/utils.h"
-#include <criterion/criterion.h>
-#include "traitement.h"
+#include "../utils.h"
+#include "../../src/traitement/traitement.h"
 
 void suite_setup_traitement(void) {
     char		*env[] = {"A=victor", "B=renato", NULL};
