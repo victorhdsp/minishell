@@ -6,20 +6,20 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/12 10:19:35 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:35:03 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "my_readline.h"
-#include "../signals_handler/signals_handler.h"
 #include "../flow/flow.h"
+#include "../signals_handler/signals_handler.h"
+#include "my_readline.h"
 
-void	set_prompt()
+void	set_prompt(void)
 {
 	char	*pwd;
 	char	*user;
 	char	*result;
-	char 	*tmp;
+	char	*tmp;
 
 	user = get_system(NULL).username;
 	pwd = get_system_env("PWD");
@@ -41,10 +41,10 @@ void	read_entrys(void)
 {
 	char		*line;
 	t_system	system;
-	
+
 	system = get_system(NULL);
 	signal_handler();
-	while(1)
+	while (1)
 	{
 		set_prompt();
 		system = get_system(NULL);

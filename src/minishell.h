@@ -13,22 +13,22 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../include/libft/libft.h"
-#include "./tokenizer/tokenizer.h"
-#include "./sentences/sentences.h"
-#include "./env/env.h"
-#include "./env_management/env_management.h"
-#include "./echo/echo.h"
-#include "./cd/cd.h"
-#include "./flow/flow.h"
-#include "./pwd/pwd.h"
+# include "../include/libft/libft.h"
+# include "./cd/cd.h"
+# include "./echo/echo.h"
+# include "./env/env.h"
+# include "./env_management/env_management.h"
+# include "./flow/flow.h"
+# include "./pwd/pwd.h"
+# include "./sentences/sentences.h"
+# include "./tokenizer/tokenizer.h"
 //#include <readline/readline.h>
 //#include <readline/history.h>
 //#include <term.h>
 # include <dirent.h>
 # include <sys/types.h>
 
-int     ft_count_dir(char *dir_path);
+int		ft_count_dir(char *dir_path);
 char	*ft_correct_path(char *path);
 
 #endif

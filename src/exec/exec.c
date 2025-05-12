@@ -15,9 +15,9 @@
 
 static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
 {
-	int			result;
-	char		*cmd;
-	int			index;
+	int		result;
+	char	*cmd;
+	int		index;
 
 	cmd = NULL;
 	dup2(sentence.infile, STDIN_FILENO);
@@ -37,14 +37,16 @@ static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
 	}
 	cmd = ft_get_extern_cmd(sentence.items);
 	if (cmd && cmd[0])
-		set_system_exit_status(execve(cmd, sentence.args, get_system(NULL).env));
+		set_system_exit_status(execve(cmd, sentence.args,
+				get_system(NULL).env));
 	exit(EXIT_FAILURE);
 }
 
-static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int size)
+static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
+		int size)
 {
-	pid_t		pid;
-	int			stdout_backup;
+	pid_t	pid;
+	int		stdout_backup;
 
 	prepare_redirects(&sentences[index]);
 	stdout_backup = dup(STDOUT_FILENO);
@@ -60,7 +62,7 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 		ft_exec_command_child(sentences[index], tube, index);
 	}
 	else if (index > 0)
-	{	
+	{
 		close(tube[index - 1][0]);
 		close(tube[index - 1][1]);
 	}
@@ -72,9 +74,9 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int si
 
 void	exec_command(t_sentence *sentences)
 {
-	int		index;
-	int		size;
-	int		**tube;
+	int	index;
+	int	size;
+	int	**tube;
 
 	size = 0;
 	while (sentences[size].args)

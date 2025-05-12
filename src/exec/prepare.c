@@ -73,8 +73,8 @@ static void	ft_save_redirects(t_sentence *sentence, int index, int fd)
 
 static void	first_heredoc(t_sentence *sentence)
 {
-	int		index;
-	int		fd;
+	int	index;
+	int	fd;
 
 	index = 0;
 	fd = -1;

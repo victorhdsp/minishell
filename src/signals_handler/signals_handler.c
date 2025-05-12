@@ -12,30 +12,28 @@
 
 #include "signals_handler.h"
 
-
-void handler_ctrl(int sig)
+void	handler_ctrl(int sig)
 {
-    if (sig == SIGINT)
+	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-    else if (sig == SIGQUIT)
+	else if (sig == SIGQUIT)
 		return ;
 }
 
-void signal_handler(void)
+void	signal_handler(void)
 {
-    struct sigaction sa;
+	struct sigaction	sa;
 
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = handler_ctrl;
-    sa.sa_flags = 0;
-
-    if (sigaction(SIGINT, &sa, NULL) == -1)
-        perror("SIGINT error");
-    if (sigaction(SIGQUIT, &sa, NULL) == -1)
-        perror("SIGQUIT error");
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = handler_ctrl;
+	sa.sa_flags = 0;
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		perror("SIGINT error");
+	if (sigaction(SIGQUIT, &sa, NULL) == -1)
+		perror("SIGQUIT error");
 }

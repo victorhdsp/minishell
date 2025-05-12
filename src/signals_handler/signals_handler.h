@@ -13,11 +13,11 @@
 #ifndef SIGNALS_HANDLER_H
 # define SIGNALS_HANDLER_H
 
-#include <signal.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
 
-void signal_handler(void);
+void	signal_handler(void);
 
 #endif

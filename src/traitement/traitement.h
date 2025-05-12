@@ -13,9 +13,9 @@
 #ifndef TRAITEMENT_H
 # define TRAITEMENT_H
 
-#include "../minishell.h"
+# include "../minishell.h"
 
-void    quote_traitement(t_lexer_item *args);
-void    variable_traitement(t_lexer_item *args);
+void	quote_traitement(t_lexer_item *args);
+void	variable_traitement(t_lexer_item *args);
 
 #endif

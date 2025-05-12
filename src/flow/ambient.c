@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "flow.h"
 #include "../env/env.h"
 #include "../env_management/env_management.h"
+#include "flow.h"
 
 t_system	get_system(t_system *new_system)
 {
@@ -54,11 +54,11 @@ void	set_system_env(char **env)
 
 char	*get_system_env(char *key)
 {
-	t_system		system;
-	int				index;
-	char			*tmp;
-	char			*result;
-	int				key_len;
+	t_system	system;
+	int			index;
+	char		*tmp;
+	char		*result;
+	int			key_len;
 
 	system = get_system(NULL);
 	index = 0;

@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef PWD_H
 # define PWD_H
 
-#include "../flow/flow.h"
-#include "../env_management/env_management.h"
-# include <unistd.h>
+# include "../env_management/env_management.h"
+# include "../flow/flow.h"
 # include <stdio.h>
-#include <sys/stat.h> 
+# include <sys/stat.h>
+# include <unistd.h>
 
-int    ft_pwd();
+int	ft_pwd(void);
 
 #endif

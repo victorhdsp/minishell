@@ -13,11 +13,11 @@
 #ifndef MY_READLINE_H
 # define MY_READLINE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
 
-void read_entrys(void);
+void	read_entrys(void);
 
 #endif

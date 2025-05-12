@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:07:57 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/05 19:22:06 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:37:00 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pwd.h"
 
-int    ft_pwd()
+int	ft_pwd(void)
 {
-    char    *cwd;
-        
-    cwd = getcwd(NULL, 0);
-    if (cwd == NULL)
-        cwd = get_system_env("PWD");
-    printf("%s\n", cwd);
-    free(cwd);
-    return (0);
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		cwd = get_system_env("PWD");
+	printf("%s\n", cwd);
+	free(cwd);
+	return (0);
 }
