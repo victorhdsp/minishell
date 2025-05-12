@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signals_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:18:26 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/24 13:02:35 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/12 20:05:25 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals_handler.h"
+#include "../flow/flow.h"
 
 void	handler_ctrl(int sig)
 {
@@ -20,9 +21,15 @@ void	handler_ctrl(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		set_system_exit_status(130);
 	}
 	else if (sig == SIGQUIT)
-		return ;
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		set_system_exit_status(130);
+	}
 }
 
 void	signal_handler(void)
