@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 19:48:36 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:19:19 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
 		exit(EXIT_FAILURE);
 	if (pid == 0)
 	{
-		if (index < size - 1 && sentences[index].outfile == STDOUT_FILENO)
+		if ((index < size - 1 && sentences[index].outfile == STDOUT_FILENO))
 			sentences[index].outfile = tube[index][1];
-		if (index > 0 && sentences[index].infile == STDIN_FILENO)
+		if ((index > 0 && sentences[index].infile == STDIN_FILENO))
 			sentences[index].infile = tube[index - 1][0];
+		if (sentences[index].outfile == -1)
+			sentences[index].outfile = tube[index][1];
 		ft_exec_command_child(sentences[index], tube, index);
 	}
 	else if (index > 0)
@@ -68,14 +70,31 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
 
 void	exec_command_in_parent(t_sentence *sentences)
 {
+	int		stdin_backup;
 	int		stdout_backup;
-
+	int		result;
+	char	*cmd;
+	int		fd;
+	
+	cmd = NULL;
+	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
-	close(STDOUT_FILENO);
-	ft_exec_builtin(sentences[0].items, sentences[0].args);
+	prepare_redirects(&sentences[0]);
+	dup2(sentences[0].infile, STDIN_FILENO);
+	dup2(sentences[0].outfile, STDOUT_FILENO);
+	result = ft_exec_builtin(sentences[0].items, sentences[0].args);
+	if (result == -1)
+	{
+		cmd = ft_get_extern_cmd(sentences[0].items);
+		fd = fork();
+		if (fd == 0 && cmd && cmd[0])
+			set_system_exit_status(execve(cmd, sentences[0].args, get_system(NULL).env));
+		if (fd == 0)
+			exit(EXIT_SUCCESS);
+		waitpid(fd, NULL, 0);
+	}
+	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
-	close(stdout_backup);
-	exec_command_in_childs(sentences);
 }
 
 void	exec_command_in_childs(t_sentence *sentences)
