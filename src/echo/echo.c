@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:12 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/12 10:33:19 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 11:53:15 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check_args(char **data, int *flag_beginning, int *index,
 		{
 			if (!check_consecutive_n(data[*index]))
 			{
-				printf("%s ", data[*index]);
+				write(STDOUT_FILENO, data[*index], ft_strlen(data[*index]));
 				(*index)++;
 				break ;
 			}
@@ -46,7 +46,7 @@ static int	check_args(char **data, int *flag_beginning, int *index,
 	*flag_beginning = 1;
 	if (!data[*index])
 		return (0);
-	printf("%s", data[*index]);
+	write(STDOUT_FILENO, data[*index], ft_strlen(data[*index]));
 	return (1);
 }
 
@@ -68,10 +68,10 @@ int	ft_echo(char **data)
 		if (!check_args(data, &flag_not_at_beginning, &index, &flag_check))
 			break ;
 		if (data[index + 1])
-			printf(" ");
+			write(STDOUT_FILENO, " ", 1);
 		index++;
 	}
 	if (!flag_check)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
