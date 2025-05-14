@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:15:31 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 10:32:39 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:23:20 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	unset_builtin(char **args)
 	return (result);
 }
 
-int	env_builtin(void)
+int	env_builtin(char **args)
 {
 	t_system	system;
 	t_my_env	*list_env;
@@ -54,7 +54,7 @@ int	env_builtin(void)
 
 	system = get_system(NULL);
 	list_env = get_env(system.env);
-	result = print_env(list_env);
+	result = print_env(list_env, args);
 	return (result);
 }
 

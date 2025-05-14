@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:35 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/08 11:24:36 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:25:44 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,23 @@ char	**get_env_arr(t_my_env *my_env)
 	return (my_env_arr);
 }
 
-int	print_env(t_my_env *my_env)
+static int	get_arr_size(char **arr)
 {
+	int	index;
+
+	index = 0;
+	while (arr[index] != NULL)
+		index++;
+	return (index);
+}
+
+int	print_env(t_my_env *my_env, char **args)
+{
+	if (get_arr_size(args) > 1)
+	{
+		printf("env: too many arguments\n");
+		return (1);
+	}
 	while (my_env != NULL)
 	{
 		printf("%s", my_env->key);
