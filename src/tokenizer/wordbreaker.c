@@ -6,11 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 15:17:26 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:40:15 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "../minishell.h"
 
 static int	is_breaker(char first, char second)
 {
@@ -80,7 +81,8 @@ static int	ft_get_sentence_size(const char *str)
 	{
 		if (word_cut[1] == -1)
 		{
-			ft_putstr_fd("Error: unclosed quotes\n", 2);
+			errno = 2;
+			print_error("Error: unclosed quotes\n", NULL, NULL, NULL);
 			return (-1);
 		}
 		tmp += word_cut[0] + word_cut[1];

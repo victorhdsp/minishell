@@ -6,11 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/12 10:43:21 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:57:53 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cd.h"
+#include "../minishell.h"
 
 static char	**set_arr_for_export(char *key)
 {
@@ -29,16 +30,16 @@ static char	**set_arr_for_export(char *key)
 	return (arr);
 }
 
-static void	print_error(char *arg)
+static void	cd_print_error(char *arg)
 {
 	if (ft_strcmp(arg, "HOME") == 0)
-		printf("cd: %s not set\n", arg);
+		print_error("cd: ", arg, " not set\n", NULL);
 	else if (errno == 20)
-		printf("cd: %s: Not a directory\n", arg);
+		print_error("cd: ", arg, ": Not a directory\n", NULL);
 	else if (errno == 2)
-		printf("cd: %s: No such file or directory\n", arg);
+		print_error("cd: ", arg, ": No such file or directory\n", NULL);
 	else if (errno == 13)
-		printf("cd: %s/: Permission denied\n", arg);
+		print_error("cd: ", arg, ": Permission denied\n", NULL);
 }
 
 static int	get_arr_size(char **arr)
@@ -72,7 +73,7 @@ static int	check_home(t_my_env **my_env)
 		}
 		current = current->next;
 	}
-	print_error("HOME");
+	cd_print_error("HOME");
 	return (1);
 }
 
@@ -98,7 +99,7 @@ int	ft_cd(t_my_env **my_env, char **args)
 	}
 	else
 	{
-		print_error(args[1]);
+		cd_print_error(args[1]);
 		cd_free(arr);
 		return (1);
 	}

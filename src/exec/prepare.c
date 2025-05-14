@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 19:50:46 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:36:07 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 {
 	int	fd;
 
-	fd = -1;
+	fd = FD_NOT_CREATED;
 	if (fn == fn_input)
 		fd = open(path, O_RDONLY);
 	else if (fn == fn_output)
@@ -26,9 +26,8 @@ static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 		fd = open(path, O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 	if (fd < 0)
 	{
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		set_system_exit_status(EXIT_FAILURE);
+		print_error(path, ": ", strerror(errno), NULL);
+		set_system_exit_status(errno);
 	}
 	return (fd);
 }
@@ -79,14 +78,14 @@ static void	first_heredoc(t_sentence *sentence)
 	int	fd;
 
 	index = 0;
-	fd = -1;
+	fd = FD_NOT_CREATED;
 	while (sentence->items[index].value)
 	{
 		if (sentence->items[index].fn == fn_heredoc)
 			fd = ft_heredoc(sentence->items[index + 1].value);
-		if (fd != -1)
+		if (fd != FD_NOT_CREATED)
 			ft_save_redirects(sentence, index, fd);
-		fd = -1;
+		fd = FD_NOT_CREATED;
 		index++;
 	}
 }
@@ -98,7 +97,7 @@ void	prepare_redirects(t_sentence *sentence)
 	t_lexer_item	*items;
 
 	index = 0;
-	fd = -1;
+	fd = FD_NOT_CREATED;
 	items = sentence->items;
 	first_heredoc(sentence);
 	while (items[index].value)
@@ -109,9 +108,9 @@ void	prepare_redirects(t_sentence *sentence)
 			fd = ft_simple_redirect(items[index + 1].value, fn_append);
 		else if (items[index].fn == fn_input)
 			fd = ft_simple_redirect(items[index + 1].value, fn_input);
-		if (fd != -1)
+		if (fd != FD_NOT_CREATED)
 			ft_save_redirects(sentence, index, fd);
-		fd = -1;
+		fd = FD_NOT_CREATED;
 		index++;
 	}
 }

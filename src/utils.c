@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:50:05 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 10:43:18 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:27:34 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,22 @@ int	ft_count_dir(char *dir_path)
 	}
 	if (!dir || closedir(dir) == -1)
 	{
-		ft_putstr_fd("unexpected error on close dir\n", 2);
+		print_error("unexpected error on close dir\n", NULL, NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
 	free(path);
 	return (index);
+}
+
+void	print_error(char *str1, char *str3, char *str2, char *str4)
+{
+	if (str1)
+		ft_putstr_fd(str1, 2);
+	if (str2)
+		ft_putstr_fd(str2, 2);
+	if (str3)
+		ft_putstr_fd(str3, 2);
+	if (str4)
+		ft_putstr_fd(str4, 2);
+	set_system_exit_status(errno);
 }
