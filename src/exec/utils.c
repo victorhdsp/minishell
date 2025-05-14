@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 12:57:43 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:25:20 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 	int		index;
 
 	path_var = get_system_env("PATH");
+	tmp = ft_strjoin(path_var, ":");
+	free(path_var);
+	path_var = ft_strjoin(tmp, getcwd(NULL, 0));
 	path_var_items = ft_split(path_var, ':');
 	index = 0;
 	while (items[index].value && items[index].fn != fn_cmd)
@@ -38,10 +41,7 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 		index++;
 	}
 	if ((*items).value)
-	{
-		ft_putstr_fd((char *)(*items).value, STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	}
+		print_error((char *)(*items).value, ": command not found\n", NULL, NULL);
 	return (NULL);
 }
 
@@ -65,7 +65,7 @@ int	ft_exec_builtin(t_lexer_item *items, char **args)
 	else if (!ft_strncmp(items[index].value, "unset", 5))
 		return (unset_builtin(args));
 	else if (!ft_strncmp(items[index].value, "env", 3))
-		return (env_builtin());
+		return (env_builtin(args));
 	else if (!ft_strncmp(items[index].value, "exit", 4))
 		exit(EXIT_SUCCESS);
 	return (-1);
