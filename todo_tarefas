@@ -1,18 +1,18 @@
 [ ] Apresentar retornos;
 [ ] ctrl + \ não deve parar os processos filhos: testar com "cat"
 [ ] abrir um cat e finalizar ele, faz com que o texto do readline não apareça.
-[ ] echo -n está printando 2x.
 [ ] ao criar uma pasta dentro de outra, entrar na segunda, deletar a primeira e voltar para a primeiro deveria dar "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory".
-[ ] não é possivel abrir a ./minishell dentro dela mesma.
 [ ] exit precisa ser criado, ele não pode receber multiplos argumentos, não pode receber valores que não são numeros, o valor dele só vai até 255, limitado por 20 numeros.
-[ ] env não pode receber multiplos argumentos.
-[ ] ao acessar um elemento sem permissão o pipe não funciona.
-[ ] editar um arquivo sem permissão deve dar "permission denied".
+[x] envp não pode receber multiplos argumentos.
+[x] Os bultins não são executados no pai caso tenha pipes.
+[x] ao acessar um elemento sem permissão o pipe não funciona.
+[x] editar um arquivo sem permissão deve dar "permission denied".
+[x] echo -n está printando 2x.
+[x] não é possivel abrir a ./minishell dentro dela mesma.
 [x] Apresentar retornos do ctrl + c;
 [x] ctrl + \ não deve fazer nada.
 [x] cat com heredoc não está funcionando.
 	- Refazer testes de heredoc.
-[x] Os bultins não são executados no pai caso tenha pipes.
 [x] Chamar o "$" sem conteúdo da segfaut.
 [x] o programa precisa funcionar sem receber env: testar com "env -i ./minishell".
 [x] unset em PWD esta dando segfault.
