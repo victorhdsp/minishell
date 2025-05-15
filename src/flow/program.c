@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 19:44:15 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 09:04:28 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	system_flow(char **env, char *name)
 	t_my_env	*list_env;
 	char		*username;
 
-	new_system.last_exit_status = -1;
+	new_system.last_exit_status = 1;
 	new_system.name = name;
 	new_system.username = ft_strdup("user");
 	list_env = get_env(env);
@@ -92,9 +92,9 @@ int	minishell_flow(char *cmd)
 	quote_traitement(lexed_cmd);
 	sentence_cmd = create_pipes(lexed_cmd);
 	if (sentence_cmd[1].args)
-		exec_command_in_childs(sentence_cmd);
+		create_commands_with_pipe(sentence_cmd);
 	else
-		exec_command_in_parent(sentence_cmd);
+		create_commands_without_pipe(sentence_cmd[0]);
 	free_sentence(sentence_cmd);
 	free_lexer(lexed_cmd);
 	free(splited_cmd);

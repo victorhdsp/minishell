@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:44:35 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/15 07:02:37 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 08:45:07 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 enum							e_error_exit
 {
     no_error = EXIT_SUCCESS,
-	error__command_not_found = -1,   //exit: a: numeric argument required
+	error__numeric_argument_required = -1,   //exit: a: numeric argument required
     error__too_many_arguments = -2, //exit: too many arguments
 };
 

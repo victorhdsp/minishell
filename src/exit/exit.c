@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/15 07:02:59 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 08:49:55 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	return_value_traitement(char *value)
 	while (value[index])
 	{
 		if (!ft_isdigit(value[index]))
-			return error__command_not_found;
+			return error__numeric_argument_required;
 		index++;
 	}
 	result = ft_atoi(value);
@@ -48,18 +48,16 @@ int	exit_builtin(char **args)
 	if (get_arr_size(args) > 2)
 	{
 		print_error("exit: too many arguments\n", NULL, NULL, NULL);
-		set_system_exit_status(error__too_many_arguments);
-		return (error__too_many_arguments);
+		return (1);
 	}
 	if (args && args[1] && args[1][0])
 	{
 		return_value = return_value_traitement(args[1]);
-		if (return_value == error__command_not_found)
+		if (return_value == error__numeric_argument_required)
 		{
-			print_error("exit: command_not_found\n", NULL, NULL, NULL);
-			set_system_exit_status(255);
+			print_error("exit: ", args[1], ": numeric argument required\n", NULL);
+			exit (2);
 		}
-		exit(return_value);
 	}
 	exit(return_value);
 	return (return_value);
