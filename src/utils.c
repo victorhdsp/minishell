@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:50:05 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/14 15:27:34 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 07:14:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ int	ft_count_dir(char *dir_path)
 	return (index);
 }
 
-void	print_error(char *str1, char *str3, char *str2, char *str4)
+void	print_error(char *str1, char *str2, char *str3, char *str4)
 {
-	if (str1)
-		ft_putstr_fd(str1, 2);
-	if (str2)
-		ft_putstr_fd(str2, 2);
-	if (str3)
-		ft_putstr_fd(str3, 2);
-	if (str4)
-		ft_putstr_fd(str4, 2);
+	char	*result;
+	char	*temp;
+
+	result = ft_strjoin(str1, str2);
+	temp = ft_strjoin(result, str3);
+	free(result);
+	result = ft_strjoin(temp, str4);
+	free(temp);
+	ft_putstr_fd(result, 2);
+	free(result);
 	set_system_exit_status(errno);
 }
