@@ -6,26 +6,20 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/18 07:20:06 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 08:38:01 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./traitement.h"
 
-static char	*get_new_value(char *key, char *old_value)
+static char	*get_new_value(char *key, char *old_value, char *new_value, int index)
 {
-	int		index;
-	char	*var_name;
 	char	*tmp;
 	char	*tmp2;
 	char	*result;
 
-	index = 0;
-	while (key[index] && (ft_isalnum(key[index]) || key[index] == '_'))
-		index++;
-	var_name = ft_substr(key, 0, index);
 	tmp = ft_substr(old_value, 0, key - old_value - 1);
-	tmp2 = get_system_env(var_name);
+	tmp2 = new_value;
 	result = ft_strjoin(tmp, tmp2);
 	free(tmp);
 	free(tmp2);
@@ -35,6 +29,31 @@ static char	*get_new_value(char *key, char *old_value)
 	free(tmp);
 	free(tmp2);
 	return (result);
+}
+
+static char *get_reserved_value(char *key, char *old_value)
+{
+	char	*var_value;
+
+	if (!ft_strncmp(key, "?", 1))
+	{
+		var_value = ft_itoa(get_system_exit_status());
+		return get_new_value(key, old_value, var_value, 1);
+	}
+	return (NULL);
+}
+
+static char *get_public_value(char *key, char *old_value)
+{
+	int		index;
+	char	*var_name;
+
+	index = 0;
+	if (!(ft_isalpha(key[index]) || key[index] == '_'))
+		while (key[index] && (ft_isalnum(key[index]) || key[index] == '_'))
+			index++;
+	var_name = ft_substr(key, 0, index);
+	return get_new_value(key, old_value, get_system_env(var_name), index);
 }
 
 void	variable_traitement(t_lexer_item *args)
@@ -55,7 +74,9 @@ void	variable_traitement(t_lexer_item *args)
 			key = ft_memchr(str, '$', ft_strlen(str));
 			if (key)
 			{
-				tmp = get_new_value(key + 1, args[index].value);
+				tmp = get_reserved_value(key + 1, args[index].value);
+				if (!tmp)
+					tmp = get_public_value(key + 1, args[index].value);
 				free(args[index].value);
 				args[index].value = tmp;
 				continue ;
