@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
 #include "../minishell.h"
+#include "tokenizer.h"
 
 static int	is_breaker(char first, char second)
 {

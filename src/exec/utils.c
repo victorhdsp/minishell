@@ -6,27 +6,36 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 06:49:26 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:43:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../exit/exit.h"
 #include "../minishell.h"
 #include "exec.h"
-#include "../exit/exit.h"
 
-char	*ft_get_extern_cmd(t_lexer_item *items)
+static char	**create_super_path(void)
 {
+	char	**result;
 	char	*path_var;
-	char	*result;
 	char	*tmp;
-	char	**path_var_items;
-	int		index;
 
 	path_var = get_system_env("PATH");
 	tmp = ft_strjoin(path_var, ":");
 	free(path_var);
 	path_var = ft_strjoin(tmp, getcwd(NULL, 0));
-	path_var_items = ft_split(path_var, ':');
+	result = ft_split(path_var, ':');
+	return (result);
+}
+
+char	*ft_get_extern_cmd(t_lexer_item *items)
+{
+	char	*result;
+	char	*tmp;
+	char	**path_var_items;
+	int		index;
+
+	path_var_items = create_super_path();
 	index = 0;
 	while (items[index].value && items[index].fn != fn_cmd)
 		items++;
@@ -42,7 +51,8 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 		index++;
 	}
 	if ((*items).value)
-		print_error((char *)(*items).value, ": command not found\n", NULL, NULL);
+		print_error((char *)(*items).value, ": command not found\n", NULL,
+			NULL);
 	return (NULL);
 }
 
@@ -68,6 +78,6 @@ int	ft_exec_builtin(t_lexer_item *items, char **args)
 	else if (!ft_strncmp(items[index].value, "env", 3))
 		return (env_builtin(args));
 	else if (!ft_strncmp(items[index].value, "exit", 4))
-		return(exit_builtin(args));
+		return (exit_builtin(args));
 	return (-1);
 }

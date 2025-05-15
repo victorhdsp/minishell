@@ -6,13 +6,14 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 08:38:01 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:55:27 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./traitement.h"
 
-static char	*get_new_value(char *key, char *old_value, char *new_value, int index)
+static char	*get_new_value(char *key, char *old_value, char *new_value,
+		int index)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -31,29 +32,29 @@ static char	*get_new_value(char *key, char *old_value, char *new_value, int inde
 	return (result);
 }
 
-static char *get_reserved_value(char *key, char *old_value)
+static char	*get_reserved_value(char *key, char *old_value)
 {
 	char	*var_value;
 
 	if (!ft_strncmp(key, "?", 1))
 	{
 		var_value = ft_itoa(get_system_exit_status());
-		return get_new_value(key, old_value, var_value, 1);
+		return (get_new_value(key, old_value, var_value, 1));
 	}
 	return (NULL);
 }
 
-static char *get_public_value(char *key, char *old_value)
+static char	*get_public_value(char *key, char *old_value)
 {
 	int		index;
 	char	*var_name;
 
 	index = 0;
-	if (!(ft_isalpha(key[index]) || key[index] == '_'))
+	if (ft_isalpha(key[index]) || key[index] == '_')
 		while (key[index] && (ft_isalnum(key[index]) || key[index] == '_'))
 			index++;
 	var_name = ft_substr(key, 0, index);
-	return get_new_value(key, old_value, get_system_env(var_name), index);
+	return (get_new_value(key, old_value, get_system_env(var_name), index));
 }
 
 void	variable_traitement(t_lexer_item *args)

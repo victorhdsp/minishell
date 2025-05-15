@@ -24,14 +24,14 @@ static int	get_arr_size(char **arr)
 
 static int	return_value_traitement(char *value)
 {
-	int		index;
-	int		result;
+	int	index;
+	int	result;
 
 	index = 0;
 	while (value[index])
 	{
 		if (!ft_isdigit(value[index]))
-			return error__numeric_argument_required;
+			return (error__numeric_argument_required);
 		index++;
 	}
 	result = ft_atoi(value);
@@ -42,7 +42,7 @@ static int	return_value_traitement(char *value)
 
 int	exit_builtin(char **args)
 {
-	int		return_value;
+	int	return_value;
 
 	return_value = no_error;
 	if (get_arr_size(args) > 2)
@@ -55,8 +55,9 @@ int	exit_builtin(char **args)
 		return_value = return_value_traitement(args[1]);
 		if (return_value == error__numeric_argument_required)
 		{
-			print_error("exit: ", args[1], ": numeric argument required\n", NULL);
-			exit (2);
+			print_error("exit: ", args[1], ": numeric argument required\n",
+				NULL);
+			exit(2);
 		}
 	}
 	exit(return_value);

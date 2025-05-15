@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/14 14:36:07 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:50:41 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,11 @@ static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 	return (fd);
 }
 
-static int	ft_heredoc(char *exit)
+static int	ft_heredoc(char *exit, char *filename)
 {
-	int		files_count;
-	char	*filename;
-	char	*tmp;
-	int		fd;
 	char	*content;
+	int		fd;
 
-	files_count = ft_count_dir("../../local/heredoc/");
-	content = ft_itoa(files_count);
-	tmp = ft_correct_path("../../local/heredoc/heredoc_");
-	filename = ft_strjoin(tmp, content);
-	free(tmp);
-	free(content);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 	ft_putstr_fd("> ", 0);
 	content = ft_get_next_line(0);
@@ -59,7 +50,6 @@ static int	ft_heredoc(char *exit)
 	close(fd);
 	fd = open(filename, O_RDWR);
 	free(content);
-	free(filename);
 	return (fd);
 }
 
@@ -74,15 +64,26 @@ static void	ft_save_redirects(t_sentence *sentence, int index, int fd)
 
 static void	first_heredoc(t_sentence *sentence)
 {
-	int	index;
-	int	fd;
+	int		index;
+	int		fd;
+	char	*content;
+	char	*tmp;
+	char	*filename;
 
 	index = 0;
 	fd = FD_NOT_CREATED;
 	while (sentence->items[index].value)
 	{
 		if (sentence->items[index].fn == fn_heredoc)
-			fd = ft_heredoc(sentence->items[index + 1].value);
+		{
+			content = ft_itoa(ft_count_dir("../../local/heredoc/"));
+			tmp = ft_correct_path("../../local/heredoc/heredoc_");
+			filename = ft_strjoin(tmp, content);
+			free(tmp);
+			free(content);
+			fd = ft_heredoc(sentence->items[index + 1].value, filename);
+			free(filename);
+		}
 		if (fd != FD_NOT_CREATED)
 			ft_save_redirects(sentence, index, fd);
 		fd = FD_NOT_CREATED;

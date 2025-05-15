@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals_handler.h"
 #include "../flow/flow.h"
-#include <termios.h>
+#include "signals_handler.h"
 #include <signal.h>
+#include <termios.h>
 
 void	handler_ctrl(int signal, siginfo_t *info, void *notused)
-{	
-	(void) notused;
+{
+	(void)notused;
 	if (signal == SIGINT)
 	{
 		printf("\n");
@@ -28,7 +28,7 @@ void	handler_ctrl(int signal, siginfo_t *info, void *notused)
 		set_system_exit_status(130);
 	}
 	else if (signal == SIGQUIT)
-		return;
+		return ;
 }
 
 void	signal_handler(void)

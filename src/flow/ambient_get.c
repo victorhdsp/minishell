@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient_getc                                       :+:      :+:    :+:   */
+/*   ambient_get.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 08:26:48 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:33:53 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_system	get_system(t_system *new_system)
 	return (system);
 }
 
-int			get_system_exit_status(void)
+int	get_system_exit_status(void)
 {
 	t_system	new_system;
 
@@ -31,7 +31,7 @@ int			get_system_exit_status(void)
 	return (new_system.last_exit_status);
 }
 
-char		*get_system_env(char *key)
+char	*get_system_env(char *key)
 {
 	t_system	system;
 	int			index;

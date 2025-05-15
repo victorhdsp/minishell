@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
 #include "../minishell.h"
+#include "cd.h"
 
 static char	**set_arr_for_export(char *key)
 {

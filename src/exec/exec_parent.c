@@ -6,16 +6,16 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 12:25:08 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:38:25 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "exec.h"
-#include <sys/wait.h>
 #include <signal.h>
+#include <sys/wait.h>
 
-static int		ft_exec_command(t_sentence sentence)
+static int	ft_exec_command(t_sentence sentence)
 {
 	char	*cmd;
 	int		fd;
@@ -28,7 +28,7 @@ static int		ft_exec_command(t_sentence sentence)
 	cmd = ft_get_extern_cmd(sentence.items);
 	fd = fork();
 	if (fd < 0)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	if (fd == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -38,7 +38,7 @@ static int		ft_exec_command(t_sentence sentence)
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(fd, &result, 0);
-	return(result);
+	return (result);
 }
 
 void	create_commands_without_pipe(t_sentence sentence)
@@ -46,7 +46,7 @@ void	create_commands_without_pipe(t_sentence sentence)
 	int		stdin_backup;
 	int		stdout_backup;
 	int		exec_return;
-	
+
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
 	prepare_redirects(&sentence);

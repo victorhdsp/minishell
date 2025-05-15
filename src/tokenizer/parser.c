@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
 #include "../minishell.h"
+#include "tokenizer.h"
 
 static int	ft_redirect(t_lexer_item *cmds, int index, int *result)
 {
@@ -89,8 +89,8 @@ static int	ft_command(t_lexer_item **cmds, int *has_open_parenthesis)
 
 int	ft_parser(t_lexer_item **cmds)
 {
-	int	result;
-	int	has_open_parenthesis;
+	int		result;
+	int		has_open_parenthesis;
 	char	*err_message;
 
 	has_open_parenthesis = 0;
@@ -101,7 +101,8 @@ int	ft_parser(t_lexer_item **cmds)
 		errno = 2;
 		if (result != 0)
 			err_message = (*cmds)[result - 1].value;
-		print_error("syntax error near unexpected token `", err_message, "\'\n", NULL);
+		print_error("syntax error near unexpected token `", err_message, "\'\n",
+			NULL);
 		return (2);
 	}
 	return (0);

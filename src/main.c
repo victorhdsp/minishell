@@ -12,8 +12,8 @@
 
 #include "./flow/flow.h"
 #include "./minishell.h"
-#include "./traitement/traitement.h"
 #include "./readline/my_readline.h"
+#include "./traitement/traitement.h"
 
 int	main(int ac, char **av, char **env)
 {

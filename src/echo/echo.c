@@ -52,10 +52,10 @@ static int	check_args(char **data, int *flag_beginning, int *index,
 
 int	ft_echo(char **data)
 {
-	int		flag_not_at_beginning;
-	int		flag_check;
-	int		index;
-	int		args;
+	int	flag_not_at_beginning;
+	int	flag_check;
+	int	index;
+	int	args;
 
 	index = 1;
 	flag_check = 0;

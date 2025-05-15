@@ -23,9 +23,9 @@
 # include "./sentences/sentences.h"
 # include "./tokenizer/tokenizer.h"
 # include <dirent.h>
-# include <sys/types.h>
 # include <errno.h>
 # include <string.h>
+# include <sys/types.h>
 
 int		ft_count_dir(char *dir_path);
 char	*ft_correct_path(char *path);

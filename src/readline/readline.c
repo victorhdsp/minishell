@@ -40,12 +40,12 @@ void	set_prompt(void)
 
 void	disable_ctrl_backslash(void)
 {
-	struct termios term;
+	struct termios	term;
 
-    if (tcgetattr(STDIN_FILENO, &term) == -1)
-        return;
-    term.c_cc[VQUIT] = _POSIX_VDISABLE;
-    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	if (tcgetattr(STDIN_FILENO, &term) == -1)
+		return ;
+	term.c_cc[VQUIT] = _POSIX_VDISABLE;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 void	read_entrys(void)
