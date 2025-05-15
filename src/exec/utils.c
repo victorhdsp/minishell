@@ -6,12 +6,13 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/14 15:25:20 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 06:49:26 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "exec.h"
+#include "../exit/exit.h"
 
 char	*ft_get_extern_cmd(t_lexer_item *items)
 {
@@ -67,6 +68,6 @@ int	ft_exec_builtin(t_lexer_item *items, char **args)
 	else if (!ft_strncmp(items[index].value, "env", 3))
 		return (env_builtin(args));
 	else if (!ft_strncmp(items[index].value, "exit", 4))
-		exit(EXIT_SUCCESS);
+		return(exit_builtin(args));
 	return (-1);
 }
