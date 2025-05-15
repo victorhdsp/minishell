@@ -6,13 +6,14 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/12 17:36:19 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 07:27:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../flow/flow.h"
 #include "../signals_handler/signals_handler.h"
 #include "my_readline.h"
+#include <termios.h>
 
 void	set_prompt(void)
 {
@@ -35,6 +36,16 @@ void	set_prompt(void)
 	set_system_name(result);
 	free(tmp);
 	free(pwd);
+}
+
+void	disable_ctrl_backslash(void)
+{
+	struct termios term;
+
+    if (tcgetattr(STDIN_FILENO, &term) == -1)
+        return;
+    term.c_cc[VQUIT] = _POSIX_VDISABLE;
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 void	read_entrys(void)

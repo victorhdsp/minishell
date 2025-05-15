@@ -6,15 +6,16 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:18:26 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/12 20:05:25 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/15 07:27:29 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals_handler.h"
 #include "../flow/flow.h"
+#include <termios.h>
 
 void	handler_ctrl(int sig)
-{
+{	
 	if (sig == SIGINT)
 	{
 		printf("\n");
@@ -24,12 +25,7 @@ void	handler_ctrl(int sig)
 		set_system_exit_status(130);
 	}
 	else if (sig == SIGQUIT)
-	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		set_system_exit_status(130);
-	}
+		return;
 }
 
 void	signal_handler(void)

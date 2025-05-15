@@ -1,8 +1,8 @@
 [ ] Apresentar retornos;
-[ ] ctrl + \ não deve parar os processos filhos: testar com "cat"
+[x] ctrl + \ não deve parar os processos filhos: testar com "cat"
 [ ] abrir um cat e finalizar ele, faz com que o texto do readline não apareça.
-[ ] ao criar uma pasta dentro de outra, entrar na segunda, deletar a primeira e voltar para a primeiro deveria dar "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory".
-[ ] exit precisa ser criado, ele não pode receber multiplos argumentos, não pode receber valores que não são numeros, o valor dele só vai até 255, limitado por 20 numeros.
+[x] ao criar uma pasta dentro de outra, entrar na segunda, deletar a primeira e voltar para a primeiro deveria dar "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory".
+[x] exit precisa ser criado, ele não pode receber multiplos argumentos, não pode receber valores que não são numeros, o valor dele só vai até 255.
 [x] envp não pode receber multiplos argumentos.
 [x] Os bultins não são executados no pai caso tenha pipes.
 [x] ao acessar um elemento sem permissão o pipe não funciona.
