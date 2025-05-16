@@ -1,0 +1,7 @@
+{
+   ignore_libc_leak
+   Memcheck:Leak
+   ...
+   fun:malloc
+   obj:/lib/x86_64-linux-gnu/libc-*
+}

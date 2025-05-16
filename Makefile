@@ -42,4 +42,4 @@ $(TEST_CONTAINER_NAME): $(TEST_DOCKER)
 	fi
 
 valgrind: $(NAME)
-	valgrind --suppressions=ig_readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+	valgrind --leak-check=full --suppressions=suppressions.supp ./minishell
