@@ -14,7 +14,7 @@
 
 static void	free_super_path(char **super_path)
 {
-	int		index;
+	int	index;
 
 	index = 0;
 	while (super_path[index])
@@ -44,7 +44,7 @@ static char	**create_super_path(void)
 	return (result);
 }
 
-static char *search_in_path(char *path, char *program)
+static char	*search_in_path(char *path, char *program)
 {
 	char	*tmp;
 	char	*result;
@@ -74,7 +74,7 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 	{
 		result = search_in_path(path_var_items[index], (*items).value);
 		if (result)
-			break;
+			break ;
 		index++;
 	}
 	if (!result && (*items).value)

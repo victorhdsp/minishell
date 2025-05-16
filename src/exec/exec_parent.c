@@ -6,15 +6,16 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 15:25:37 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:33:59 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	free_ambient(char *cmd, t_sentence sentence, t_lexer_item	*lexed_cmd)
+static void	free_ambient(char *cmd, t_sentence sentence,
+		t_lexer_item *lexed_cmd)
 {
-	int		index;
+	int	index;
 
 	index = 0;
 	while (sentence.items[index].value)
@@ -31,7 +32,7 @@ static void	free_ambient(char *cmd, t_sentence sentence, t_lexer_item	*lexed_cmd
 	free(cmd);
 }
 
-static int	ft_exec_command(t_sentence sentence, t_lexer_item	*lexed_cmd)
+static int	ft_exec_command(t_sentence sentence, t_lexer_item *lexed_cmd)
 {
 	char	*cmd;
 	int		fd;
@@ -41,12 +42,12 @@ static int	ft_exec_command(t_sentence sentence, t_lexer_item	*lexed_cmd)
 	result = ft_exec_builtin(sentence.items, sentence.args);
 	if (result != -1)
 		return (result);
-	cmd = ft_get_extern_cmd(sentence.items);
 	fd = fork();
 	if (fd < 0)
 		exit(EXIT_FAILURE);
 	if (fd == 0)
 	{
+		cmd = ft_get_extern_cmd(sentence.items);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (cmd)
@@ -58,11 +59,12 @@ static int	ft_exec_command(t_sentence sentence, t_lexer_item	*lexed_cmd)
 	return (result);
 }
 
-void	create_commands_without_pipe(t_sentence sentence, t_lexer_item	*lexed_cmd)
+void	create_commands_without_pipe(t_sentence sentence,
+		t_lexer_item *lexed_cmd)
 {
 	int		stdin_backup;
 	int		stdout_backup;
-	int		exec_return;
+	int		exec_return ;
 
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);

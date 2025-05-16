@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void	free_ambient(t_sentence *sentences, t_lexer_item	*lexed_cmd)
+static void	free_ambient(t_sentence *sentences, t_lexer_item *lexed_cmd)
 {
 	free_all_system();
 	free_sentence(sentences);
@@ -48,7 +48,8 @@ static void	ft_exec_command(t_sentence sentence, int *tube[2], int size)
 	exit(EXIT_FAILURE);
 }
 
-static void	prepare_child(t_sentence *sentences, int *tube[2], int index, t_lexer_item	*lexed_cmd)
+static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
+		t_lexer_item *lexed_cmd)
 {
 	pid_t	pid;
 
@@ -58,7 +59,8 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, t_lexe
 		exit(EXIT_FAILURE);
 	if (pid == 0)
 	{
-		if ((sentences[index + 1].args && sentences[index].outfile == STDOUT_FILENO))
+		if ((sentences[index + 1].args
+				&& sentences[index].outfile == STDOUT_FILENO))
 			sentences[index].outfile = tube[index][1];
 		if ((index > 0 && sentences[index].infile == STDIN_FILENO))
 			sentences[index].infile = tube[index - 1][0];
@@ -74,7 +76,8 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index, t_lexe
 	}
 }
 
-void	create_commands_with_pipe(t_sentence *sentences, t_lexer_item	*lexed_cmd)
+void	create_commands_with_pipe(t_sentence *sentences,
+		t_lexer_item *lexed_cmd)
 {
 	int	index;
 	int	size;
