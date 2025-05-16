@@ -40,3 +40,6 @@ $(TEST_CONTAINER_NAME): $(TEST_DOCKER)
 		echo "Iniciando Docker..."; \
 		docker-compose -f $(TEST_DOCKER) up --detach; \
 	fi
+
+valgrind: $(NAME)
+	valgrind --suppressions=ig_readline.supp --leak-check=full --show-leak-kinds=all ./minishell
