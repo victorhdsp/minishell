@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:54:00 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:28:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	set_system_name(char *name)
 	t_system	new_system;
 
 	new_system = get_system(NULL);
+	if (new_system.name)
+		free(new_system.name);
 	new_system.name = name;
 	get_system(&new_system);
 }

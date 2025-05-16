@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:49:06 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:29:07 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	system_flow(char **env, char *name)
 	char		*username;
 
 	new_system.last_exit_status = 1;
-	new_system.name = name;
+	new_system.name = ft_strdup(name);
 	new_system.username = ft_strdup("user");
 	list_env = get_env(env);
 	new_system.env = get_env_arr(list_env);

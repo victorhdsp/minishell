@@ -6,13 +6,13 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:54:04 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:25:37 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	free_ambient(t_sentence sentence, t_lexer_item	*lexed_cmd)
+static void	free_ambient(char *cmd, t_sentence sentence, t_lexer_item	*lexed_cmd)
 {
 	int		index;
 
@@ -28,6 +28,7 @@ static void	free_ambient(t_sentence sentence, t_lexer_item	*lexed_cmd)
 	free(sentence.args);
 	free_all_system();
 	free_lexer(lexed_cmd);
+	free(cmd);
 }
 
 static int	ft_exec_command(t_sentence sentence, t_lexer_item	*lexed_cmd)
@@ -48,10 +49,9 @@ static int	ft_exec_command(t_sentence sentence, t_lexer_item	*lexed_cmd)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (cmd && cmd[0])
+		if (cmd)
 			execve(cmd, sentence.args, get_system(NULL).env);
-		free(cmd);
-		free_ambient(sentence, lexed_cmd);
+		free_ambient(cmd, sentence, lexed_cmd);
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(fd, &result, 0);
