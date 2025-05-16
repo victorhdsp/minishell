@@ -6,13 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 12:33:53 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:48:54 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../env/env.h"
-#include "../env_management/env_management.h"
-#include "flow.h"
+#include "../minishell.h"
 
 t_system	get_system(t_system *new_system)
 {

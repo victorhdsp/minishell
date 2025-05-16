@@ -6,39 +6,36 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 09:04:28 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:49:06 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec/exec.h"
-#include "../tokenizer/tokenizer.h"
-#include "../traitement/traitement.h"
-#include "./flow.h"
+#include "../minishell.h"
 
-static void	free_sentence(t_sentence *sentence)
+void	free_sentence(t_sentence *sentences)
 {
 	int	sent_index;
 	int	item_index;
 
 	sent_index = 0;
-	while (sentence[sent_index].items)
+	while (sentences[sent_index].items)
 	{
 		item_index = 0;
-		while (sentence[sent_index].items[item_index].value)
+		while (sentences[sent_index].items[item_index].value)
 		{
-			if (sentence[sent_index].items[item_index].type == type_infile
-				|| sentence[sent_index].items[item_index].type == type_outfile)
-				close(sentence[sent_index].items[item_index + 1].fd);
+			if (sentences[sent_index].items[item_index].type == type_infile
+				|| sentences[sent_index].items[item_index].type == type_outfile)
+				close(sentences[sent_index].items[item_index + 1].fd);
 			item_index++;
 		}
-		free(sentence[sent_index].items);
-		free(sentence[sent_index].args);
+		free(sentences[sent_index].items);
+		free(sentences[sent_index].args);
 		sent_index++;
 	}
-	free(sentence);
+	free(sentences);
 }
 
-static void	free_lexer(t_lexer_item *lexer)
+void	free_lexer(t_lexer_item *lexer)
 {
 	int	index;
 
@@ -66,6 +63,7 @@ void	system_flow(char **env, char *name)
 	username = get_system_env("USER");
 	if (username)
 	{
+		free(new_system.username);
 		new_system.username = username;
 		get_system(&new_system);
 	}
@@ -81,22 +79,21 @@ int	minishell_flow(char *cmd)
 
 	splited_cmd = word_breaker(cmd);
 	lexed_cmd = lexer(splited_cmd);
+	free(splited_cmd);
 	exit_status = ft_parser(&lexed_cmd);
 	if (exit_status != 0)
 	{
 		free_lexer(lexed_cmd);
-		free(splited_cmd);
 		return (EXIT_FAILURE);
 	}
 	variable_traitement(lexed_cmd);
 	quote_traitement(lexed_cmd);
 	sentence_cmd = create_pipes(lexed_cmd);
 	if (sentence_cmd[1].args)
-		create_commands_with_pipe(sentence_cmd);
+		create_commands_with_pipe(sentence_cmd, lexed_cmd);
 	else
-		create_commands_without_pipe(sentence_cmd[0]);
+		create_commands_without_pipe(sentence_cmd[0], lexed_cmd);
 	free_sentence(sentence_cmd);
 	free_lexer(lexed_cmd);
-	free(splited_cmd);
 	return (get_system(NULL).last_exit_status);
 }

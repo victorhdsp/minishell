@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:25:25 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/08 11:25:26 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:42:47 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_management.h"
+#include "../minishell.h"
 
 char	**ft_clean_arr(char **result)
 {

@@ -6,13 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 12:43:12 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:46:57 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exit/exit.h"
 #include "../minishell.h"
-#include "exec.h"
 
 static char	**create_super_path(void)
 {

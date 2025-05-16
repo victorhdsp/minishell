@@ -6,16 +6,13 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:15:31 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/14 15:23:20 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:38:14 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cd/cd.h"
-#include "../env/env.h"
-#include "../env_management/env_management.h"
-#include "../flow/flow.h"
 
-// Add save in ambient variable
+#include "../minishell.h"
+
 int	export_builtin(char **args)
 {
 	t_system	system;

@@ -6,12 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 12:50:41 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:46:51 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "exec.h"
 
 static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 {

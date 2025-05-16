@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/15 12:55:27 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:48:14 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./traitement.h"
+#include "../minishell.h"
 
 static char	*get_new_value(char *key, char *old_value, char *new_value,
 		int index)

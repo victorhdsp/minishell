@@ -6,14 +6,12 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 09:12:50 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 13:30:22 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:52:52 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
-
-# include "../../include/libft/libft.h"
 
 enum							e_type_sentence_item
 {

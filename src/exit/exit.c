@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/15 08:49:55 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:48:32 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./exit.h"
+#include "../minishell.h"
 
 static int	get_arr_size(char **arr)
 {

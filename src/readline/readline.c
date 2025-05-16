@@ -6,14 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/15 07:27:18 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:50:43 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../flow/flow.h"
-#include "../signals_handler/signals_handler.h"
-#include "my_readline.h"
-#include <termios.h>
+#include "../minishell.h"
 
 void	set_prompt(void)
 {
@@ -63,9 +60,11 @@ void	read_entrys(void)
 		if (line == NULL)
 		{
 			printf("exit\n");
+			free_all_system();
+			rl_clear_history();
 			exit(0);
 		}
-		if (line && line[0])
+		if (line[0])
 		{
 			add_history(line);
 			minishell_flow(line);

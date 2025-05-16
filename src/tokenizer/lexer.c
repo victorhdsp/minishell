@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 13:30:46 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:52:34 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 static void	ft_identify_redirect(char *str, t_lexer_item *item, int len)
 {

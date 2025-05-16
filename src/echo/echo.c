@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:12 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/14 11:53:15 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:41:46 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "echo.h"
+#include "../minishell.h"
 
 static int	check_consecutive_n(char *word)
 {

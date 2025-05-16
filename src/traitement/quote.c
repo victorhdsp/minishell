@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 11:57:56 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:53:07 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./traitement.h"
+#include "../minishell.h"
 
 void	quote_traitement(t_lexer_item *args)
 {

@@ -6,14 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:50:40 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/12 10:58:05 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:55:28 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./flow/flow.h"
 #include "./minishell.h"
-#include "./readline/my_readline.h"
-#include "./traitement/traitement.h"
 
 int	main(int ac, char **av, char **env)
 {
@@ -22,5 +19,6 @@ int	main(int ac, char **av, char **env)
 	system_flow(env, "minishell");
 	read_entrys();
 	free_all_system();
+	rl_clear_history();
 	return (0);
 }

@@ -6,12 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/14 14:57:53 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:41:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "cd.h"
 
 static char	**set_arr_for_export(char *key)
 {

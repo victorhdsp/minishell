@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:35 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/14 15:25:44 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:41:57 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../minishell.h"
 
 t_my_env	*get_env(char **env)
 {

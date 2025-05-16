@@ -6,14 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:18:26 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/15 12:27:12 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:52:10 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../flow/flow.h"
-#include "signals_handler.h"
-#include <signal.h>
-#include <termios.h>
+#include "../minishell.h"
 
 void	handler_ctrl(int signal, siginfo_t *info, void *notused)
 {

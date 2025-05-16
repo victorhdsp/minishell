@@ -6,12 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/14 14:40:15 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:52:45 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "tokenizer.h"
 
 static int	is_breaker(char first, char second)
 {

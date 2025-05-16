@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:07:57 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/12 10:37:00 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:49:44 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pwd.h"
+#include "../minishell.h"
 
 int	ft_pwd(void)
 {

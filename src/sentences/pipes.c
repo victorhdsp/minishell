@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 09:06:12 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:50:59 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./sentences.h"
+#include "../minishell.h"
 
 static void	ft_count_pipes(t_lexer_item *items, int *sentences_index)
 {
