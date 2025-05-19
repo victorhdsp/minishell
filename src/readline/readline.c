@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/19 11:32:12 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:58:47 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	set_prompt(void)
 
 	user = get_system(NULL).username;
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		return;
 	tmp = ft_strnstr(pwd, user, ft_strlen(pwd));
 	if (!tmp)
 		tmp = pwd;
