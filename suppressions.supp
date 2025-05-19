@@ -1,7 +1,6 @@
 {
-   ignore_libc_leak
+   <suppress_readline>
    Memcheck:Leak
-   ...
-   fun:malloc
-   obj:/lib/x86_64-linux-gnu/libc-*
+   obj:/usr/libexec/valgrind*
+   obj:/usr/lib/x*
 }

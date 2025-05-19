@@ -42,4 +42,4 @@ $(TEST_CONTAINER_NAME): $(TEST_DOCKER)
 	fi
 
 valgrind: $(NAME)
-	valgrind --leak-check=full --suppressions=suppressions.supp ./minishell
+	valgrind --leak-check=full --show-reachable=yes --error-limit=no --suppressions=./suppressions.supp -s ./minishell

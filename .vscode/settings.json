@@ -82,6 +82,7 @@
     "flow.h": "c",
     "signals_handler.h": "c",
     "my_readline.h": "c",
-    "minishell.h": "c"
+    "minishell.h": "c",
+    "typeinfo": "c"
   }
 }
