@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/16 14:48:32 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:24:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ static int	return_value_traitement(char *value)
 	int	result;
 
 	index = 0;
+	if (value[0] == '+' || value[0] == '-')
+		index++;
 	while (value[index])
 	{
 		if (!ft_isdigit(value[index]))
 			return (error__numeric_argument_required);
 		index++;
 	}
+	if (index >= 20)
+		return (error__numeric_argument_required);
 	result = ft_atoi(value);
 	if (result >= 255)
 		result %= 256;
@@ -42,13 +46,13 @@ static int	return_value_traitement(char *value)
 
 int	exit_builtin(char **args)
 {
-	int	return_value;
+	unsigned char	return_value;
 
 	return_value = no_error;
 	if (get_arr_size(args) > 2)
 	{
 		print_error("exit: too many arguments\n", NULL, NULL, NULL);
-		return (1);
+		return (error__too_many_arguments);
 	}
 	if (args && args[1] && args[1][0])
 	{
