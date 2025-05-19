@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:44:35 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/22 10:22:05 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:59:51 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 
 void	cd_free(char **arr);
+char    *normalize_path(char *path);
 int		ft_cd(t_my_env **my_env, char **args);
 
 #endif

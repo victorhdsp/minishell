@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/16 14:41:12 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:25:11 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static char	**set_arr_for_export(char *key)
 	char	*new_keyvalue;
 	char	**arr;
 
-	cwd_ret = getcwd(NULL, 0);
+	cwd_ret = getcwd(NULL, 0); //retorna null pois a pasta perdeu a permissão
+	if (!cwd_ret)
+		cwd_ret = ft_strdup(get_system_env("PWD"));
 	new_keyvalue = ft_strjoin(key, cwd_ret);
 	arr = (char **)malloc(sizeof(char *) * 3);
 	arr[0] = NULL;
@@ -76,9 +78,67 @@ static int	check_home(t_my_env **my_env)
 	return (1);
 }
 
+void	find_previous_null(char **splitted, int index)
+{
+	int	splitted_index;
+
+	splitted_index = index;
+
+	while (!splitted[index] || splitted_index != 0)
+	{
+		index--;
+		if (splitted[index])
+		{
+			splitted[index] = NULL;
+			break;
+		}
+	}
+}
+
+char *normalize_path(char *path)
+{
+	char	**splitted;
+	int		index;
+	int		size;
+	char	*final_path;
+	char	*tmp;
+
+	splitted = ft_split(path, '/');
+	index = 0;
+	while (splitted[index])
+	{
+		if (strcmp(splitted[index], "..") == 0)   //"/home/rpassos-/test/..   /outro/.  /pasta_2/pasta_3/..  /.."
+		{
+			if (splitted[index - 1] == NULL)
+				find_previous_null(splitted, index);  //"/home/rpassos-/null/null/outro/null/pasta_2/null   /null/null"
+			splitted[index - 1] = NULL;
+			splitted[index] = NULL;
+		}
+		else if (strcmp(splitted[index], ".") == 0)
+			splitted[index] = NULL;
+		index++;
+	}
+	size = index;
+	index = 0;
+	while (index < size)
+	{
+		if (splitted[index])
+			final_path = ft_strjoin(final_path, "/");
+		tmp = final_path;
+		final_path = ft_strjoin(final_path, splitted[index]);
+		free(tmp);
+		index++;
+	}
+	return (final_path);
+}
+
+
+
 int	ft_cd(t_my_env **my_env, char **args)
 {
 	char	**arr;
+	char	*path;
+	char	*final_path;
 
 	if (!args[1])
 		return (check_home(my_env));
@@ -88,7 +148,15 @@ int	ft_cd(t_my_env **my_env, char **args)
 		return (1);
 	}
 	arr = set_arr_for_export("OLDPWD=");
-	if (chdir(args[1]) == 0)
+	
+	path = ft_strjoin(get_system_env("PWD"), "/");
+	
+	final_path = ft_strjoin(path, args[1]);
+	
+	printf("PWD: %s\n", get_system_env("PWD"));
+	printf("arg: %s\n", args[1]);
+	printf("final path: %s\n", final_path);
+	if (chdir(final_path) == 0)
 	{
 		ft_export(my_env, arr);
 		cd_free(arr);
