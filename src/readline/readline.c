@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:53:44 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/16 14:50:43 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:32:12 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	read_entrys(void)
 
 	system = get_system(NULL);
 	signal_handler();
+	disable_ctrl_backslash();
 	while (1)
 	{
 		set_prompt();
