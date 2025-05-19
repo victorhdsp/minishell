@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 16:33:59 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:58:40 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ static int	ft_exec_command(t_sentence sentence, t_lexer_item *lexed_cmd)
 	cmd = NULL;
 	result = ft_exec_builtin(sentence.items, sentence.args);
 	if (result != -1)
+	{
+		set_system_exit_status(result);
 		return (result);
+	}
 	fd = fork();
 	if (fd < 0)
 		exit(EXIT_FAILURE);
@@ -49,7 +52,6 @@ static int	ft_exec_command(t_sentence sentence, t_lexer_item *lexed_cmd)
 	{
 		cmd = ft_get_extern_cmd(sentence.items);
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		if (cmd)
 			execve(cmd, sentence.args, get_system(NULL).env);
 		free_ambient(cmd, sentence, lexed_cmd);
