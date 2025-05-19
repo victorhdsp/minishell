@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:46:51 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 12:12:33 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,7 @@ static int	ft_heredoc(char *exit, char *filename)
 	return (fd);
 }
 
-static void	ft_save_redirects(t_sentence *sentence, int index, int fd)
-{
-	sentence->items[index + 1].fd = fd;
-	if (sentence->items[index].type == type_infile)
-		sentence->infile = fd;
-	if (sentence->items[index].type == type_outfile)
-		sentence->outfile = fd;
-}
-
-static void	first_heredoc(t_sentence *sentence)
+void	prepare_heredoc(t_lexer_item	*items)
 {
 	int		index;
 	int		fd;
@@ -71,35 +62,32 @@ static void	first_heredoc(t_sentence *sentence)
 
 	index = 0;
 	fd = FD_NOT_CREATED;
-	while (sentence->items[index].value)
+	while (items[index].value)
 	{
-		if (sentence->items[index].fn == fn_heredoc)
+		if (items[index].fn == fn_heredoc)
 		{
 			content = ft_itoa(ft_count_dir("../../local/heredoc/"));
 			tmp = ft_correct_path("../../local/heredoc/heredoc_");
 			filename = ft_strjoin(tmp, content);
 			free(tmp);
 			free(content);
-			fd = ft_heredoc(sentence->items[index + 1].value, filename);
+			fd = ft_heredoc(items[index + 1].value, filename);
 			free(filename);
 		}
 		if (fd != FD_NOT_CREATED)
-			ft_save_redirects(sentence, index, fd);
+			items[index + 1].fd = fd;
 		fd = FD_NOT_CREATED;
 		index++;
 	}
 }
 
-void	prepare_redirects(t_sentence *sentence)
+void	prepare_redirects(t_lexer_item	*items)
 {
 	int				fd;
 	int				index;
-	t_lexer_item	*items;
 
 	index = 0;
 	fd = FD_NOT_CREATED;
-	items = sentence->items;
-	first_heredoc(sentence);
 	while (items[index].value)
 	{
 		if (items[index].fn == fn_output)
@@ -109,7 +97,7 @@ void	prepare_redirects(t_sentence *sentence)
 		else if (items[index].fn == fn_input)
 			fd = ft_simple_redirect(items[index + 1].value, fn_input);
 		if (fd != FD_NOT_CREATED)
-			ft_save_redirects(sentence, index, fd);
+			items[index + 1].fd = fd;
 		fd = FD_NOT_CREATED;
 		index++;
 	}

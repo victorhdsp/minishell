@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:45:05 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:48:11 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
 {
 	pid_t	pid;
 
-	prepare_redirects(&sentences[index]);
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);

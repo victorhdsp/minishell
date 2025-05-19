@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 15:29:07 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 12:14:01 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,18 @@ int	minishell_flow(char *cmd)
 	char			**splited_cmd;
 	t_lexer_item	*lexed_cmd;
 	t_sentence		*sentence_cmd;
-	int				exit_status;
 
 	splited_cmd = word_breaker(cmd);
 	lexed_cmd = lexer(splited_cmd);
 	free(splited_cmd);
-	exit_status = ft_parser(&lexed_cmd);
-	if (exit_status != 0)
+	if (ft_parser(&lexed_cmd) != 0)
 	{
 		free_lexer(lexed_cmd);
 		return (EXIT_FAILURE);
 	}
+	prepare_heredoc(lexed_cmd);
 	variable_traitement(lexed_cmd);
+	prepare_redirects(lexed_cmd);
 	quote_traitement(lexed_cmd);
 	sentence_cmd = create_pipes(lexed_cmd);
 	if (sentence_cmd[1].args)
