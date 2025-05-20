@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/19 19:25:11 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:21:46 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	cd_print_error(char *arg)
 		print_error("cd: ", arg, ": Permission denied\n", NULL);
 }
 
-static int	get_arr_size(char **arr)
+int	get_arr_size(char **arr)
 {
 	int	index;
 
@@ -80,15 +80,12 @@ static int	check_home(t_my_env **my_env)
 
 void	find_previous_null(char **splitted, int index)
 {
-	int	splitted_index;
-
-	splitted_index = index;
-
-	while (!splitted[index] || splitted_index != 0)
+	while (!splitted[index] || index != 0)
 	{
 		index--;
 		if (splitted[index])
 		{
+			free(splitted[index]);
 			splitted[index] = NULL;
 			break;
 		}
@@ -98,24 +95,32 @@ void	find_previous_null(char **splitted, int index)
 char *normalize_path(char *path)
 {
 	char	**splitted;
-	int		index;
-	int		size;
 	char	*final_path;
 	char	*tmp;
+	int		index;
+	int		size;
 
 	splitted = ft_split(path, '/');
+	if (!splitted)
+   		return NULL;
+	final_path = NULL;
 	index = 0;
 	while (splitted[index])
 	{
 		if (strcmp(splitted[index], "..") == 0)   //"/home/rpassos-/test/..   /outro/.  /pasta_2/pasta_3/..  /.."
 		{
-			if (splitted[index - 1] == NULL)
+			if (index > 0 && splitted[index - 1] == NULL)
 				find_previous_null(splitted, index);  //"/home/rpassos-/null/null/outro/null/pasta_2/null   /null/null"
+			free(splitted[index - 1]);
 			splitted[index - 1] = NULL;
+			free(splitted[index]);
 			splitted[index] = NULL;
 		}
 		else if (strcmp(splitted[index], ".") == 0)
+		{
+			free(splitted[index]);
 			splitted[index] = NULL;
+		}	
 		index++;
 	}
 	size = index;
@@ -123,21 +128,24 @@ char *normalize_path(char *path)
 	while (index < size)
 	{
 		if (splitted[index])
+		{
+			tmp = final_path;
 			final_path = ft_strjoin(final_path, "/");
+			free(tmp);
+		}
 		tmp = final_path;
 		final_path = ft_strjoin(final_path, splitted[index]);
 		free(tmp);
 		index++;
 	}
+	free_arr(splitted);
 	return (final_path);
 }
-
-
 
 int	ft_cd(t_my_env **my_env, char **args)
 {
 	char	**arr;
-	char	*path;
+	char	*tmp;
 	char	*final_path;
 
 	if (!args[1])
@@ -148,14 +156,13 @@ int	ft_cd(t_my_env **my_env, char **args)
 		return (1);
 	}
 	arr = set_arr_for_export("OLDPWD=");
-	
-	path = ft_strjoin(get_system_env("PWD"), "/");
-	
-	final_path = ft_strjoin(path, args[1]);
-	
-	printf("PWD: %s\n", get_system_env("PWD"));
-	printf("arg: %s\n", args[1]);
-	printf("final path: %s\n", final_path);
+	final_path = ft_strjoin(arr[1] + 7, "/");
+	tmp = final_path;
+	final_path = ft_strjoin(final_path, args[1]);
+	free(tmp);
+	tmp = final_path;
+	final_path = normalize_path(final_path);
+	free(tmp);
 	if (chdir(final_path) == 0)
 	{
 		ft_export(my_env, arr);
@@ -168,7 +175,9 @@ int	ft_cd(t_my_env **my_env, char **args)
 	{
 		cd_print_error(args[1]);
 		cd_free(arr);
+		free(final_path);
 		return (1);
 	}
+	free(final_path);
 	return (0);
 }
