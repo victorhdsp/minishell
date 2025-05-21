@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/20 17:54:57 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:48:43 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_cd(t_my_env **my_env, char **args)
 		return (1);
 	}
 	arr = set_arr_for_export("OLDPWD=");
-	final_path = set_final_path(arr, args, final_path);
+	final_path = check_home_path_arg(arr, args, final_path);
 	if (chdir(final_path) == 0)
 	{
 		ft_export(my_env, arr);

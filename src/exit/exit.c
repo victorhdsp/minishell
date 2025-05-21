@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/16 17:24:12 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:40:24 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static int	get_arr_size(char **arr)
-{
-	int	index;
-
-	index = 0;
-	while (arr[index] != NULL)
-		index++;
-	return (index);
-}
 
 static int	return_value_traitement(char *value)
 {

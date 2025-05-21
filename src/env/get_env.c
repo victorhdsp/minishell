@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:35 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/16 14:41:57 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:40:29 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,6 @@ char	**get_env_arr(t_my_env *my_env)
 	}
 	my_env_arr[index] = NULL;
 	return (my_env_arr);
-}
-
-static int	get_arr_size(char **arr)
-{
-	int	index;
-
-	index = 0;
-	while (arr[index] != NULL)
-		index++;
-	return (index);
 }
 
 int	print_env(t_my_env *my_env, char **args)
