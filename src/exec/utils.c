@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 15:23:59 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:52:37 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 	int		index;
 
 	result = NULL;
-	path_var_items = create_super_path();
-	index = 0;
-	while (items[index].value && items[index].fn != fn_cmd)
+	while (items[0].value && items[0].fn != fn_cmd)
 		items++;
+	if ((*items).value[0] == '/')
+		return (ft_strdup((*items).value));
+	path_var_items = create_super_path();
 	index = 0;
 	while (path_var_items[index] && (*items).value)
 	{
