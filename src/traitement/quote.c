@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 17:40:43 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:54:33 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	change_quote(char *get, char **set, char type)
 		result[index - quotes] = get[index];
 		index++;
 	}
+	result[index - quotes] = '\0';
 	free(*set);
 	*set = result;
 }
@@ -64,7 +65,7 @@ void	quote_traitement(t_lexer_item *args)
 		while (str && *str)
 		{
 			if (*str == '\'' || *str == '\"')
-				change_quote(str, &args[index].value, *str);
+				change_quote(args[index].value, &args[index].value, *str);
 			str++;
 		}
 		index++;
