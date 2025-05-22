@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:52:34 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:56:30 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ t_lexer_item	*lexer(char **strs)
 	int				index;
 	t_lexer_item	*result;
 
+	if (!strs)
+		return (NULL);
 	index = 0;
 	while (strs[index])
 		index++;

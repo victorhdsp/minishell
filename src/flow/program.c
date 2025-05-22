@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/19 12:14:01 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:00:38 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	minishell_flow(char *cmd)
 	free(splited_cmd);
 	if (ft_parser(&lexed_cmd) != 0)
 	{
-		free_lexer(lexed_cmd);
+		if (lexed_cmd)
+			free_lexer(lexed_cmd);
 		return (EXIT_FAILURE);
 	}
 	prepare_heredoc(lexed_cmd);

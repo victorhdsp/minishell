@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:52:39 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:58:59 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	ft_parser(t_lexer_item **cmds)
 	int		has_open_parenthesis;
 	char	*err_message;
 
+	if (!*cmds)
+		return (1);
 	has_open_parenthesis = 0;
 	result = ft_command(cmds, &has_open_parenthesis);
 	if (result != 0 || has_open_parenthesis > 0)
