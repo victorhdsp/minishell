@@ -83,6 +83,8 @@
     "signals_handler.h": "c",
     "my_readline.h": "c",
     "minishell.h": "c",
-    "typeinfo": "c"
+    "typeinfo": "c",
+    "memory": "c",
+    "ranges": "c"
   }
 }
