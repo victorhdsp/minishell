@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 13:26:26 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:10:28 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,57 @@ static char	*get_public_value(char *key, char *old_value)
 {
 	int		index;
 	char	*var_name;
+	char	*var_value;
 
 	index = 0;
 	if (ft_isalpha(key[index]) || key[index] == '_')
 		while (key[index] && (ft_isalnum(key[index]) || key[index] == '_'))
 			index++;
 	var_name = ft_substr(key, 0, index);
-	return (get_new_value(key, old_value, get_system_env(var_name), index));
+	var_value = get_new_value(key, old_value, get_system_env(var_name), index);
+	free(var_name);
+	return (var_value);
+}
+
+static char	*change_variable(char *get, char **set)
+{
+	char	*key;
+	char	*value;
+	char	*tmp;
+
+	key = ft_memchr(get, '$', ft_strlen(get));
+	if (key)
+	{
+		value = get_reserved_value(key + 1, get);
+		if (!value)
+			value = get_public_value(key + 1, get);
+		tmp = ft_substr(*set, 0, ft_strlen(*set) - ft_strlen(key));
+		free(*set);
+		*set = ft_strjoin(tmp, value);
+		free(tmp);
+		free(value);
+		change_variable(ft_memchr(*set, '$', ft_strlen(*set)), set);
+	}
+	return (key);
 }
 
 void	variable_traitement(t_lexer_item *args)
 {
 	int		index;
 	char	*str;
-	char	*key;
 	char	*tmp;
 
-	index = -1;
-	while (args[++index].value)
+	index = 0;
+	while (args[index].value)
 	{
 		str = args[index].value;
-		if (str[0] != '\'')
+		tmp = ft_memchr(str, '\'', ft_strlen(str));
+		while (tmp && tmp[0])
 		{
-			if (str[0] == '\"')
-				str++;
-			key = ft_memchr(str, '$', ft_strlen(str));
-			if (key)
-			{
-				tmp = get_reserved_value(key + 1, args[index].value);
-				if (!tmp)
-					tmp = get_public_value(key + 1, args[index].value);
-				free(args[index].value);
-				args[index].value = tmp;
-				continue ;
-			}
+			str = tmp;
+			tmp = ft_memchr(str, '\'', ft_strlen(str));
 		}
+		str = change_variable(str, &args[index].value);
+		index++;
 	}
 }
