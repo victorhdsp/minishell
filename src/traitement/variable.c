@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 14:10:28 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:14:54 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,11 @@ static char	*get_public_value(char *key, char *old_value)
 	return (var_value);
 }
 
-static char	*change_variable(char *get, char **set)
+static void	change_variable(char *get, char **set, char *key)
 {
-	char	*key;
 	char	*value;
 	char	*tmp;
 
-	key = ft_memchr(get, '$', ft_strlen(get));
 	if (key)
 	{
 		value = get_reserved_value(key + 1, get);
@@ -77,28 +75,26 @@ static char	*change_variable(char *get, char **set)
 		*set = ft_strjoin(tmp, value);
 		free(tmp);
 		free(value);
-		change_variable(ft_memchr(*set, '$', ft_strlen(*set)), set);
 	}
-	return (key);
 }
 
 void	variable_traitement(t_lexer_item *args)
 {
 	int		index;
 	char	*str;
-	char	*tmp;
 
 	index = 0;
 	while (args[index].value)
 	{
 		str = args[index].value;
-		tmp = ft_memchr(str, '\'', ft_strlen(str));
-		while (tmp && tmp[0])
+		while (str && str[0])
 		{
-			str = tmp;
-			tmp = ft_memchr(str, '\'', ft_strlen(str));
+			if (*str == '\'')
+				str = ft_memchr(str + 1, '\'', ft_strlen(str));
+			if (*str == '$')
+				change_variable(str, &args[index].value, str);
+			str++;
 		}
-		str = change_variable(str, &args[index].value);
 		index++;
 	}
 }
