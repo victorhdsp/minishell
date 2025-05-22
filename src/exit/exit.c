@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/21 15:40:24 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:04:54 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	exit_builtin(char **args)
 	if (args && args[1] && args[1][0])
 	{
 		return_value = return_value_traitement(args[1]);
-		if (return_value == error__numeric_argument_required)
+		if (return_value == error__numeric_argument_required && args[1][0] != '2')
 		{
 			print_error("exit: ", args[1], ": numeric argument required\n",
 				NULL);
