@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:52:08 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:20:27 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@
 
 int		ft_count_dir(char *dir_path);
 char	*ft_correct_path(char *path);
-void	print_error(char *str1, char *str3, char *str2, char *str4);
+void	print_error(char *str1, char *str2, char *str3, int error_status);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/21 17:48:43 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:27:08 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static char	**set_arr_for_export(char *key)
 void	cd_print_error(char *arg)
 {
 	if (ft_strcmp(arg, "HOME") == 0)
-		print_error("cd: ", arg, " not set\n", NULL);
+		print_error("cd: ", arg, " not set\n", 1);
 	else if (errno == 20)
-		print_error("cd: ", arg, ": Not a directory\n", NULL);
+		print_error("cd: ", arg, ": Not a directory\n", 20);
 	else if (errno == 2)
-		print_error("cd: ", arg, ": No such file or directory\n", NULL);
+		print_error("cd: ", arg, ": No such file or directory\n", 2);
 	else if (errno == 13)
-		print_error("cd: ", arg, ": Permission denied\n", NULL);
+		print_error("cd: ", arg, ": Permission denied\n", 13);
 }
 
 int	get_arr_size(char **arr)
@@ -88,7 +88,7 @@ int	ft_cd(t_my_env **my_env, char **args)
 		return (check_home(my_env));
 	if (get_arr_size(args) > 2)
 	{
-		printf("cd: too many arguments\n");
+		print_error("cd: too many arguments", "\n", NULL, 1);
 		return (1);
 	}
 	arr = set_arr_for_export("OLDPWD=");

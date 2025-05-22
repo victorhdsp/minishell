@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 12:52:37 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:25:57 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 		index++;
 	}
 	if (!result && (*items).value)
-		print_error((*items).value, ": command not found\n", NULL, NULL);
+	{
+		print_error((*items).value, ": command not found\n", NULL, 127);
+		exit (127);
+	}
 	free_super_path(path_var_items);
 	return (result);
 }

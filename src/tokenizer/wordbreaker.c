@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:52:45 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:23:33 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ static int	ft_get_sentence_size(const char *str)
 	{
 		if (word_cut[1] == -1)
 		{
-			errno = 2;
-			print_error("Error: unclosed quotes\n", NULL, NULL, NULL);
+			print_error("Error: unclosed quotes\n", NULL, NULL, 2);
 			return (-1);
 		}
 		tmp += word_cut[0] + word_cut[1];

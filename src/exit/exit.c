@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/22 13:04:54 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:22:55 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	exit_builtin(char **args)
 	return_value = no_error;
 	if (get_arr_size(args) > 2)
 	{
-		print_error("exit: too many arguments\n", NULL, NULL, NULL);
+		print_error("exit: too many arguments\n", NULL, NULL, 1);
 		return (error__too_many_arguments);
 	}
 	if (args && args[1] && args[1][0])
@@ -49,8 +49,7 @@ int	exit_builtin(char **args)
 		return_value = return_value_traitement(args[1]);
 		if (return_value == error__numeric_argument_required && args[1][0] != '2')
 		{
-			print_error("exit: ", args[1], ": numeric argument required\n",
-				NULL);
+			print_error("exit: ", args[1], ": numeric argument required\n", 2);
 			exit(2);
 		}
 	}

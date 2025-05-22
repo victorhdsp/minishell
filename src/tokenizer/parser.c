@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 12:58:59 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:23:28 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ int	ft_parser(t_lexer_item **cmds)
 		errno = 2;
 		if (result != 0)
 			err_message = (*cmds)[result - 1].value;
-		print_error("syntax error near unexpected token `", err_message, "\'\n",
-			NULL);
+		print_error("syntax error near unexpected token `", err_message, "\'\n", 2);
 		return (2);
 	}
 	return (0);

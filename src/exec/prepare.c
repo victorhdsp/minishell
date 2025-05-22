@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/19 12:12:33 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:22:07 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static int	ft_simple_redirect(char *path, enum e_fn_sentence_item fn)
 	else if (fn == fn_append)
 		fd = open(path, O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 	if (fd < 0)
-	{
-		print_error(path, ": ", strerror(errno), NULL);
-		set_system_exit_status(errno);
-	}
+		print_error(path, ": ", strerror(errno), errno);
 	return (fd);
 }
 
