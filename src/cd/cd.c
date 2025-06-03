@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/22 13:27:08 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:05:57 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**set_arr_for_export(char *key)
 	char	*new_keyvalue;
 	char	**arr;
 
-	cwd_ret = getcwd(NULL, 0); //retorna null pois a pasta perdeu a permissão
+	cwd_ret = getcwd(NULL, 0);
 	if (!cwd_ret)
 		cwd_ret = ft_strdup(get_system_env("PWD"));
 	new_keyvalue = ft_strjoin(key, cwd_ret);

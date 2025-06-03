@@ -22,7 +22,7 @@ void	set_prompt(void)
 	user = get_system(NULL).username;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		return;
+		return ;
 	tmp = ft_strnstr(pwd, user, ft_strlen(pwd));
 	if (!tmp)
 		tmp = pwd;

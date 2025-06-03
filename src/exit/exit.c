@@ -47,7 +47,8 @@ int	exit_builtin(char **args)
 	if (args && args[1] && args[1][0])
 	{
 		return_value = return_value_traitement(args[1]);
-		if (return_value == error__numeric_argument_required && args[1][0] != '2')
+		if (return_value == error__numeric_argument_required
+			&& args[1][0] != '2')
 		{
 			print_error("exit: ", args[1], ": numeric argument required\n", 2);
 			exit(2);

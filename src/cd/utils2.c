@@ -18,12 +18,12 @@ void	cd_free(char **arr)
 	free(arr);
 }
 
-char *set_final_path(char **arr, char **args, char *final_path)
+char	*set_final_path(char **arr, char **args, char *final_path)
 {
 	char	*tmp;
-	
+
 	if (args[1][0] == '/')
-		return(ft_strdup(args[1]));
+		return (ft_strdup(args[1]));
 	final_path = ft_strjoin(arr[1] + 7, "/");
 	tmp = final_path;
 	final_path = ft_strjoin(final_path, args[1]);
@@ -44,7 +44,7 @@ int	chdir_fail(char **arr, char **args, char *final_path)
 	return (1);
 }
 
-char *check_home_path_arg(char **arr, char **args, char *final_path)
+char	*check_home_path_arg(char **arr, char **args, char *final_path)
 {
 	if (!args[1])
 		final_path = ft_strdup("");
@@ -53,7 +53,7 @@ char *check_home_path_arg(char **arr, char **args, char *final_path)
 	return (final_path);
 }
 
-void	 free_arr_with_null(char **arr, int splitted_arr_size)
+void	free_arr_with_null(char **arr, int splitted_arr_size)
 {
 	int	index;
 

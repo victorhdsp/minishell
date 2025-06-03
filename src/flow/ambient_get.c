@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:48:54 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:54:10 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ char	*get_system_env(char *key)
 	index = 0;
 	result = NULL;
 	key_len = ft_strlen(key);
+	tmp = ft_strjoin(key, "=");
 	while (key && key[0] && system.env[index])
 	{
-		if (!ft_strncmp(key, system.env[index], key_len))
+		if (!ft_strncmp(tmp, system.env[index], key_len + 1))
 		{
+			free(tmp);
 			tmp = ft_memchr(system.env[index], '=', key_len + 1);
 			result = ft_strdup(tmp + 1);
 		}

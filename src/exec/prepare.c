@@ -47,7 +47,7 @@ static int	ft_heredoc(char *exit, char *filename)
 	return (fd);
 }
 
-void	prepare_heredoc(t_lexer_item	*items)
+void	prepare_heredoc(t_lexer_item *items)
 {
 	int		index;
 	int		fd;
@@ -76,10 +76,10 @@ void	prepare_heredoc(t_lexer_item	*items)
 	}
 }
 
-void	prepare_redirects(t_lexer_item	*items)
+void	prepare_redirects(t_lexer_item *items)
 {
-	int				fd;
-	int				index;
+	int	fd;
+	int	index;
 
 	index = 0;
 	fd = FD_NOT_CREATED;

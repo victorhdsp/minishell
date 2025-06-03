@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static char	*set_correct_path(char	**splitted, char *final_path, int index)
+static char	*set_correct_path(char **splitted, char *final_path, int index)
 {
 	char	*tmp;
 	int		size;
@@ -32,7 +32,7 @@ static char	*set_correct_path(char	**splitted, char *final_path, int index)
 		free(tmp);
 		index++;
 	}
-	return (final_path);	
+	return (final_path);
 }
 
 static void	clear_index_content(char **splitted, int index)
@@ -50,7 +50,7 @@ static void	find_previous_null(char **splitted, int index)
 		{
 			free(splitted[index]);
 			splitted[index] = NULL;
-			break;
+			break ;
 		}
 	}
 }
@@ -58,9 +58,9 @@ static void	find_previous_null(char **splitted, int index)
 void	find_previous_null_and_free(char **splitted, int index)
 {
 	if (index > 0 && splitted[index - 1] == NULL)
-				find_previous_null(splitted, index - 1);
-			clear_index_content(splitted, index - 1);
-			clear_index_content(splitted, index);
+		find_previous_null(splitted, index - 1);
+	clear_index_content(splitted, index - 1);
+	clear_index_content(splitted, index);
 }
 
 char	*normalize_path(char *path)
@@ -73,7 +73,7 @@ char	*normalize_path(char *path)
 	splitted = ft_split(path, '/');
 	splitted_arr_size = get_arr_size(splitted);
 	if (!splitted)
-   		return (NULL);
+		return (NULL);
 	final_path = NULL;
 	index = -1;
 	while (splitted[++index])

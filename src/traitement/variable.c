@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 17:14:54 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:04:06 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,24 @@ void	variable_traitement(t_lexer_item *args)
 {
 	int		index;
 	char	*str;
+	char	current_quote;
 
 	index = 0;
+	current_quote = '\0';
 	while (args[index].value)
 	{
 		str = args[index].value;
 		while (str && str[0])
 		{
-			if (*str == '\'')
+			if (current_quote == '\0' && (*str == '\'' || *str == '\"'))
+				current_quote = *str;
+			if (current_quote != '\"' && *str == '\'')
 				str = ft_memchr(str + 1, '\'', ft_strlen(str));
 			if (*str == '$')
 				change_variable(str, &args[index].value, str);
 			str++;
+			if (*str == current_quote)
+				current_quote = '\0';
 		}
 		index++;
 	}

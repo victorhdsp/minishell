@@ -81,7 +81,7 @@ char	*ft_get_extern_cmd(t_lexer_item *items)
 	if (!result && (*items).value)
 	{
 		print_error((*items).value, ": command not found\n", NULL, 127);
-		exit (127);
+		exit(127);
 	}
 	free_super_path(path_var_items);
 	return (result);

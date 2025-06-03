@@ -14,8 +14,8 @@
 
 static int	count_quotes(char *str, char type)
 {
-	int		index;
-	int		quotes;
+	int	index;
+	int	quotes;
 
 	index = 0;
 	quotes = 0;
@@ -25,7 +25,7 @@ static int	count_quotes(char *str, char type)
 			quotes++;
 		index++;
 	}
-	return quotes;
+	return (quotes);
 }
 
 static void	change_quote(char *get, char **set, char type)

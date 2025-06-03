@@ -102,7 +102,8 @@ int	ft_parser(t_lexer_item **cmds)
 		errno = 2;
 		if (result != 0)
 			err_message = (*cmds)[result - 1].value;
-		print_error("syntax error near unexpected token `", err_message, "\'\n", 2);
+		print_error("syntax error near unexpected token `", err_message, "\'\n",
+			2);
 		return (2);
 	}
 	return (0);
