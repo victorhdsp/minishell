@@ -1,0 +1,3 @@
+[x] - Ao entrar em uma pasta e deletar a pasta anterior da segfault.
+[ ] - Não da pra voltar quando entra em uma pasta sem permissão.
+[x] - O EOF do heredoc não expande variável

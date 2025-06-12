@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/17 15:17:26 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:23:33 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 static int	is_breaker(char first, char second)
 {
@@ -44,27 +44,27 @@ static void	ft_get_first_word(const char *str, int *result)
 	int	has_open_quote;
 	int	index;
 
-    has_open_quote = 0;
-    result[0] = 0;
-    result[1] = 0;
-    while (str[result[0]] == ' ')
-        result[0]++;
-    index = result[0] + result[1];
-    while (str[index])
-    {
-        if (result[1] == 0)
-            result[1] += is_breaker(str[result[0]], str[result[0] + 1]);
-        if (is_breaker(str[index], 0) && has_open_quote == 0)
-            break;
-        if ((str[index] == '\'' || str[index] == '\"') && has_open_quote == 0)
-            has_open_quote = str[index];
-        else if (str[index] == has_open_quote && has_open_quote != 0)
-            has_open_quote = 0;
-        result[1]++;
-        index = result[0] + result[1];
-    }
-    if (has_open_quote != 0)
-        result[1] = -1;
+	has_open_quote = 0;
+	result[0] = 0;
+	result[1] = 0;
+	while (str[result[0]] == ' ')
+		result[0]++;
+	index = result[0] + result[1];
+	while (str[index])
+	{
+		if (result[1] == 0)
+			result[1] += is_breaker(str[result[0]], str[result[0] + 1]);
+		if (is_breaker(str[index], 0) && has_open_quote == 0)
+			break ;
+		if ((str[index] == '\'' || str[index] == '\"') && has_open_quote == 0)
+			has_open_quote = str[index];
+		else if (str[index] == has_open_quote && has_open_quote != 0)
+			has_open_quote = 0;
+		result[1]++;
+		index = result[0] + result[1];
+	}
+	if (has_open_quote != 0)
+		result[1] = -1;
 }
 
 static int	ft_get_sentence_size(const char *str)
@@ -80,7 +80,7 @@ static int	ft_get_sentence_size(const char *str)
 	{
 		if (word_cut[1] == -1)
 		{
-			ft_putstr_fd("Error: unclosed quotes\n", 2);
+			print_error("Error: unclosed quotes\n", NULL, NULL, 2);
 			return (-1);
 		}
 		tmp += word_cut[0] + word_cut[1];

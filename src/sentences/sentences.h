@@ -6,14 +6,13 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 09:12:53 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 09:06:06 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:51:03 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SENTENCES_H
 # define SENTENCES_H
 
-# include "../../include/libft/libft.h"
 # include "../tokenizer/tokenizer.h"
 
 typedef struct s_sentence

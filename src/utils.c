@@ -6,7 +6,7 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:50:05 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 12:01:57 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:26:39 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*ft_correct_path(char *path)
 	char	*result;
 	char	*tmp;
 
-	//Corrigir essa porra
-	tmp = ft_calloc(100, sizeof(char));
-	getcwd(tmp, 100);
+	tmp = getcwd(NULL, 0);
 	if (path[0] == '/')
 		return (ft_strdup(path));
 	root = ft_strjoin(tmp, "/");
@@ -35,30 +33,42 @@ char	*ft_correct_path(char *path)
 
 int	ft_count_dir(char *dir_path)
 {
-	DIR *dir;
-	char *path;
-	struct dirent *files;
-	int index;
+	DIR				*dir;
+	char			*path;
+	struct dirent	*files;
+	int				index;
 
 	path = ft_correct_path(dir_path);
 	dir = opendir(path);
 	index = 0;
-	if (!dir)
-	{
-		ft_putstr_fd("unexpected error on open dir\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	files = readdir(dir);
-	while (files)
+	if (dir)
 	{
 		files = readdir(dir);
-		index++;
+		while (files)
+		{
+			files = readdir(dir);
+			index++;
+		}
+		index -= 2;
 	}
-	if (closedir(dir))
+	if (!dir || closedir(dir) == -1)
 	{
-		ft_putstr_fd("unexpected error on close dir\n", 2);
+		print_error("unexpected error on close dir\n", NULL, NULL, 1);
 		exit(EXIT_FAILURE);
 	}
 	free(path);
-	return (index - 2);
+	return (index);
+}
+
+void	print_error(char *str1, char *str2, char *str3, int error_status)
+{
+	char	*result;
+	char	*temp;
+
+	temp = ft_strjoin(str1, str2);
+	result = ft_strjoin(temp, str3);
+	free(temp);
+	ft_putstr_fd(result, 2);
+	free(result);
+	set_system_exit_status(error_status);
 }

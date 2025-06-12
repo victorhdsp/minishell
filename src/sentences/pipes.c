@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:59:02 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/22 09:06:12 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:53:51 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./sentences.h"
+#include "../minishell.h"
 
 static void	ft_count_pipes(t_lexer_item *items, int *sentences_index)
 {
@@ -84,6 +84,10 @@ static void	ft_save_items(t_sentence *sentence, t_lexer_item *items,
 	while (items[items_index].type != type_logic && items[items_index].value)
 	{
 		sentence->items[index] = items[items_index];
+		if (items[items_index].type == type_infile)
+			sentence->infile = items[items_index + 1].fd;
+		if (items[items_index].type == type_outfile)
+			sentence->outfile = items[items_index + 1].fd;
 		index++;
 		items_index++;
 	}

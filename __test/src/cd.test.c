@@ -1,6 +1,6 @@
-#include "../../__test/utils.h"
-#include "../env/env.h"
-#include "./cd.h"
+#include "../utils.h"
+#include "../../src/cd/cd.h"
+#include "../../src/env/env.h"
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 
@@ -20,6 +20,11 @@ chamar cd com um argumento invalido e retornar mensagem de erro
 	multiplos argumentos: cd: too many arguments
 	nao é um diretório: cd: arquivo.txt: Not a directory
 	diretorio nao existe: cd: pasta_que_nao_existe: No such file or directory
+
+normalizar path com:
+	/../
+	/./
+	home/caminho/../pasta/./outra_pasta
 
 */
 
@@ -396,3 +401,39 @@ Test(ft_cd, cd_with_no_permission, .init = redirect_all_stdout_cd)
 	//cr_assert_stdout_eq_str("cd: test_no_permission: Permission denied\n", "Erro diretório sem permissao");
 
 }*/
+
+Test(normalize_path, path_with_doublepointer, .init = redirect_all_stdout_cd)
+{
+	char		*path = "/home/rpassos-/test/../outro";
+	char		*result;
+	char		*expected = "/home/rpassos-/outro";
+
+	result = normalize_path(path);
+
+	cr_assert(result != expected, "paths diferentes");
+	
+}
+
+Test(normalize_path, path_with_singlepointer, .init = redirect_all_stdout_cd)
+{
+	char		*path = "/home/rpassos-/test/./outro";
+	char		*result;
+	char		*expected = "/home/rpassos-/test/outro";
+
+	result = normalize_path(path);
+
+	cr_assert(result != expected, "paths diferentes");
+	
+}
+
+Test(normalize_path, mixed_path, .init = redirect_all_stdout_cd)
+{
+	char		*path = "/home/rpassos-/test/renato/../outro/./pasta_2/pasta_3/../..";
+	char		*result;
+	char		*expected = "/home/rpassos-/test/outro";
+
+	result = normalize_path(path);
+
+	cr_assert(result != expected, "paths diferentes");
+	
+}

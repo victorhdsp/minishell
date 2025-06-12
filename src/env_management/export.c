@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:22 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/08 11:24:23 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:42:24 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_management.h"
+#include "../minishell.h"
 
 static void	set_node(t_my_env **ordered_head, char *env_arr)
 {

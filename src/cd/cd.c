@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/14 15:05:50 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:05:57 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
+#include "../minishell.h"
 
 static char	**set_arr_for_export(char *key)
 {
@@ -19,6 +19,8 @@ static char	**set_arr_for_export(char *key)
 	char	**arr;
 
 	cwd_ret = getcwd(NULL, 0);
+	if (!cwd_ret)
+		cwd_ret = ft_strdup(get_system_env("PWD"));
 	new_keyvalue = ft_strjoin(key, cwd_ret);
 	arr = (char **)malloc(sizeof(char *) * 3);
 	arr[0] = NULL;
@@ -29,19 +31,19 @@ static char	**set_arr_for_export(char *key)
 	return (arr);
 }
 
-static void	print_error(char *arg)
+void	cd_print_error(char *arg)
 {
 	if (ft_strcmp(arg, "HOME") == 0)
-		printf("cd: %s not set\n", arg);
+		print_error("cd: ", arg, " not set\n", 1);
 	else if (errno == 20)
-		printf("cd: %s: Not a directory\n", arg);
+		print_error("cd: ", arg, ": Not a directory\n", 20);
 	else if (errno == 2)
-		printf("cd: %s: No such file or directory\n", arg);
+		print_error("cd: ", arg, ": No such file or directory\n", 2);
 	else if (errno == 13)
-		printf("cd: %s/: Permission denied\n", arg);
+		print_error("cd: ", arg, ": Permission denied\n", 13);
 }
 
-static int	get_arr_size(char **arr)
+int	get_arr_size(char **arr)
 {
 	int	index;
 
@@ -72,23 +74,26 @@ static int	check_home(t_my_env **my_env)
 		}
 		current = current->next;
 	}
-	print_error("HOME");
+	cd_print_error("HOME");
 	return (1);
 }
 
 int	ft_cd(t_my_env **my_env, char **args)
 {
 	char	**arr;
+	char	*final_path;
 
+	final_path = NULL;
 	if (!args[1])
 		return (check_home(my_env));
 	if (get_arr_size(args) > 2)
 	{
-		printf("cd: too many arguments\n");
+		print_error("cd: too many arguments", "\n", NULL, 1);
 		return (1);
 	}
 	arr = set_arr_for_export("OLDPWD=");
-	if (chdir(args[1]) == 0)
+	final_path = check_home_path_arg(arr, args, final_path);
+	if (chdir(final_path) == 0)
 	{
 		ft_export(my_env, arr);
 		cd_free(arr);
@@ -97,10 +102,7 @@ int	ft_cd(t_my_env **my_env, char **args)
 		cd_free(arr);
 	}
 	else
-	{
-		print_error(args[1]);
-		cd_free(arr);
-		return (1);
-	}
+		return (chdir_fail(arr, args, final_path));
+	free(final_path);
 	return (0);
 }

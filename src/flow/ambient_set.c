@@ -1,28 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient_utils.c                                    :+:      :+:    :+:   */
+/*   ambient_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:49:02 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:28:18 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_all_system(void)
+void	set_system_exit_status(int exit_status)
 {
-	int			index;
-	t_system	system;
+	t_system	new_system;
 
-	index = 0;
-	system = get_system(NULL);
-	if (system.env)
-		ft_clean_arr(system.env);
-	if (system.name)
-		free(system.name);
-	if (system.username)
-		free(system.username);
+	new_system = get_system(NULL);
+	new_system.last_exit_status = exit_status;
+	get_system(&new_system);
+}
+
+void	set_system_name(char *name)
+{
+	t_system	new_system;
+
+	new_system = get_system(NULL);
+	if (new_system.name)
+		free(new_system.name);
+	new_system.name = name;
+	get_system(&new_system);
+}
+
+void	set_system_env(char **env)
+{
+	t_system	new_system;
+
+	new_system = get_system(NULL);
+	if (new_system.env && new_system.env[0])
+		free(new_system.env);
+	new_system.env = env;
+	get_system(&new_system);
 }

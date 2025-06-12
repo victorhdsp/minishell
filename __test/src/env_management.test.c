@@ -1,6 +1,6 @@
-#include "../../__test/utils.h"
-#include "../env/env.h"
-#include "./env_management.h"
+#include "../utils.h"
+#include "../../src/env_management/env_management.h"
+#include "../../src/env/env.h"
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 

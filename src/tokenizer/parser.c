@@ -6,11 +6,11 @@
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:47:15 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/04/23 16:12:41 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:23:28 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 static int	ft_redirect(t_lexer_item *cmds, int index, int *result)
 {
@@ -88,19 +88,22 @@ static int	ft_command(t_lexer_item **cmds, int *has_open_parenthesis)
 
 int	ft_parser(t_lexer_item **cmds)
 {
-	int	result;
-	int	has_open_parenthesis;
+	int		result;
+	int		has_open_parenthesis;
+	char	*err_message;
 
+	if (!*cmds)
+		return (1);
 	has_open_parenthesis = 0;
 	result = ft_command(cmds, &has_open_parenthesis);
 	if (result != 0 || has_open_parenthesis > 0)
 	{
-		ft_putstr_fd("syntax error near unexpected token `", 2);
+		err_message = "(";
+		errno = 2;
 		if (result != 0)
-			ft_putstr_fd((*cmds)[result - 1].value, 2);
-		else
-			ft_putchar_fd('(', 2);
-		ft_putstr_fd("\'\n", 2);
+			err_message = (*cmds)[result - 1].value;
+		print_error("syntax error near unexpected token `", err_message, "\'\n",
+			2);
 		return (2);
 	}
 	return (0);

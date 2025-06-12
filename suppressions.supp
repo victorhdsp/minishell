@@ -1,0 +1,6 @@
+{
+   <suppress_readline>
+   Memcheck:Leak
+   obj:/usr/libexec/valgrind*
+   obj:/usr/lib/x*
+}

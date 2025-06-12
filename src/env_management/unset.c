@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:25:22 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/08 11:36:46 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:42:34 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_management.h"
+#include "../minishell.h"
 
 void	print_lst(t_my_env *ordered_head)
 {

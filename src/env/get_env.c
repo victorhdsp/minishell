@@ -6,11 +6,11 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 11:24:35 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/04/08 11:24:36 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:40:29 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../minishell.h"
 
 t_my_env	*get_env(char **env)
 {
@@ -73,8 +73,13 @@ char	**get_env_arr(t_my_env *my_env)
 	return (my_env_arr);
 }
 
-int	print_env(t_my_env *my_env)
+int	print_env(t_my_env *my_env, char **args)
 {
+	if (get_arr_size(args) > 1)
+	{
+		printf("env: too many arguments\n");
+		return (1);
+	}
 	while (my_env != NULL)
 	{
 		printf("%s", my_env->key);

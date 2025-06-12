@@ -1,23 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/12 10:50:40 by vide-sou          #+#    #+#             */
+/*   Updated: 2025/05/21 18:01:51 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./minishell.h"
-#include "./traitement/traitement.h"
-#include "./flow/flow.h"
-#include <readline/readline.h>
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-    char        *cmd;
-    t_system    system;
+	(void)ac;
+	(void)av;
 
-    (void) ac;
-    (void) av;
-    system_flow(env, ft_strdup("minishell"));
-    cmd = readline("minishel: ");
-    //cmd = ft_strdup("< ls > teste << VASCO");
-    //cmd = ft_strdup("ls | cat -e > c");
-    //cmd = ft_strdup("< c");
-    minishell_flow(cmd);
-    //read_entrys();
-    free(cmd);
-    free_all_system();
-    return (0);
+	/*char		*path = "/home/rpassos-/../test/../renato/../outro/./pasta_2/pasta_3/../..";
+	char *result;
+
+	result = normalize_path(path);
+
+	printf("main: %s\n", result);
+	free(result);*/
+	
+	
+	system_flow(env, "minishell > ");
+	read_entrys();
+	free_all_system();
+	rl_clear_history();
+	return (0);
 }

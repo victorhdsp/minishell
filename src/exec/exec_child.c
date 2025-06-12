@@ -1,74 +1,86 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/05 16:04:36 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:48:11 by vide-sou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "exec.h"
 
-static void	ft_exec_command_child(t_sentence sentence, int *tube[2], int size)
+static void	free_ambient(t_sentence *sentences, t_lexer_item *lexed_cmd)
 {
-	int			result;
-	char		*cmd;
-	t_system	system;
-	int			index;
+	free_all_system();
+	free_sentence(sentences);
+	free_lexer(lexed_cmd);
+}
+
+static void	ft_exec_command(t_sentence sentence, int *tube[2], int size)
+{
+	int		result;
+	char	*cmd;
+	int		index;
 
 	cmd = NULL;
-	system = get_system(NULL);
-	cmd = ft_get_extern_cmd(sentence.items);
 	dup2(sentence.infile, STDIN_FILENO);
 	dup2(sentence.outfile, STDOUT_FILENO);
+	result = ft_exec_builtin(sentence.items, sentence.args);
 	index = 0;
-	while (index <= size)
+	while (tube && index <= size)
 	{
 		close(tube[index][0]);
 		close(tube[index][1]);
 		index++;
 	}
+	if (result > -1)
+	{
+		set_system_exit_status(result);
+		exit(EXIT_SUCCESS);
+	}
+	cmd = ft_get_extern_cmd(sentence.items);
 	if (cmd && cmd[0])
-		set_system_exit_status(execve(cmd, sentence.args, system.env));
+		set_system_exit_status(execve(cmd, sentence.args,
+				get_system(NULL).env));
 	exit(EXIT_FAILURE);
 }
 
-static void	prepare_child(t_sentence *sentences, int *tube[2], int index, int size)
+static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
+		t_lexer_item *lexed_cmd)
 {
-	pid_t		pid;
-	int			result;
-	prepare_redirects(&sentences[index]);
-	
+	pid_t	pid;
+
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);
 	if (pid == 0)
 	{
-		if (index < size - 1 && sentences[index].outfile == STDOUT_FILENO)
+		if ((sentences[index + 1].args
+				&& sentences[index].outfile == STDOUT_FILENO))
 			sentences[index].outfile = tube[index][1];
-		else if (index > 0 && sentences[index].infile == STDIN_FILENO)
+		if ((index > 0 && sentences[index].infile == STDIN_FILENO))
 			sentences[index].infile = tube[index - 1][0];
-		ft_exec_command_child(sentences[index], tube, index);
+		if (sentences[index].outfile == -1)
+			sentences[index].outfile = tube[index][1];
+		ft_exec_command(sentences[index], tube, index);
+		free_ambient(sentences, lexed_cmd);
 	}
 	else if (index > 0)
 	{
-		result = ft_exec_builtin(sentences[index].items, sentences[index].args);
-		if (result >= 0)
-			set_system_exit_status(result);
 		close(tube[index - 1][0]);
 		close(tube[index - 1][1]);
 	}
 }
 
-void	exec_command(t_sentence *sentences)
+void	create_commands_with_pipe(t_sentence *sentences,
+		t_lexer_item *lexed_cmd)
 {
-	int		index;
-	int		size;
-	int		**tube;
+	int	index;
+	int	size;
+	int	**tube;
 
 	size = 0;
 	while (sentences[size].args)
@@ -80,7 +92,7 @@ void	exec_command(t_sentence *sentences)
 		tube[index] = ft_calloc(2, sizeof(int));
 		if (pipe(tube[index]) == -1)
 			exit(EXIT_FAILURE);
-		prepare_child(sentences, tube, index, size);
+		prepare_child(sentences, tube, index, lexed_cmd);
 		index++;
 	}
 	index = 0;
