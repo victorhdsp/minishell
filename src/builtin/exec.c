@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:15:31 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/16 14:38:14 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/23 12:58:01 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	export_builtin(char **args)
 	result = ft_export(&list_env, args);
 	arr_env = get_env_arr(list_env);
 	set_system_env(arr_env);
+	ft_lstclear_env(&list_env);
 	return (result);
 }
 
@@ -39,6 +40,7 @@ int	unset_builtin(char **args)
 	result = ft_unset(&list_env, args);
 	arr_env = get_env_arr(list_env);
 	set_system_env(arr_env);
+	ft_lstclear_env(&list_env);
 	return (result);
 }
 
@@ -51,6 +53,7 @@ int	env_builtin(char **args)
 	system = get_system(NULL);
 	list_env = get_env(system.env);
 	result = print_env(list_env, args);
+	ft_lstclear_env(&list_env);
 	return (result);
 }
 
@@ -66,5 +69,6 @@ int	cd_builtin(char **args)
 	result = ft_cd(&list_env, args);
 	arr_env = get_env_arr(list_env);
 	set_system_env(arr_env);
+	ft_lstclear_env(&list_env);
 	return (result);
 }
