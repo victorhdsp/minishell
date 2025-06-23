@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 17:54:33 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:23:48 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,24 @@ static void	change_quote(char *get, char **set, char type)
 	int		index;
 	int		quotes;
 	char	*result;
+	int		index2;
 
-	index = 0;
 	quotes = count_quotes(get, type);
-	result = ft_calloc(ft_strlen(get) - quotes, sizeof(char));
-	quotes = 0;
+	result = ft_calloc(ft_strlen(get) - quotes + 1, sizeof(char));
+	if (!result)
+		return;
+	index = 0;
+	index2 = 0;
 	while (get[index])
 	{
-		while (get[index] == type)
+		if (get[index] == type)
 		{
-			quotes++;
 			index++;
+			continue;
 		}
-		result[index - quotes] = get[index];
-		index++;
+		result[index2++] = get[index++];
 	}
-	result[index - quotes] = '\0';
+	result[index2] = '\0';
 	free(*set);
 	*set = result;
 }
@@ -65,7 +67,11 @@ void	quote_traitement(t_lexer_item *args)
 		while (str && *str)
 		{
 			if (*str == '\'' || *str == '\"')
+			{
 				change_quote(args[index].value, &args[index].value, *str);
+				str = args[index].value;
+				continue;
+			}
 			str++;
 		}
 		index++;
