@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/28 14:27:19 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:05:05 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	prepare_heredoc(t_lexer_item *items)
 	{
 		if (items[index].fn == fn_heredoc)
 		{
-			content = ft_itoa(ft_count_dir("../../local/heredoc/"));
-			tmp = ft_correct_path("../../local/heredoc/heredoc_");
+			content = ft_itoa(ft_count_dir("./"));
+			tmp = ft_correct_path("./heredoc_");
 			filename = ft_strjoin(tmp, content);
 			free(tmp);
 			free(content);

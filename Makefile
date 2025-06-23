@@ -7,7 +7,7 @@ TEST_DOCKER=./__test/docker-compose.yml
 TEST_CONTAINER_NAME=criterion_minishell_rpassos_videsou
 
 CC_LIB_FLAG=-lreadline -lncurses
-CC_WARNING_FLAG=-ggdb -Wall -Wextra #-Werror 
+CC_WARNING_FLAG=-ggdb -Wall -Wextra -Werror 
 COMPILADOR=cc $(CC_WARNING_FLAG)
 
 all: $(NAME) $(LIBFT_NAME)
