@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:50:43 by rpassos-          #+#    #+#             */
-/*   Updated: 2025/05/22 13:22:55 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:45:02 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	return_value_traitement(char *value)
 int	exit_builtin(char **args)
 {
 	unsigned char	return_value;
-
+	
 	return_value = no_error;
 	if (get_arr_size(args) > 2)
 	{
@@ -54,6 +54,7 @@ int	exit_builtin(char **args)
 			exit(2);
 		}
 	}
-	exit(return_value);
+	set_system_exit_request(1);
+	set_system_exit_status(return_value);
 	return (return_value);
 }

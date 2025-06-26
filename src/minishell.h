@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 13:20:27 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:33:35 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 
 int		ft_count_dir(char *dir_path);
 char	*ft_correct_path(char *path);
+void	free_program(t_lexer_item *lexed_cmd, t_sentence *sentence_cmd);
 void	print_error(char *str1, char *str2, char *str3, int error_status);
 
 #endif

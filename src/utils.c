@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vide-sou <vide-sou@student.42.rio>         +#+  +:+       +#+        */
+/*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:50:05 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/05/22 13:26:39 by vide-sou         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:54:44 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,20 @@ void	print_error(char *str1, char *str2, char *str3, int error_status)
 	ft_putstr_fd(result, 2);
 	free(result);
 	set_system_exit_status(error_status);
+}
+
+void	free_program(t_lexer_item *lexed_cmd, t_sentence *sentence_cmd)
+{
+	t_system	system;
+
+	system = get_system(NULL);
+	free_sentence(sentence_cmd);
+	free_lexer(lexed_cmd);
+	if (system.exit_requested == 1)
+	{
+		free(system.name);
+		ft_clean_arr(system.env);
+		free(system.username);
+		exit(system.last_exit_status);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/23 12:30:19 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:43:11 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	system_flow(char **env, char *name)
 	new_system.last_exit_status = 1;
 	new_system.name = ft_strdup(name);
 	new_system.username = ft_strdup("user");
+	new_system.exit_requested = -1;
 	list_env = get_env(env);
 	new_system.env = get_env_arr(list_env);
 	get_system(&new_system);
@@ -94,7 +95,6 @@ int	minishell_flow(char *cmd)
 		create_commands_with_pipe(sentence_cmd, lexed_cmd);
 	else
 		create_commands_without_pipe(sentence_cmd[0], lexed_cmd);
-	free_sentence(sentence_cmd);
-	free_lexer(lexed_cmd);
+	free_program(lexed_cmd, sentence_cmd);
 	return (get_system(NULL).last_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/23 12:57:31 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:27:05 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ void	set_system_exit_status(int exit_status)
 
 	new_system = get_system(NULL);
 	new_system.last_exit_status = exit_status;
+	get_system(&new_system);
+}
+
+void	set_system_exit_request(int exit_status)
+{
+	t_system	new_system;
+
+	new_system = get_system(NULL);
+	new_system.exit_requested = exit_status;
 	get_system(&new_system);
 }
 
