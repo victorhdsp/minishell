@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/23 15:54:27 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:56:39 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,16 @@ void	variable_traitement(t_lexer_item *args)
 	while (args[++index].value)
 	{
 		str = args[index].value;
-		while (str && str[0])
+		while (str && *str)
 		{
 			if (current_quote == '\0' && (*str == '\'' || *str == '\"'))
 				current_quote = *str;
 			if (current_quote != '\"' && *str == '\'')
+			{
 				str = ft_memchr(str + 1, '\'', ft_strlen(str));
+				if (!str)
+					break;
+			}
 			if (*str == '$')
 			{
 				change_variable(str, &args[index].value, str);
@@ -106,3 +110,4 @@ void	variable_traitement(t_lexer_item *args)
 		}
 	}
 }
+
