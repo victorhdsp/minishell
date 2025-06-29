@@ -6,13 +6,13 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 01:14:22 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/26 15:56:39 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:14:38 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*get_new_value(char *key, char *old_value, char *new_value,
+char	*get_new_value(char *key, char *old_value, char *new_value,
 		int index)
 {
 	char	*tmp;
@@ -32,7 +32,7 @@ static char	*get_new_value(char *key, char *old_value, char *new_value,
 	return (result);
 }
 
-static char	*get_reserved_value(char *key, char *old_value)
+char	*get_reserved_value(char *key, char *old_value)
 {
 	char	*var_value;
 
@@ -44,7 +44,7 @@ static char	*get_reserved_value(char *key, char *old_value)
 	return (NULL);
 }
 
-static char	*get_public_value(char *key, char *old_value)
+char	*get_public_value(char *key, char *old_value)
 {
 	int		index;
 	char	*var_name;
@@ -60,7 +60,7 @@ static char	*get_public_value(char *key, char *old_value)
 	return (var_value);
 }
 
-static void	change_variable(char *get, char **set, char *key)
+void	change_variable(char *get, char **set, char *key)
 {
 	char	*value;
 	char	*tmp;
@@ -78,36 +78,88 @@ static void	change_variable(char *get, char **set, char *key)
 	}
 }
 
-void	variable_traitement(t_lexer_item *args)
-{
-	int		index;
-	char	*str;
-	char	current_quote;
+// void	variable_traitement(t_lexer_item *args)
+// {
+// 	int		index;
+// 	char	*str;
+// 	char	current_quote;
 
-	index = -1;
-	current_quote = '\0';
-	while (args[++index].value)
-	{
-		str = args[index].value;
-		while (str && *str)
-		{
-			if (current_quote == '\0' && (*str == '\'' || *str == '\"'))
-				current_quote = *str;
-			if (current_quote != '\"' && *str == '\'')
-			{
-				str = ft_memchr(str + 1, '\'', ft_strlen(str));
-				if (!str)
-					break;
-			}
-			if (*str == '$')
-			{
-				change_variable(str, &args[index].value, str);
-				str = args[index].value;
-				continue;
-			}
-			if (*str++ == current_quote)
-				current_quote = '\0';
-		}
-	}
-}
+// 	index = -1;
+// 	current_quote = '\0';
+// 	while (args[++index].value)
+// 	{
+// 		str = args[index].value;
+// 		while (str && *str)
+// 		{
+// 			if (current_quote == '\0' && (*str == '\'' || *str == '\"'))
+// 				current_quote = *str;
+// 			if (current_quote != '\"' && *str == '\'')
+// 			{
+// 				str = ft_memchr(str + 1, '\'', ft_strlen(str));
+// 				if (!str)
+// 					break;
+// 			}
+// 			if (*str == '$')
+// 			{
+// 				change_variable(str, &args[index].value, str);
+// 				str = args[index].value;
+// 				continue;
+// 			}
+// 			if (*str++ == current_quote)
+// 				current_quote = '\0';
+// 		}
+// 	}
+// }
 
+// static void	skip_single_quotes(char **str)
+// {
+// 	char	*next;
+
+// 	next = ft_memchr(*str + 1, '\'', ft_strlen(*str));
+// 	if (next)
+// 		*str = next;
+// 	else
+// 		*str = NULL;
+// }
+
+// static void	handle_dollar(char **str, char **value_ref)
+// {
+// 	change_variable(*str, value_ref, *str);
+// 	*str = *value_ref;
+// }
+
+// static void	process_value(t_lexer_item *item)
+// {
+// 	char	*str = item->value;
+// 	char	current_quote = '\0';
+
+// 	while (str && *str)
+// 	{
+// 		if (current_quote == '\0' && (*str == '\'' || *str == '\"'))
+// 			current_quote = *str;
+// 		if (current_quote != '\"' && *str == '\'')
+// 		{
+// 			skip_single_quotes(&str);
+// 			if (!str)
+// 				break;
+// 		}
+// 		if (*str == '$')
+// 		{
+// 			handle_dollar(&str, &item->value);
+// 			continue;
+// 		}
+// 		if (*str++ == current_quote)
+// 			current_quote = '\0';
+// 	}
+// }
+
+// void	variable_traitement(t_lexer_item *args)
+// {
+// 	int	index = 0;
+
+// 	while (args[index].value)
+// 	{
+// 		process_value(&args[index]);
+// 		index++;
+// 	}
+// }

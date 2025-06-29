@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:35:54 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/26 16:18:21 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:22:19 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,40 @@ int	get_system_exit_status(void)
 	return (new_system.last_exit_status);
 }
 
+static char	*find_env_value(char **env, char *tmp, int key_len)
+{
+	int		i;
+	char	*value;
+
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(tmp, env[i], key_len + 1))
+		{
+			value = ft_memchr(env[i], '=', key_len + 1);
+			if (value)
+				return (ft_strdup(value + 1));
+			break;
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 char	*get_system_env(char *key)
 {
 	t_system	system;
-	int			index;
 	char		*tmp;
 	char		*result;
-	int			key_len;
 
+	if (!key || !*key)
+		return (NULL);
 	system = get_system(NULL);
-	index = 0;
-	result = NULL;
-	key_len = ft_strlen(key);
 	tmp = ft_strjoin(key, "=");
-	while (key && key[0] && system.env[index])
-	{
-		if (!ft_strncmp(tmp, system.env[index], key_len + 1))
-		{
-			free(tmp);
-			tmp = ft_memchr(system.env[index], '=', key_len + 1);
-			result = ft_strdup(tmp + 1);
-		}
-		index++;
-	}
+	result = find_env_value(system.env, tmp, ft_strlen(key));
+	free(tmp);
 	return (result);
 }
+
+
+

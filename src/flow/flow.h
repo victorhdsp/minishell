@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:29:52 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/26 12:27:37 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:38:29 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void		free_sentence(t_sentence *sentences);
 void		free_lexer(t_lexer_item *lexer);
 void		free_all_system(void);
 
+bool		ft_get_extern_cmd_not_found(char *cmd);
 void		system_flow(char **env, char *name);
+bool		is_built_in_or_invalid(char *cmd);
 int			minishell_flow(char *cmd);
 
 #endif

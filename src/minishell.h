@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:50:41 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/26 16:24:07 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:19:16 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <termios.h>
+# include <stdbool.h>
 
 # include "./traitement/traitement.h"
 # include "./tokenizer/tokenizer.h"
