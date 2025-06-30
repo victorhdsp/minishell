@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/28 22:39:01 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:01:36 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,11 +168,13 @@ int	parser_error_cleanup(t_lexer_item *lexed_cmd)
 
 int	execute_and_cleanup(t_lexer_item *lexed_cmd)
 {
+	t_sentence *sentence_cmd;
+	
 	prepare_heredoc(lexed_cmd);
 	variable_traitement(lexed_cmd);
 	prepare_redirects(lexed_cmd);
 	quote_traitement(lexed_cmd);
-	t_sentence *sentence_cmd = create_pipes(lexed_cmd);
+	sentence_cmd = create_pipes(lexed_cmd);
 	if (sentence_cmd[1].args)
 		create_commands_with_pipe(sentence_cmd, lexed_cmd);
 	else
@@ -183,12 +185,15 @@ int	execute_and_cleanup(t_lexer_item *lexed_cmd)
 
 int	minishell_flow(char *cmd)
 {
-	char **splited_cmd = word_breaker(cmd);
+	t_lexer_item *lexed_cmd;
+	char **splited_cmd;
+
+	splited_cmd = word_breaker(cmd);
 	if (!validate_first_token(splited_cmd))
 		return (get_system(NULL).last_exit_status);
 	if (!is_built_in_or_invalid(splited_cmd[0]) && !ft_get_extern_cmd_not_found(splited_cmd[0]))
 		return (handle_cmd_not_found(splited_cmd));
-	t_lexer_item *lexed_cmd = lexer(splited_cmd);
+	lexed_cmd = lexer(splited_cmd);
 	free(splited_cmd);
 	if (ft_parser(&lexed_cmd) != 0)
 		return (parser_error_cleanup(lexed_cmd));
