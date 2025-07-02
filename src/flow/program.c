@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 08:46:27 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:53:14 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/07/02 15:24:09 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	execute_and_cleanup(t_lexer_item *lexed_cmd)
 	if (sentence_cmd[1].args)
 		create_commands_with_pipe(sentence_cmd, lexed_cmd);
 	else
-	create_commands_without_pipe(sentence_cmd[0], lexed_cmd);
+		create_commands_without_pipe(sentence_cmd[0], lexed_cmd);
 	free_program(lexed_cmd, sentence_cmd);
 	return (get_system(NULL).last_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:50:05 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/27 15:20:42 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/07/02 15:33:36 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,3 @@ void	free_program(t_lexer_item *lexed_cmd, t_sentence *sentence_cmd)
 		exit(system.last_exit_status);
 	}
 }
-
-
-//---------------
-
-
-
