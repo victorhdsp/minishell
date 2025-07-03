@@ -6,7 +6,7 @@
 /*   By: rpassos- <rpassos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 09:47:07 by vide-sou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:09:52 by rpassos-         ###   ########.fr       */
+/*   Updated: 2025/07/03 11:43:50 by rpassos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	free_ambient(t_sentence *sentences, t_lexer_item *lexed_cmd)
 	free_lexer(lexed_cmd);
 }
 
-static void	ft_exec_command(t_sentence sentence, int *tube[2], int size)
+static void	ft_exec_command(t_sentence *sentences, t_sentence sentence, int **tube, int size, t_lexer_item *lexed_cmd)
 {
 	int		result;
 	char	*cmd;
@@ -29,16 +29,16 @@ static void	ft_exec_command(t_sentence sentence, int *tube[2], int size)
 	dup2(sentence.infile, STDIN_FILENO);
 	dup2(sentence.outfile, STDOUT_FILENO);
 	result = ft_exec_builtin(sentence.items, sentence.args);
-	index = 0;
-	while (tube && index <= size)
+	index = -1;
+	while (tube && ++index <= size)
 	{
 		close(tube[index][0]);
 		close(tube[index][1]);
-		index++;
 	}
 	if (result > -1)
 	{
 		set_system_exit_status(result);
+		free_all_child(sentences, tube, lexed_cmd);
 		exit(EXIT_SUCCESS);
 	}
 	cmd = ft_get_extern_cmd(sentence.items);
@@ -48,7 +48,7 @@ static void	ft_exec_command(t_sentence sentence, int *tube[2], int size)
 	exit(EXIT_FAILURE);
 }
 
-static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
+static void	prepare_child(t_sentence *sentences, int **tube, int index,
 		t_lexer_item *lexed_cmd)
 {
 	pid_t	pid;
@@ -65,7 +65,7 @@ static void	prepare_child(t_sentence *sentences, int *tube[2], int index,
 			sentences[index].infile = tube[index - 1][0];
 		if (sentences[index].outfile == -1)
 			sentences[index].outfile = tube[index][1];
-		ft_exec_command(sentences[index], tube, index);
+		ft_exec_command(sentences, sentences[index], tube, index, lexed_cmd);
 		free_ambient(sentences, lexed_cmd);
 	}
 	else if (index > 0)
